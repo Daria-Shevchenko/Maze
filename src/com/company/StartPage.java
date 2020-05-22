@@ -48,13 +48,13 @@ public class StartPage extends JFrame {
         panel1.setBackground(Color.black);
 
         JLabel title = new JLabel("RGB");
-        title.setBounds(300,100,600,150);
+        title.setBounds(310,100,600,150);
         title.setForeground(Color.WHITE);
         title.setFont(titleFont);
 
         JButton startButton =new JButton("START!");
-        startButton.setBackground(Color.black);
-        startButton.setForeground(Color.WHITE);
+        startButton.setBackground(Color.yellow);
+        startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
         startButton.setBounds(300,400,200,80);

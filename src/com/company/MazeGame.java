@@ -27,7 +27,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    private static final int BRICK_SIZE = 30;
+    private static final int BRICK_SIZE = 20;
     private static final int coefficientCorridor = 3;
     private static final int outsideWallCoef = 1;
     private static final int BORDER = 40;
@@ -222,6 +222,8 @@ public class MazeGame extends JPanel implements ActionListener {
 
         Color line = Color.YELLOW.brighter();
         Color fill = Color.ORANGE.darker();
+        Color heart = Color.PINK;
+        Color portal = Color.BLUE.darker();
 
         int currentBRICK_SIZE_Y = BRICK_SIZE;
         int currentBRICK_SIZE_X = BRICK_SIZE;
@@ -266,7 +268,16 @@ public class MazeGame extends JPanel implements ActionListener {
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
                         map[j][i] = 0;
                     }
-
+                    if (symbolsArray[i] == 'P') {
+                        g2d.setColor(portal);
+                        g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
+                        map[j][i] = 0;
+                    }
+                    if (symbolsArray[i] == 'H') {
+                        g2d.setColor(heart);
+                        g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
+                        map[j][i] = 0;
+                    }
                     x += currentBRICK_SIZE_X;
                 }
                 y += currentBRICK_SIZE_Y;

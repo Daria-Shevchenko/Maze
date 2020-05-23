@@ -15,23 +15,27 @@ public class StartPage extends JFrame {
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN,30);
 
+    private final int width = 1200;
+    private final int height = 700;
+
+
 
 
     // конструктор класу для апп, створення основного вікна
     StartPage(){
-        super("RGB");
+        super("Сolorport");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800,500);
+        this.setSize(width,height);
 
         start();
 
     }
-
+    // метод, що розпочинає роботу
     public void start(){
         if (panel1!=null) {
             remove(panel1);
         }
-        setPreferredSize(new Dimension(800,600));
+        setPreferredSize(new Dimension(width,height));
 
         startPage();
         add(panel1);
@@ -47,19 +51,25 @@ public class StartPage extends JFrame {
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
-        JLabel title = new JLabel("RGB");
-        title.setBounds(310,100,600,150);
+        JLabel title = new JLabel("COLORPORT");
+        title.setBounds(340,100,600,150);
         title.setForeground(Color.WHITE);
         title.setFont(titleFont);
+
+        JLabel titleSmall = new JLabel("in search of happiness...");
+        titleSmall.setBounds(470,170,600,150);
+        titleSmall.setForeground(Color.WHITE);
+        titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 
         JButton startButton =new JButton("START!");
         startButton.setBackground(Color.yellow);
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
-        startButton.setBounds(300,400,200,80);
+        startButton.setBounds(500,400,200,80);
         startButton.addActionListener(e -> firstMaze());
 
+        panel1.add(titleSmall);
         panel1.add(title);
         panel1.add(startButton);
         panel1.setLayout(null);
@@ -75,12 +85,16 @@ public class StartPage extends JFrame {
         repaint();
 
 
-        JButton back =new JButton("Back");
-        back.setBounds(650,500,95,30);
+        JButton back =new JButton("I I");
+      //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
         back.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
 
-                start();
+                pausePage();
 
             }
         });
@@ -89,6 +103,287 @@ public class StartPage extends JFrame {
         revalidate();
         repaint();
     }
+    /**
+     * відкриває 2 лабіринт
+     */
+    private void secondMaze(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JButton back =new JButton("I I");
+        //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                pausePage();
+
+            }
+        });
+        panel1.add(back);
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * відкриває 3 лабіринт
+     */
+    private void thirdMaze(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JButton back =new JButton("I I");
+        //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                pausePage();
+
+            }
+        });
+        panel1.add(back);
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * відкриває 4 лабіринт
+     */
+    private void fourthMaze(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JButton back =new JButton("I I");
+        //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                pausePage();
+
+            }
+        });
+        panel1.add(back);
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+    /**
+     * відкриває 5 лабіринт
+     */
+    private void fifthMaze(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JButton back =new JButton("I I");
+        //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                pausePage();
+
+            }
+        });
+        panel1.add(back);
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+    /**
+     * відкриває 6 лабіринт
+     */
+    private void sixthMaze(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JButton back =new JButton("I I");
+        //  back.setIcon(new ImageIcon("pause"));
+        back.setBounds(10,10,50,50);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                pausePage();
+
+            }
+        });
+        panel1.add(back);
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+    /**
+     * відкриває фінальну сторінку з виграшем
+     */
+    private void endPageWin(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+        panel1.setBackground(new Color(219, 136, 42));
+
+        JLabel title = new JLabel("WINNER!!");
+        title.setBounds(390,100,600,150);
+        title.setForeground(Color.black);
+        title.setFont(titleFont);
+
+        JLabel img = new JLabel(new ImageIcon("src/images/hero/gg4s.png"));
+        img.setBounds(570,300,60,60);
+        panel1.add(img);
+
+        JLabel titleSmall = new JLabel("now you are happy!");
+        titleSmall.setBounds(470,170,600,150);
+        titleSmall.setForeground(Color.black);
+        titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+
+        JButton startButton =new JButton("START AGAIN!");
+        startButton.setBackground(new Color(43, 99, 37));
+        startButton.setForeground(Color.BLACK);
+        startButton.setFont(normalFont);
+
+        startButton.setBounds(470,400,250,80);
+        startButton.addActionListener(e -> start());
+
+        panel1.add(titleSmall);
+        panel1.add(title);
+        panel1.add(startButton);
+
+
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * відкриває фінальну сторінку з програшем
+     */
+    private void endPageLoser(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+        panel1.setBackground(new Color(10, 10, 10));
+
+        JLabel title = new JLabel("LOSER!!");
+        title.setBounds(445,100,600,150);
+        title.setForeground(Color.white);
+        title.setFont(titleFont);
+
+        JLabel img = new JLabel(new ImageIcon("src/images/hero/gg1s.png"));
+        img.setBounds(570,300,60,60);
+        panel1.add(img);
+
+        JLabel titleSmall = new JLabel("life is full of obstacles, but you shouldn't give up");
+        titleSmall.setBounds(415,170,600,150);
+        titleSmall.setForeground(Color.WHITE);
+        titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+
+
+
+        JButton startButton =new JButton("TRY AGAIN!");
+        startButton.setBackground(new Color(60, 90, 107));
+        startButton.setForeground(Color.BLACK);
+        startButton.setFont(normalFont);
+
+        startButton.setBounds(480,400,250,80);
+        startButton.addActionListener(e -> start());
+
+
+        panel1.add(titleSmall);
+        panel1.add(title);
+        panel1.add(startButton);
+
+
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * відкриває фінальну сторінку з паузою
+     */
+    private void pausePage(){
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+        JButton startAgain =new JButton("START AGAIN");
+        startAgain.setBounds(500,200,200,50);
+        startAgain.setBackground(Color.black);
+        startAgain.setForeground(Color.WHITE);
+        startAgain.setFont(new Font("Times New Roman", Font.BOLD,20));
+
+        startAgain.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                firstMaze();
+
+            }
+        });
+
+        JButton continueGame =new JButton("CONTINUE");
+        continueGame.setBounds(500,300,200,50);
+        continueGame.setBackground(Color.black);
+        continueGame.setForeground(Color.WHITE);
+        continueGame.setFont(new Font("Times New Roman", Font.BOLD,20));
+        continueGame.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                firstMaze();
+
+            }
+        });
+
+        JButton backToStart =new JButton("BACK TO START");
+        backToStart.setBounds(500,400,200,50);
+        backToStart.setBackground(Color.black);
+        backToStart.setForeground(Color.WHITE);
+        backToStart.setFont(new Font("Times New Roman", Font.BOLD,20));
+        backToStart.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+
+                start();
+
+            }
+        });
+
+        panel1.add(continueGame);
+        panel1.add(startAgain);
+        panel1.add(backToStart);
+
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
 
 
 

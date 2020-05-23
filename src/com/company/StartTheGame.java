@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StartTheGame extends JFrame {
 
-    ArrayList<String> bricks = read("src/mazeFiles/maze1.txt");
+    ArrayList<String> bricks = read("src/mazeFiles/maze_level_1.txt");
 
     public StartTheGame() {
         initUI();

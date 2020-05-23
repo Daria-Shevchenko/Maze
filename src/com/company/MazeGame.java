@@ -22,8 +22,9 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private Image hero;
 
-    private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1, pacmand_x, pacmand_y;
+    private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
     private int req_dx, req_dy;
+    private boolean canMove;
 
     private Timer timer;
 
@@ -68,75 +69,71 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private void initVariables() {
         d = new Dimension(400, 400);
-        timer = new Timer(8, this);
+        timer = new Timer(9, this);
         timer.start();
     }
 
     public void up(){
-        req_dy = -1;
-        req_dx = 0;
+        req_dy = -2;
     }
 
     public void down(){
-        req_dy = 1;
-        req_dx = 0;
+        req_dy = 2;
     }
 
     public void left(){
-        req_dx = -1;
-        req_dy = 0;
+        req_dx = -2;
     }
 
     public void right(){
-        req_dx = 1;
-        req_dy = 0;
-    }
-
-    public void stop(){
-        req_dx = 0;
-        req_dy = 0;
+        req_dx = 2;
     }
 
     class TAdapter extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e) {
-
+            req_dx = 0;
+            req_dy = 0;
             int code = e.getKeyCode();
-
-            switch( code )
-            {
-                case KeyEvent.VK_UP:
-                    if(hero_y>0){ up();
-                    } else {stop();}
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if(hero_y+hero.getHeight(null)<getPanelHeight()) { down();
-                    } else {stop();}
-                    break;
-                case KeyEvent.VK_LEFT:
-                    if(hero_x>0) { left();
-                    } else {stop();}
-                    break;
-                case KeyEvent.VK_RIGHT :
-                    if(hero_x+hero.getWidth(null)<getPanelWidth()) {
-                        right();
-                    } else {stop();}
-                    break;
+            //up
+            if(code == KeyEvent.VK_UP){
+                up();
             }
-
+            //down
+            if(code == KeyEvent.VK_DOWN){
+                down();
+            }
+            //left
+            if(code == KeyEvent.VK_LEFT){
+                left();
+            }
+            //right
+            if(code == KeyEvent.VK_RIGHT){
+                right();
+            }
         }
 
         //Stop ball if key is released
         @Override
         public void keyReleased(KeyEvent e)
         {
-            int keyCode = e.getKeyCode();
-            if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN ||
-                    keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_LEFT){
-                stop();
+            int code = e.getKeyCode();
+            if(code == KeyEvent.VK_UP){
+                req_dy=0;
             }
-
+            //down
+            if(code == KeyEvent.VK_DOWN){
+                req_dy=0;
+            }
+            //left
+            if(code == KeyEvent.VK_LEFT){
+                req_dx=0;
+            }
+            //right
+            if(code == KeyEvent.VK_RIGHT){
+                req_dx=0;
+            }
 
         }
 
@@ -144,16 +141,16 @@ public class MazeGame extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(hero_x+req_dx>0 && hero_x+req_dx<this.getWidth()-hero.getWidth(null) && !isWall()) {
+        canMove = true;
+        if(isWall()){
+            canMove = false;
+        }
+        if(canMove){
             hero_x += req_dx;
-            repaint();
-        }
-        if(hero_y+req_dy>0 && hero_y+req_dy<this.getHeight()-hero.getHeight(null) && !isWall()) {
             hero_y += req_dy;
-            repaint();
         }
+        repaint();
     }
-
 
     private boolean isWall(){
         if(hero_x+req_dx<=BORDER+BRICK_SIZE*outsideWallCoef || hero_y+req_dy<=BORDER+BRICK_SIZE*outsideWallCoef){

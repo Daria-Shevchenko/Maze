@@ -169,6 +169,10 @@ public class MazeGame extends JPanel implements ActionListener {
         }
         repaint();
     }
+    private boolean isHeart(){
+
+        return true;
+    }
 
     private boolean isWall(){
         if(hero_x+req_dx<=BORDER+BRICK_SIZE*outsideWallCoef || hero_y+req_dy<=BORDER+BRICK_SIZE*outsideWallCoef){
@@ -363,7 +367,7 @@ public class MazeGame extends JPanel implements ActionListener {
                         map[j][i] = 3;
                         Toolkit t=Toolkit.getDefaultToolkit();
                         Image img=t.getImage("src/images/other/heart_red_s.png");
-                        g2d.drawImage(img,x,y,currentBRICK_SIZE_X-2,currentBRICK_SIZE_Y-2,this);
+                        g2d.drawImage(img,x+currentBRICK_SIZE_X/5,y+currentBRICK_SIZE_Y/5,3*currentBRICK_SIZE_X/5, 3*currentBRICK_SIZE_Y/5,this);
                     }
                     x += currentBRICK_SIZE_X;
                 }

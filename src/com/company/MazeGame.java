@@ -28,7 +28,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    private static final int BRICK_SIZE = 20;
+    private static final int BRICK_SIZE = 17;
     private static final int coefficientCorridor = 4;
     private static final int outsideWallCoef = 1;
     private static final int BORDER = 40;
@@ -43,7 +43,7 @@ public class MazeGame extends JPanel implements ActionListener {
         this.bricks = bricks;
         if (bricks.size() != 0) {
             mazeWidth = calculateMazeLength(this.bricks.get(0).length());
-            mazeHeight = calculateMazeLength(this.bricks.size());
+            mazeHeight = calculateMazeLength(this.bricks.size())    ;
         }
         map = new int[this.bricks.size()][this.bricks.get(0).length()];
         this.setSize(mazeWidth+2*BORDER, mazeHeight+2*BORDER);

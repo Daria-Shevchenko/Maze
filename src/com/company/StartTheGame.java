@@ -20,6 +20,10 @@ public class StartTheGame extends JFrame {
 
         MazeGame panelWithMaze = new MazeGame(bricks);
         add(panelWithMaze);
+        JLabel img = new JLabel(new ImageIcon("src/images/other/heart_red_s.png"));
+        img.setBounds(0,0,200, 200);
+        img.setVisible(true);
+        add(img);
         setTitle("myMaze");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         int width = panelWithMaze.getPanelWidth();

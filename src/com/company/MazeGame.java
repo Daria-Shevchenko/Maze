@@ -48,6 +48,12 @@ public class MazeGame extends JPanel implements ActionListener {
         map = new int[this.bricks.size()][this.bricks.get(0).length()];
         this.setSize(mazeWidth+2*BORDER, mazeHeight+2*BORDER);
 
+        for(int i=0;i<this.bricks.size();i++){
+            for(int j=0;j<this.bricks.get(0).length();j++){
+                System.out.print(map[i][j]+" ");
+            }
+            System.out.println("");
+        }
         loadImages();
         initVariables();
         initBoard();
@@ -111,6 +117,18 @@ public class MazeGame extends JPanel implements ActionListener {
             //right
             if(code == KeyEvent.VK_RIGHT){
                 right();
+            }
+
+            if(code == KeyEvent.VK_BACK_SPACE){
+                System.out.println("____________________-");
+                for(int i=0;i<bricks.size();i++){
+                    for(int k=0;k<bricks.get(0).length();k++){
+                        System.out.print(map[i][k]+" ");
+                    }
+                    System.out.println("");
+                }
+                System.out.println("____________________");
+                System.out.println("");
             }
         }
 
@@ -317,6 +335,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
                 x = BORDER + BRICK_SIZE * outsideWallCoef;
                 evenColumn = false;
+
                 for (int i = 1; i < symbolsArray.length - 1; i++) {
                     if (evenColumn) {currentBRICK_SIZE_X = BRICK_SIZE;}
                     else { currentBRICK_SIZE_X = coefficientCorridor * BRICK_SIZE;}
@@ -336,12 +355,15 @@ public class MazeGame extends JPanel implements ActionListener {
                     if (symbolsArray[i] == 'P') {
                         g2d.setColor(portal);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
-                        map[j][i] = 0;
+                        map[j][i] = 2;
                     }
                     if (symbolsArray[i] == 'H') {
-                        g2d.setColor(heart);
+                        g2d.setColor(line);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
-                        map[j][i] = 0;
+                        map[j][i] = 3;
+                        Toolkit t=Toolkit.getDefaultToolkit();
+                        Image img=t.getImage("src/images/other/heart_red_s.png");
+                        g2d.drawImage(img,x,y,currentBRICK_SIZE_X-2,currentBRICK_SIZE_Y-2,this);
                     }
                     x += currentBRICK_SIZE_X;
                 }

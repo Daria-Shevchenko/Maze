@@ -54,5 +54,7 @@ public class StartTheGame extends JFrame {
             StartTheGame ex = new StartTheGame();
             ex.setVisible(true);
         });
+
+
     }
 }

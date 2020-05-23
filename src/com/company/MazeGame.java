@@ -28,7 +28,7 @@ public class MazeGame extends JPanel implements ActionListener {
     private Timer timer;
 
     private static final int BRICK_SIZE = 20;
-    private static final int coefficientCorridor = 3;
+    private static final int coefficientCorridor = 4;
     private static final int outsideWallCoef = 1;
     private static final int BORDER = 40;
     private int mazeWidth = 0;
@@ -68,7 +68,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private void initVariables() {
         d = new Dimension(400, 400);
-        timer = new Timer(3, this);
+        timer = new Timer(8, this);
         timer.start();
     }
 
@@ -166,18 +166,86 @@ public class MazeGame extends JPanel implements ActionListener {
            return true;
         }
 
-        if(isInnerWall(0) == 1 || isInnerWall(15) == 1 ||
-                isInnerWall(30) == 1 || isInnerWall(45) == 1 ||
-            isInnerWall(60) == 1 || isInnerWall(75) == 1 ||
-                isInnerWall(90) == 1 || isInnerWall(100) == 1)
-        {
-            return true;
+        int [] checkedAngles = new int [181];
+
+        if(req_dy>0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i;
+            }
+        } else if (req_dy<0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i+180;
+            }
         }
+
+        if(req_dx>0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i-90;
+            }
+        } else if (req_dx<0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i+90;
+            }
+        }
+
+        for (int angle: checkedAngles) {
+            if(isInnerWallForEllipse(angle) == 1)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
+    private int isInnerWallForEllipse(int angle){
 
-    private int isInnerWall(int delt){
+        int x_center = hero.getWidth(null)/2;
+        int y_center = hero.getHeight(null)/2;
+
+        double rX = hero.getWidth(null)*findCos(angle)/2;
+        double rY = hero.getHeight(null)*findSin(angle)/2;
+
+        int deltX = x_center + (int)(rX);
+        int deltY = y_center + (int)(rY);
+
+        int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
+        int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
+        int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+        int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+        int x1 =0;
+        int y1 =0;
+
+        double restX = x0-sX*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+        if(restX<=coefficientCorridor * BRICK_SIZE)
+        {x1 = sX*2+1;}else{ x1 = sX*2+2;}
+
+        double restY = y0-sY*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+        if(restY<=coefficientCorridor * BRICK_SIZE)
+        {y1 = sY*2+1;}else{y1 = sY*2+2;}
+        return map[y1][x1];
+    }
+
+    /**Calculate and return cosine of angle*/
+    private double findCos(double degree){
+        /**Converting values to radians */
+        double a = Math.toRadians(degree);
+        double cos = Math.cos(a);
+        /**Consider special angles in calculating*/
+        if(degree!=0 && degree % 180 != 0 && degree % 90 == 0){cos = 0;}
+        return cos;
+    }
+    /**Calculate and return sine of angle*/
+    private double findSin(double degree){
+        /**Converting values to radians */
+        double a = Math.toRadians(degree);
+        double sin = Math.sin(a);
+        /**Consider special angles in calculating*/
+        if(degree == 0 || degree % 180 == 0){sin = 0;}
+        return sin;
+    }
+
+    private int isInnerWallForRect(int delt){
 
         int deltX = 0;
         int deltY = 0;

@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.text.Element;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,7 @@ public class MazeGame extends JPanel implements ActionListener {
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int PAC_ANIM_DELAY = 2;
 
-    private Image hero;
+    private Image hero,heart;
 
     private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
     private int req_dx, req_dy;
@@ -47,13 +48,6 @@ public class MazeGame extends JPanel implements ActionListener {
         }
         map = new int[this.bricks.size()][this.bricks.get(0).length()];
         this.setSize(mazeWidth+2*BORDER, mazeHeight+2*BORDER);
-
-        for(int i=0;i<this.bricks.size();i++){
-            for(int j=0;j<this.bricks.get(0).length();j++){
-                System.out.print(map[i][j]+" ");
-            }
-            System.out.println("");
-        }
         loadImages();
         initVariables();
         initBoard();
@@ -70,7 +64,10 @@ public class MazeGame extends JPanel implements ActionListener {
     }
 
     private void loadImages() {
+        Toolkit t=Toolkit.getDefaultToolkit();
+        heart=t.getImage("src/images/other/heart_red_s.png");
         hero = new ImageIcon("src/images/hero/gg4s.png").getImage();
+
     }
 
     private void initVariables() {
@@ -137,6 +134,11 @@ public class MazeGame extends JPanel implements ActionListener {
         public void keyReleased(KeyEvent e)
         {
             int code = e.getKeyCode();
+            if(code == KeyEvent.VK_SPACE){
+                if(isHeart()){
+                    //collectHeart();
+                }
+            }
             if(code == KeyEvent.VK_UP){
                 req_dy=0;
             }
@@ -169,9 +171,71 @@ public class MazeGame extends JPanel implements ActionListener {
         }
         repaint();
     }
+
+    private void collectHeart(int angle) {
+
+        int x_center = hero.getWidth(null)/2;
+        int y_center = hero.getHeight(null)/2;
+
+        double rX = hero.getWidth(null)*findCos(angle)/2;
+        double rY = hero.getHeight(null)*findSin(angle)/2;
+
+        int deltX = x_center + (int)(rX);
+        int deltY = y_center + (int)(rY);
+
+        //hero_x - реальная координата персонажа в окне
+        //hero_x-BORDER-BRICK_SIZE*outsideWallCoef - координата персонажа относительно начала лабиринта
+
+        int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
+        int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
+        int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+        int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+        int x1=0,y1=0;
+        double restX = x0-sX*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+        if(restX<=coefficientCorridor * BRICK_SIZE)
+        {x1 = sX*2+1;}else{ x1 = sX*2+2;}
+
+        double restY = y0-sY*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+        if(restY<=coefficientCorridor * BRICK_SIZE)
+        {y1 = sY*2+1;}else{y1 = sY*2+2;}
+
+
+
+        System.out.println(x1+ " "+y1+"; "+sX+" "+sY);
+    }
+
     private boolean isHeart(){
 
-        return true;
+        int [] checkedAngles = new int [181];
+
+        if(req_dy>0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i;
+            }
+        } else if (req_dy<0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i+180;
+            }
+        }
+
+        if(req_dx>0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i-90;
+            }
+        } else if (req_dx<0){
+            for(int i=0; i<checkedAngles.length; i++) {
+                checkedAngles [i] = i+90;
+            }
+        }
+
+        for (int angle: checkedAngles) {
+            if(isInnerWallForEllipse(angle) == 3)
+            {
+                collectHeart(angle);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isWall(){
@@ -227,6 +291,9 @@ public class MazeGame extends JPanel implements ActionListener {
 
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
+
+        //hero_x - реальная координата персонажа в окне
+        //hero_x-BORDER-BRICK_SIZE*outsideWallCoef - координата персонажа относительно начала лабиринта
 
         int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
         int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
@@ -309,7 +376,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
         Color line = Color.YELLOW.brighter();
         Color fill = Color.ORANGE.darker();
-        Color heart = Color.PINK;
+//        Color heart = Color.PINK;
         Color portal = Color.BLUE.darker();
 
         int currentBRICK_SIZE_Y = BRICK_SIZE;
@@ -365,9 +432,13 @@ public class MazeGame extends JPanel implements ActionListener {
                         g2d.setColor(line);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
                         map[j][i] = 3;
-                        Toolkit t=Toolkit.getDefaultToolkit();
-                        Image img=t.getImage("src/images/other/heart_red_s.png");
-                        g2d.drawImage(img,x+currentBRICK_SIZE_X/5,y+currentBRICK_SIZE_Y/5,3*currentBRICK_SIZE_X/5, 3*currentBRICK_SIZE_Y/5,this);
+                        //System.out.println(j+" "+i);
+
+                        JLabel img = new JLabel(new ImageIcon("src/images/other/heart_red_s.png"));
+                        img.setBounds(x+currentBRICK_SIZE_X/6,y+currentBRICK_SIZE_Y/6,4*currentBRICK_SIZE_X/6, 4*currentBRICK_SIZE_Y/6);
+                        img.setVisible(true);
+                        this.add(img);
+                        //g2d.drawImage(heart,x+currentBRICK_SIZE_X/6,y+currentBRICK_SIZE_Y/6,4*currentBRICK_SIZE_X/6, 4*currentBRICK_SIZE_Y/6,this);
                     }
                     x += currentBRICK_SIZE_X;
                 }

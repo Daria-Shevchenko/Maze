@@ -10,20 +10,23 @@ import java.util.ArrayList;
 
 public class StartTheGame extends JFrame {
 
-    ArrayList<String> bricks = read("src/mazeFiles/maze_level_1.txt");
+    private ArrayList<ArrayList> bricksLevels = new ArrayList<ArrayList>();
 
     public StartTheGame() {
         initUI();
     }
 
     private void initUI() {
+       // bricksLevels.add(read("src/mazeFiles/maze1.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_1.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_2.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_3.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
 
-        MazeGame panelWithMaze = new MazeGame(bricks);
+        MazeGame panelWithMaze = new MazeGame(bricksLevels);
         add(panelWithMaze);
-        JLabel img = new JLabel(new ImageIcon("src/images/other/heart_red_s.png"));
-        img.setBounds(0,0,200, 200);
-        img.setVisible(true);
-        add(img);
         setTitle("myMaze");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         int width = panelWithMaze.getPanelWidth();

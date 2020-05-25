@@ -93,12 +93,12 @@ public class StartPage extends JFrame{
         panel1.setBackground(Color.black);
 
         JLabel title = new JLabel("COLORPORT");
-        title.setBounds(340,100,600,150);
+        title.setBounds(250,100,600,150);
         title.setForeground(Color.WHITE);
         title.setFont(titleFont);
 
         JLabel titleSmall = new JLabel("in search of happiness...");
-        titleSmall.setBounds(470,170,600,150);
+        titleSmall.setBounds(370,170,600,150);
         titleSmall.setForeground(Color.WHITE);
         titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 
@@ -107,7 +107,7 @@ public class StartPage extends JFrame{
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
-        startButton.setBounds(500,400,200,80);
+        startButton.setBounds(420,400,200,80);
         startButton.addActionListener(e -> firstMaze());
 
         panel1.add(titleSmall);
@@ -166,16 +166,16 @@ public class StartPage extends JFrame{
         panel1.setBackground(new Color(219, 136, 42));
 
         JLabel title = new JLabel("WINNER!!");
-        title.setBounds(390,100,600,150);
+        title.setBounds(290,100,600,150);
         title.setForeground(Color.black);
         title.setFont(titleFont);
 
         JLabel img = new JLabel(new ImageIcon("src/images/hero/gg4s.png"));
-        img.setBounds(570,300,60,60);
+        img.setBounds(470,300,60,60);
         panel1.add(img);
 
         JLabel titleSmall = new JLabel("now you are happy!");
-        titleSmall.setBounds(470,170,600,150);
+        titleSmall.setBounds(370,170,600,150);
         titleSmall.setForeground(Color.black);
         titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 
@@ -184,7 +184,7 @@ public class StartPage extends JFrame{
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
-        startButton.setBounds(470,400,250,80);
+        startButton.setBounds(370,400,250,80);
         startButton.addActionListener(e -> start());
 
         panel1.add(titleSmall);
@@ -208,16 +208,16 @@ public class StartPage extends JFrame{
         panel1.setBackground(new Color(10, 10, 10));
 
         JLabel title = new JLabel("LOSER!!");
-        title.setBounds(445,100,600,150);
+        title.setBounds(345,100,600,150);
         title.setForeground(Color.white);
         title.setFont(titleFont);
 
         JLabel img = new JLabel(new ImageIcon("src/images/hero/gg1s.png"));
-        img.setBounds(570,300,60,60);
+        img.setBounds(470,300,60,60);
         panel1.add(img);
 
         JLabel titleSmall = new JLabel("life is full of obstacles, but you shouldn't give up");
-        titleSmall.setBounds(415,170,600,150);
+        titleSmall.setBounds(315,170,600,150);
         titleSmall.setForeground(Color.WHITE);
         titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
@@ -228,7 +228,7 @@ public class StartPage extends JFrame{
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
-        startButton.setBounds(480,400,250,80);
+        startButton.setBounds(380,400,250,80);
         startButton.addActionListener(e -> start());
 
 
@@ -258,7 +258,7 @@ public class StartPage extends JFrame{
         repaint();
 
         JButton startAgain =new JButton("START AGAIN");
-        startAgain.setBounds(500,200,200,50);
+        startAgain.setBounds(420,200,200,50);
         startAgain.setBackground(Color.black);
         startAgain.setForeground(Color.WHITE);
         startAgain.setFont(new Font("Times New Roman", Font.BOLD,20));
@@ -271,7 +271,7 @@ public class StartPage extends JFrame{
         });
 
         JButton continueGame =new JButton("CONTINUE");
-        continueGame.setBounds(500,300,200,50);
+        continueGame.setBounds(420,300,200,50);
         continueGame.setBackground(Color.black);
         continueGame.setForeground(Color.WHITE);
         continueGame.setFont(new Font("Times New Roman", Font.BOLD,20));
@@ -282,7 +282,7 @@ public class StartPage extends JFrame{
         });
 
         JButton backToStart =new JButton("BACK TO START");
-        backToStart.setBounds(500,400,200,50);
+        backToStart.setBounds(420,400,200,50);
         backToStart.setBackground(Color.black);
         backToStart.setForeground(Color.WHITE);
         backToStart.setFont(new Font("Times New Roman", Font.BOLD,20));

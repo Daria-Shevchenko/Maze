@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
@@ -18,7 +23,7 @@ public class StartPage extends JFrame {
     private final int width = 1200;
     private final int height = 700;
 
-
+    private ArrayList<ArrayList> bricksLevels = new ArrayList<ArrayList>();
 
 
     // конструктор класу для апп, створення основного вікна
@@ -30,6 +35,51 @@ public class StartPage extends JFrame {
         start();
 
     }
+
+
+
+
+
+    private void initUI() {
+        // bricksLevels.add(read("src/mazeFiles/maze1.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_1.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_2.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_3.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
+        bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
+
+        MazeGame panelWithMaze = new MazeGame(bricksLevels);
+        //add(panelWithMaze);
+        panelWithMaze.setBounds(200,40, 800,700);
+
+        panel1.add(panelWithMaze);
+
+       // int width = panelWithMaze.getPanelWidth();
+       // int height = panelWithMaze.getPanelHeight();
+        //  border = panelWithMaze.getPanelBorder();
+        //setSize(this.width, this.height);
+        setLocationRelativeTo(null);
+    }
+
+    private static ArrayList<String> read(String filename){
+        ArrayList<String> lines = new ArrayList<String>();
+        try{
+            FileInputStream fstream = new FileInputStream(filename);
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while((line = br.readLine()) != null){
+                lines.add(line);
+            }
+            in.close();
+        } catch (Exception e){
+            System.err.println("Error: "+ e.getMessage());
+        }
+
+        return lines;
+    }
+
     // метод, що розпочинає роботу
     public void start(){
         if (panel1!=null) {
@@ -83,6 +133,11 @@ public class StartPage extends JFrame {
         panel1.removeAll();
         revalidate();
         repaint();
+
+        initUI();
+
+
+
 
 
         JButton back =new JButton("I I");

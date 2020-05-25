@@ -48,15 +48,6 @@ public class TAdapter extends KeyAdapter {
         if(code == KeyEvent.VK_SPACE){
             m.isHeart();
             m.isPortal();
-             /*   if(isHeart()){
-                    if(positionGGonMap.getX()==heart1.getxMap() && positionGGonMap.getY()==heart1.getyMap())
-                        heart1.setShow(false);
-                    else{
-                        if(positionGGonMap.getX()==heart2.getxMap() && positionGGonMap.getY()==heart2.getyMap())
-                            heart2.setShow(false);
-                    }
-                }
-              */
         }
 
         if(code == KeyEvent.VK_BACK_SPACE){

@@ -389,7 +389,11 @@ public class StartPage extends JFrame {
 
         startAgain.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-
+                panelWithMaze = new Maze(bricksLevels);
+                addKeyListener(new TAdapter(panelWithMaze));
+                setFocusable(true);
+                //this.addKeyListener(new MazeGame());
+                setLocationRelativeTo(null);
                 firstMaze();
 
             }
@@ -415,8 +419,13 @@ public class StartPage extends JFrame {
         backToStart.setFont(new Font("Times New Roman", Font.BOLD,20));
         backToStart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-
+                panelWithMaze = new Maze(bricksLevels);
+                addKeyListener(new TAdapter(panelWithMaze));
+                setFocusable(true);
+                //this.addKeyListener(new MazeGame());
+                setLocationRelativeTo(null);
                 start();
+
 
             }
         });

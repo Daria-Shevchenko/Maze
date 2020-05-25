@@ -20,7 +20,7 @@ public class StartPage extends JFrame {
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN,30);
 
-    private final int width = 1200;
+    private final int width = 1050;
     private final int height = 700;
 
     private ArrayList<ArrayList> bricksLevels = new ArrayList<ArrayList>();
@@ -125,7 +125,7 @@ public class StartPage extends JFrame {
       //  repaint();
 
 
-        panelWithMaze.setBounds(200,40, 800,700);
+        panelWithMaze.setBounds(160,10, 950,700);
         panel1.add(panelWithMaze);
 
 

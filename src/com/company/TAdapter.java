@@ -49,7 +49,9 @@ public class TAdapter extends KeyAdapter {
             m.isHeart();
             m.isPortal();
         }
-
+        if(code == KeyEvent.VK_ENTER){
+            m.nextLevel();
+        }
         if(code == KeyEvent.VK_BACK_SPACE){
             System.out.println("____________________-");
             for(int i=0;i<m.bricks.size();i++){

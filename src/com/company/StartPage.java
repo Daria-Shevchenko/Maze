@@ -76,9 +76,10 @@ public class StartPage extends JFrame{
             remove(panel1);
         }
         setPreferredSize(new Dimension(width,height));
-
+        reCreateWindow();
         startPage();
         add(panel1);
+
         this.pack();
         setVisible(true);
     }

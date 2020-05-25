@@ -52,7 +52,7 @@ public class TAdapter extends KeyAdapter {
             m.isPortal();
             if(m.isInGame() == false && m.isDying() == false) {
                 startPage.endPageWin();
-            }else if(m.isDying() == false){
+            }else if(m.isDying() == true){
                 startPage.endPageLoser();
             }
         }

@@ -6,7 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Maze extends JPanel implements ActionListener {
 
@@ -38,6 +42,12 @@ public class Maze extends JPanel implements ActionListener {
     private Heart heart1 = new Heart(),
             heart2 = new Heart();
 
+    private int quantityOfPickedHeartsOnFinishedLevels = 3;
+    private int quantityOfPickedHeartsOnCurrentLevel = 0;
+    public int getQuantityOfHearts() {
+        return quantityOfPickedHeartsOnFinishedLevels+quantityOfPickedHeartsOnCurrentLevel;
+    }
+    private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
     private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
@@ -59,7 +69,7 @@ public class Maze extends JPanel implements ActionListener {
     private boolean canMove;
     private Timer timer;
 
-    private static final int [] brick_sizes_for_levels ={17, 15, 15, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
+    private static final int [] brick_sizes_for_levels ={17, 15, 13, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
     private static int BRICK_SIZE;
     private static final int coefficientCorridor = 4;
     private static final int outsideWallCoef = 1;
@@ -96,8 +106,10 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     public void nextLevel(){
+        readGameStatusFromFile();
         if(gameLevel<MAX_gamelevel) {
             gameLevel++;
+            quantityOfPickedHeartsOnCurrentLevel = 0;
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
             heart2.setShow(true);
@@ -121,8 +133,55 @@ public class Maze extends JPanel implements ActionListener {
 
     private void gameOver(){
         inGame=false;
+        writeToFileGameStatus(0 + "|" + 3);
     }
 
+    private void writeToFileGameStatus(String data){
+            File file = new File(pathToFileWithGameStatus);
+            FileWriter fr = null;
+            try {
+                fr = new FileWriter(file);
+                fr.write(data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally{
+                //close resources
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+    }
+
+    /* Function reads from the file data about game level and number of hearts
+     * Result is empty when operation is successful and contains error if not. */
+    public String readGameStatusFromFile()
+    {
+        Scanner rd;
+        String result = "";
+        try
+        {
+            rd = new Scanner(new File(pathToFileWithGameStatus));
+            while (rd.hasNextLine())
+            {
+                String str = rd.nextLine();
+                // "|" is a symbol used to separate fields in saved file
+                String[] record = str.split("[|]");
+                gameLevel = Integer.parseInt(record[0]);
+                quantityOfPickedHeartsOnFinishedLevels = Integer.parseInt(record[1]);
+
+            }
+            rd.close();
+        }
+        catch (IOException e)
+        {
+            result = "Data file lab2_items_db.txt is not found in folder " + pathToFileWithGameStatus + "\n"
+                    + "You may open data file from another location.";
+            // System.err.println("Problems with file opening");
+        }
+        return result;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -214,7 +273,9 @@ public class Maze extends JPanel implements ActionListener {
             checkedAngles [i] = i;
         }
         for (int angle: checkedAngles) {
-            if(isIntersectionBetweenHeroAndHeart(angle) == true){return true;}
+            if(isIntersectionBetweenHeroAndHeart(angle) == true){
+                quantityOfPickedHeartsOnCurrentLevel++;
+                return true;}
         }
 
         return false;
@@ -277,7 +338,10 @@ public class Maze extends JPanel implements ActionListener {
             checkedAngles [i] = i;
         }
         for (int angle: checkedAngles) {
-            if(isIntersectionBetweenHeroAndPortal(angle) == true){nextLevel();
+            if(isIntersectionBetweenHeroAndPortal(angle) == true){
+                quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
+                writeToFileGameStatus(gameLevel + "|" + quantityOfPickedHeartsOnFinishedLevels);
+                nextLevel();
                 return true;}
         }
 

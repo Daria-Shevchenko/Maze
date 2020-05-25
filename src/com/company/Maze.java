@@ -44,11 +44,11 @@ public class Maze extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    private static final int [] brick_sizes_for_levels = {15, 13, 13, 11, 10, 9};
+    private static final int [] brick_sizes_for_levels ={17, 15, 15, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
     private static int BRICK_SIZE;
     private static final int coefficientCorridor = 4;
     private static final int outsideWallCoef = 1;
-    private static final int BORDER = 40;
+    private static final int BORDER = 10;
     private int mazeWidth = 0;
     private int mazeHeight = 0;
 

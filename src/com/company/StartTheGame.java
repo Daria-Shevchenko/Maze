@@ -25,7 +25,7 @@ public class StartTheGame extends JFrame {
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
 
-        MazeGame panelWithMaze = new MazeGame(bricksLevels);
+        Maze panelWithMaze = new Maze(bricksLevels);
         add(panelWithMaze);
         setTitle("myMaze");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

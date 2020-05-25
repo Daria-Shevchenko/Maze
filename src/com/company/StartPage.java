@@ -25,7 +25,7 @@ public class StartPage extends JFrame {
 
     private ArrayList<ArrayList> bricksLevels = new ArrayList<ArrayList>();
 
-    public MazeGame panelWithMaze;
+    public Maze panelWithMaze;
 
 
     // конструктор класу для апп, створення основного вікна
@@ -41,7 +41,7 @@ public class StartPage extends JFrame {
         bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
-        panelWithMaze = new MazeGame(bricksLevels);
+        panelWithMaze = new Maze(bricksLevels);
         this.addKeyListener(new TAdapter(panelWithMaze));
         setFocusable(true);
         //this.addKeyListener(new MazeGame());

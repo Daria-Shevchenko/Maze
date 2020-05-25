@@ -4,8 +4,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class TAdapter extends KeyAdapter {
-    MazeGame m;
-    public TAdapter(MazeGame maze){
+    Maze m;
+    public TAdapter(Maze maze){
         m=maze;
     }
     private void up(){

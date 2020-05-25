@@ -42,22 +42,14 @@ public class StartPage extends JFrame {
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
         panelWithMaze = new MazeGame(bricksLevels);
+        this.addKeyListener(new TAdapter(panelWithMaze));
+        setFocusable(true);
+        //this.addKeyListener(new MazeGame());
         setLocationRelativeTo(null);
         start();
 
 
     }
-
-
-
-    private void initBoard() {
-
-      //  addKeyListener(new MazeGame.TAdapter());
-
-        setFocusable(true);
-
-    }
-
 
 
     private static ArrayList<String> read(String filename){

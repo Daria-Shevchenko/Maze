@@ -18,7 +18,7 @@ public class MazeGame extends JPanel implements ActionListener {
     private boolean inGame = true;
     private boolean dying = false;
     private Heart heart1 = new Heart(),
-                  heart2 = new Heart();
+            heart2 = new Heart();
 
     private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
@@ -57,7 +57,7 @@ public class MazeGame extends JPanel implements ActionListener {
     Color corridorColor;
     Color wallColor;
 
-    private int [][] map;
+    public int [][] map;
 
     ArrayList<String> bricks;
 
@@ -66,14 +66,6 @@ public class MazeGame extends JPanel implements ActionListener {
         timer  = new Timer(9, this);
         timer.start();
         nextLevel();
-    }
-
-    private void initBoard() {
-
-        addKeyListener(new TAdapter());
-
-        setFocusable(true);
-
     }
 
     private void loadImages() {
@@ -107,106 +99,12 @@ public class MazeGame extends JPanel implements ActionListener {
             this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
             loadImages();
             initVariables();
-            initBoard();
         } else {
             gameOver();
         }
     }
 
     private void gameOver(){
-
-    }
-
-    public void up(){
-        req_dy = -2;
-    }
-
-    public void down(){
-        req_dy = 2;
-    }
-
-    public void left(){
-        req_dx = -2;
-    }
-
-    public void right(){
-        req_dx = 2;
-    }
-
-    class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            req_dx = 0;
-            req_dy = 0;
-            int code = e.getKeyCode();
-            //up
-            if(code == KeyEvent.VK_UP){
-                up();
-            }
-            //down
-            if(code == KeyEvent.VK_DOWN){
-                down();
-            }
-            //left
-            if(code == KeyEvent.VK_LEFT){
-                left();
-            }
-            //right
-            if(code == KeyEvent.VK_RIGHT){
-                right();
-            }
-
-            if(code == KeyEvent.VK_SPACE){
-                isHeart();
-                isPortal();
-             /*   if(isHeart()){
-                    if(positionGGonMap.getX()==heart1.getxMap() && positionGGonMap.getY()==heart1.getyMap())
-                        heart1.setShow(false);
-                    else{
-                        if(positionGGonMap.getX()==heart2.getxMap() && positionGGonMap.getY()==heart2.getyMap())
-                            heart2.setShow(false);
-                    }
-                }
-              */
-            }
-
-            if(code == KeyEvent.VK_BACK_SPACE){
-                System.out.println("____________________-");
-                for(int i=0;i<bricks.size();i++){
-                    for(int k=0;k<bricks.get(0).length();k++){
-                        System.out.print(map[i][k]+" ");
-                    }
-                    System.out.println("");
-                }
-                System.out.println("____________________");
-                System.out.println("");
-            }
-        }
-
-        //Stop ball if key is released
-        @Override
-        public void keyReleased(KeyEvent e)
-        {
-            int code = e.getKeyCode();
-
-            if(code == KeyEvent.VK_UP){
-                req_dy=0;
-            }
-            //down
-            if(code == KeyEvent.VK_DOWN){
-                req_dy=0;
-            }
-            //left
-            if(code == KeyEvent.VK_LEFT){
-                req_dx=0;
-            }
-            //right
-            if(code == KeyEvent.VK_RIGHT){
-                req_dx=0;
-            }
-
-        }
 
     }
 
@@ -230,31 +128,31 @@ public class MazeGame extends JPanel implements ActionListener {
         int y_center = hero.getHeight(null)/2;
 
         double rX = hero.getWidth(null)*findCos(angle)/2;
-        double rY = hero.getHeight(null)*findSin(angle)/2;
+    double rY = hero.getHeight(null)*findSin(angle)/2;
 
-        int deltX = x_center + (int)(rX);
-        int deltY = y_center + (int)(rY);
+    int deltX = x_center + (int)(rX);
+    int deltY = y_center + (int)(rY);
 
-        int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
-        int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
-        int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
-        int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
-        int x1=0,y1=0;
-        double restX = x0-sX*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+    int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
+    int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
+    int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+    int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
+    int x1=0,y1=0;
+    double restX = x0-sX*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
         if(restX<=coefficientCorridor * BRICK_SIZE)
-        {x1 = sX*2+1;}else{ x1 = sX*2+2;}
+    {x1 = sX*2+1;}else{ x1 = sX*2+2;}
 
-        double restY = y0-sY*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
+    double restY = y0-sY*(BRICK_SIZE+coefficientCorridor * BRICK_SIZE);
         if(restY<=coefficientCorridor * BRICK_SIZE)
-        {y1 = sY*2+1;}else{y1 = sY*2+2;}
+    {y1 = sY*2+1;}else{y1 = sY*2+2;}
 
 
 
-       // System.out.println("gg- "+x1+ " "+y1);
-       // System.out.println("heart1- "+heart1.getxMap()+ " "+heart1.getyMap());
-       // System.out.println("heart2- "+heart2.getxMap()+ " "+heart2.getyMap());
+    // System.out.println("gg- "+x1+ " "+y1);
+    // System.out.println("heart1- "+heart1.getxMap()+ " "+heart1.getyMap());
+    // System.out.println("heart2- "+heart2.getxMap()+ " "+heart2.getyMap());
         return new Point(x1,y1);
-    }
+}
 
     */
 
@@ -272,7 +170,7 @@ public class MazeGame extends JPanel implements ActionListener {
         int y0 = deltY+hero_y;
 
         if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
-        && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
+                && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart1.setShow(false);
             return true;
         }
@@ -299,7 +197,7 @@ public class MazeGame extends JPanel implements ActionListener {
                     && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
                 return true;
-        }
+            }
             if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
@@ -328,7 +226,7 @@ public class MazeGame extends JPanel implements ActionListener {
         return false;
     }
 
-    private boolean isHeart(){
+    public boolean isHeart(){
 
       /*  int [] checkedAngles = new int [181];
 
@@ -423,7 +321,7 @@ public class MazeGame extends JPanel implements ActionListener {
         return false;
     }
 
-    private boolean isPortal(){
+    public boolean isPortal(){
         int [] checkedAngles = new int [360];
         for(int i=0; i<checkedAngles.length; i++) {
             checkedAngles [i] = i;
@@ -445,7 +343,7 @@ public class MazeGame extends JPanel implements ActionListener {
         int length = calculateMazeLength(this.bricks.get(0).length());
         if(hero_x+hero.getWidth(null)+req_dx >= BORDER+length-BRICK_SIZE*outsideWallCoef ||
                 hero_y+hero.getHeight(null)+req_dy >= BORDER+height-BRICK_SIZE*outsideWallCoef){
-           return true;
+            return true;
         }
 
         int [] checkedAngles = new int [181];
@@ -538,7 +436,7 @@ public class MazeGame extends JPanel implements ActionListener {
         int difX = 0;
         if(req_dx>0)
         {difX = hero.getWidth(null);
-         deltY = (int)(delt*hero.getHeight(null)/100);
+            deltY = (int)(delt*hero.getHeight(null)/100);
         } else if (req_dx<0) {
             deltY = (int)(delt*hero.getHeight(null)/100);
         }
@@ -569,7 +467,7 @@ public class MazeGame extends JPanel implements ActionListener {
     }
 
     private void drawMaze(Graphics2D g2d) {
-
+        g2d.setPaint(Color.BLACK);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         // Color heartColor = Color.PINK;
@@ -688,10 +586,10 @@ public class MazeGame extends JPanel implements ActionListener {
         if (inGame) {
             playGame(g2d);
         } else {
-          //  showIntroScreen(g2d);
+            //  showIntroScreen(g2d);
         }
 
-   //     g2d.drawImage(ii, 5, 5, this);
+        //     g2d.drawImage(ii, 5, 5, this);
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
     }
@@ -701,14 +599,14 @@ public class MazeGame extends JPanel implements ActionListener {
 
         if (dying) {
 
-         //   death();
+            //   death();
 
         } else {
 
             moveHero();
             drawHero(g2d);
-        //    moveGhosts(g2d);
-        //    checkMaze();
+            //    moveGhosts(g2d);
+            //    checkMaze();
         }
     }
 
@@ -722,7 +620,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private void drawNewHero(Graphics2D g2d) {
         g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
-        
+
     }
 
 
@@ -742,5 +640,12 @@ public class MazeGame extends JPanel implements ActionListener {
     }
 
 
+    public void setReq_dy(int req_dy) {
+        this.req_dy = req_dy;
+    }
+
+    public void setReq_dx(int req_dx) {
+        this.req_dx = req_dx;
+    }
 }
 

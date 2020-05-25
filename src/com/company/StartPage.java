@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Shevchenko Daria on 22.05.2020.
  */
-public class StartPage extends JFrame implements ActionListener{
+public class StartPage extends JFrame{
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -27,10 +27,10 @@ public class StartPage extends JFrame implements ActionListener{
 
     public Maze panelWithMaze;
 
-
+    StartPage(){}
     // конструктор класу для апп, створення основного вікна
-    StartPage(){
-        super("Сolorport");
+    StartPage(String title){
+        super(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(width,height);
 
@@ -42,7 +42,7 @@ public class StartPage extends JFrame implements ActionListener{
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
         panelWithMaze = new Maze(bricksLevels);
-        this.addKeyListener(new TAdapter(panelWithMaze));
+        this.addKeyListener(new TAdapter(panelWithMaze,this));
         setFocusable(true);
         //this.addKeyListener(new MazeGame());
         setLocationRelativeTo(null);
@@ -241,6 +241,13 @@ public class StartPage extends JFrame implements ActionListener{
         repaint();
     }
 
+    private void reCreateWindow(){
+        panelWithMaze = new Maze(bricksLevels);
+        addKeyListener(new TAdapter(panelWithMaze,this));
+        setFocusable(true);
+        setLocationRelativeTo(null);
+    }
+
     /**
      * відкриває фінальну сторінку з паузою
      */
@@ -257,13 +264,8 @@ public class StartPage extends JFrame implements ActionListener{
 
         startAgain.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                panelWithMaze = new Maze(bricksLevels);
-                addKeyListener(new TAdapter(panelWithMaze));
-                setFocusable(true);
-                //this.addKeyListener(new MazeGame());
-                setLocationRelativeTo(null);
+                reCreateWindow();
                 firstMaze();
-
             }
         });
 
@@ -274,9 +276,7 @@ public class StartPage extends JFrame implements ActionListener{
         continueGame.setFont(new Font("Times New Roman", Font.BOLD,20));
         continueGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-
                 firstMaze();
-
             }
         });
 
@@ -287,11 +287,7 @@ public class StartPage extends JFrame implements ActionListener{
         backToStart.setFont(new Font("Times New Roman", Font.BOLD,20));
         backToStart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                panelWithMaze = new Maze(bricksLevels);
-                addKeyListener(new TAdapter(panelWithMaze));
-                setFocusable(true);
-                //this.addKeyListener(new MazeGame());
-                setLocationRelativeTo(null);
+                reCreateWindow();
                 start();
 
 
@@ -307,15 +303,4 @@ public class StartPage extends JFrame implements ActionListener{
         repaint();
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if(panelWithMaze.isInGame() == false && panelWithMaze.isDying() == false) {
-            endPageWin();
-        }else if(panelWithMaze.isDying() == false){
-            endPageLoser();
-        }
-
-    }
 }

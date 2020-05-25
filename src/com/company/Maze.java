@@ -78,7 +78,7 @@ public class Maze extends JPanel implements ActionListener {
 
     public Maze(ArrayList<ArrayList> bricksLevels) {
         this.bricksLevels = bricksLevels;
-        timer  = new Timer(9, this);
+        timer  = new Timer(5, this);
         timer.start();
         nextLevel();
     }

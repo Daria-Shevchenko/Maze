@@ -5,24 +5,25 @@ import java.awt.event.KeyEvent;
 
 public class TAdapter extends KeyAdapter {
     Maze m;
-    StartPage startPage = new StartPage();
-    public TAdapter(Maze maze){
+    StartPage startPage;
+    public TAdapter(Maze maze, StartPage start){
         m=maze;
+        startPage = start;
     }
     private void up(){
-        m.setReq_dy(-2);
+        m.setReq_dy(-1);
     }
 
     private void down(){
-        m.setReq_dy(2);
+        m.setReq_dy(1);
     }
 
     private void left(){
-        m.setReq_dx(-2);
+        m.setReq_dx(-1);
     }
 
     private void right(){
-        m.setReq_dx(2);
+        m.setReq_dx(1);
     }
     @Override
     public void keyPressed(KeyEvent e) {

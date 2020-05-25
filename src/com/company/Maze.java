@@ -39,6 +39,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private boolean dying = false;
+
     private Heart heart1 = new Heart(),
             heart2 = new Heart();
 
@@ -62,10 +63,10 @@ public class Maze extends JPanel implements ActionListener {
 
     private Image heroOriginal,hero,heart,portal;
 
-    private int portal_x, portal_y;
+    private int portal_x=0, portal_y=0;
 
     private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
-    private int req_dx, req_dy;
+    private int req_dx=0, req_dy=0;
     private boolean canMove;
     private Timer timer;
 
@@ -212,15 +213,20 @@ public class Maze extends JPanel implements ActionListener {
         if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart1.setShow(false);
+            System.out.println("1st between hero and heart");
             return true;
         }
         if(x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart2.getY() && y0<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart2.setShow(false);
+            System.out.println("2st between hero and heart");
             return true;
         }
 
-        if(isIntersectionWithHeartByDiagonal()==true){return true;}
+        if(isIntersectionWithHeartByDiagonal()==true){
+            System.out.println("3st between hero abd heart");
+            return true;
+        }
 
         return false;
     }
@@ -236,11 +242,13 @@ public class Maze extends JPanel implements ActionListener {
             if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
+                System.out.println("1st diagon");
                 return true;
             }
             if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
+                System.out.println("2st diagon");
                 return true;
             }
         }
@@ -254,11 +262,13 @@ public class Maze extends JPanel implements ActionListener {
             if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart1.getY() && y<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
+                System.out.println("3st diagon");
                 return true;
             }
             if(xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart2.getY() && y<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
+                System.out.println("4st diagon");
                 return true;
             }
         }
@@ -275,7 +285,9 @@ public class Maze extends JPanel implements ActionListener {
         for (int angle: checkedAngles) {
             if(isIntersectionBetweenHeroAndHeart(angle) == true){
                 quantityOfPickedHeartsOnCurrentLevel++;
-                return true;}
+                System.out.println("isHeart true "+angle+" "+hero_x+" "+hero_y);
+                return true;
+            }
         }
 
         return false;
@@ -296,10 +308,14 @@ public class Maze extends JPanel implements ActionListener {
 
         if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
+            System.out.println("1st between hero and portal"+portal_x + portal_y);
             return true;
         }
 
-        if(isIntersectionWithPortalByDiagonal()==true){return true;}
+        if(isIntersectionWithPortalByDiagonal()==true){
+            System.out.println("1st portal diagonal");
+            return true;
+        }
 
         return false;
     }
@@ -313,6 +329,7 @@ public class Maze extends JPanel implements ActionListener {
         for(int x=xFirst; x <=xLast; x++){
             if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=portal_y && yDiagonal<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
+                System.out.println("1st portal");
                 return true;
             }
         }
@@ -325,6 +342,7 @@ public class Maze extends JPanel implements ActionListener {
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=portal_y && y<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
+                System.out.println("2st portal");
                 return true;
             }
         }
@@ -341,8 +359,9 @@ public class Maze extends JPanel implements ActionListener {
             if(isIntersectionBetweenHeroAndPortal(angle) == true){
                 quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
                 writeToFileGameStatus(gameLevel + "|" + quantityOfPickedHeartsOnFinishedLevels);
-                nextLevel();
-                return true;}
+                System.out.println("isPortal true -- next level"+ hero_x+" "+hero_y);
+                return true;
+            }
         }
 
         return false;

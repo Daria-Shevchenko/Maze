@@ -5,16 +5,8 @@ public class Heart {
     private int x,y;
     private int xMap,yMap;
 
-    public int getxMap() {
-        return xMap;
-    }
-
     public void setxMap(int xMap) {
         this.xMap = xMap;
-    }
-
-    public int getyMap() {
-        return yMap;
     }
 
     public void setyMap(int yMap) {

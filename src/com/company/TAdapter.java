@@ -49,8 +49,10 @@ public class TAdapter extends KeyAdapter {
 
         if(code == KeyEvent.VK_SPACE){
             m.isHeart();
-            m.isPortal();
+            if(m.isPortal())
+                m.nextLevel();
             if(m.isInGame() == false && m.isDying() == false) {
+                System.out.println("checkSpace true");
                 startPage.endPageWin();
             }else if(m.isDying() == true){
                 startPage.endPageLoser();

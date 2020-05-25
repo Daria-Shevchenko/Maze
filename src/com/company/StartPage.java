@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Shevchenko Daria on 22.05.2020.
  */
-public class StartPage extends JFrame {
+public class StartPage extends JFrame implements ActionListener{
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -149,148 +149,16 @@ public class StartPage extends JFrame {
         revalidate();
         repaint();
     }
-    /**
-     * відкриває 2 лабіринт
-     */
-    private void secondMaze(){
-        panel1.removeAll();
-        revalidate();
-        repaint();
 
-
-        JButton back =new JButton("I I");
-        //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
-        back.setBackground(Color.black);
-        back.setForeground(Color.WHITE);
-
-        back.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-
-                pausePage();
-
-            }
-        });
-        panel1.add(back);
-        panel1.setLayout(null);
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * відкриває 3 лабіринт
-     */
-    private void thirdMaze(){
-        panel1.removeAll();
-        revalidate();
-        repaint();
-
-
-        JButton back =new JButton("I I");
-        //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
-        back.setBackground(Color.black);
-        back.setForeground(Color.WHITE);
-
-        back.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-
-                pausePage();
-
-            }
-        });
-        panel1.add(back);
-        panel1.setLayout(null);
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * відкриває 4 лабіринт
-     */
-    private void fourthMaze(){
-        panel1.removeAll();
-        revalidate();
-        repaint();
-
-
-        JButton back =new JButton("I I");
-        //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
-        back.setBackground(Color.black);
-        back.setForeground(Color.WHITE);
-
-        back.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-
-                pausePage();
-
-            }
-        });
-        panel1.add(back);
-        panel1.setLayout(null);
-        revalidate();
-        repaint();
-    }
-    /**
-     * відкриває 5 лабіринт
-     */
-    private void fifthMaze(){
-        panel1.removeAll();
-        revalidate();
-        repaint();
-
-
-        JButton back =new JButton("I I");
-        //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
-        back.setBackground(Color.black);
-        back.setForeground(Color.WHITE);
-
-        back.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-
-                pausePage();
-
-            }
-        });
-        panel1.add(back);
-        panel1.setLayout(null);
-        revalidate();
-        repaint();
-    }
-    /**
-     * відкриває 6 лабіринт
-     */
-    private void sixthMaze(){
-        panel1.removeAll();
-        revalidate();
-        repaint();
-
-
-        JButton back =new JButton("I I");
-        //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
-        back.setBackground(Color.black);
-        back.setForeground(Color.WHITE);
-
-        back.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-
-                pausePage();
-
-            }
-        });
-        panel1.add(back);
-        panel1.setLayout(null);
-        revalidate();
-        repaint();
-    }
     /**
      * відкриває фінальну сторінку з виграшем
      */
-    private void endPageWin(){
+    public void endPageWin(){
+
         panel1.removeAll();
+        panelWithMaze.removeAll();
+        panelWithMaze.revalidate();
+        panelWithMaze.repaint();
         revalidate();
         repaint();
 
@@ -331,7 +199,7 @@ public class StartPage extends JFrame {
     /**
      * відкриває фінальну сторінку з програшем
      */
-    private void endPageLoser(){
+    public void endPageLoser(){
         panel1.removeAll();
         revalidate();
         repaint();
@@ -440,6 +308,14 @@ public class StartPage extends JFrame {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
+        if(panelWithMaze.isInGame() == false && panelWithMaze.isDying() == false) {
+            endPageWin();
+        }else if(panelWithMaze.isDying() == false){
+            endPageLoser();
+        }
 
+    }
 }

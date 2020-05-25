@@ -15,7 +15,25 @@ public class Maze extends JPanel implements ActionListener {
     private ArrayList<ArrayList> bricksLevels;
     private int gameLevel = 0;
     private int MAX_gamelevel = 6;
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
     private boolean inGame = true;
+
+    public boolean isDying() {
+        return dying;
+    }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
+
     private boolean dying = false;
     private Heart heart1 = new Heart(),
             heart2 = new Heart();

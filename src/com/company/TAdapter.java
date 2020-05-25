@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class TAdapter extends KeyAdapter {
     Maze m;
+    StartPage startPage = new StartPage();
     public TAdapter(Maze maze){
         m=maze;
     }
@@ -48,6 +49,11 @@ public class TAdapter extends KeyAdapter {
         if(code == KeyEvent.VK_SPACE){
             m.isHeart();
             m.isPortal();
+            if(m.isInGame() == false && m.isDying() == false) {
+                startPage.endPageWin();
+            }else if(m.isDying() == false){
+                startPage.endPageLoser();
+            }
         }
         if(code == KeyEvent.VK_ENTER){
             m.nextLevel();

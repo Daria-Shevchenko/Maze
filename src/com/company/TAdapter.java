@@ -48,7 +48,12 @@ public class TAdapter extends KeyAdapter {
         }
 
         if(code == KeyEvent.VK_SPACE){
-            m.isHeart();
+
+            if(m.isHeart()){
+                m.addHeartsOnLvl();
+                System.out.println(m.gameLevel);
+            }
+
             if(m.isPortal())
                 m.nextLevel();
             if(m.isInGame() == false && m.isDying() == false) {

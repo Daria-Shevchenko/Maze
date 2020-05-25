@@ -17,7 +17,7 @@ public class Maze extends JPanel implements ActionListener {
     private Dimension d;
     private Image ii;
     private ArrayList<ArrayList> bricksLevels;
-    private int gameLevel = 0;
+    public int gameLevel = 0;
     private int MAX_gamelevel = 6;
 
     public boolean isInGame() {
@@ -45,6 +45,14 @@ public class Maze extends JPanel implements ActionListener {
 
     private int quantityOfPickedHeartsOnFinishedLevels = 3;
     private int quantityOfPickedHeartsOnCurrentLevel = 0;
+
+    public int getHeartsOnLvl(){
+        return quantityOfPickedHeartsOnCurrentLevel;
+    }
+    public void addHeartsOnLvl(){
+        quantityOfPickedHeartsOnCurrentLevel++;
+    }
+
     public int getQuantityOfHearts() {
         return quantityOfPickedHeartsOnFinishedLevels+quantityOfPickedHeartsOnCurrentLevel;
     }
@@ -277,15 +285,17 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     public boolean isHeart(){
-
+        System.out.println("portal "+portal_x+" "+portal_y);
+        System.out.println("h1 "+heart1.getX()+" "+heart1.getY());
+        System.out.println("h2 "+heart2.getX()+" "+heart2.getY());
+        System.out.println("Hero "+ hero_x+" "+hero_y);
         int [] checkedAngles = new int [360];
         for(int i=0; i<checkedAngles.length; i++) {
             checkedAngles [i] = i;
         }
         for (int angle: checkedAngles) {
             if(isIntersectionBetweenHeroAndHeart(angle) == true){
-                quantityOfPickedHeartsOnCurrentLevel++;
-                System.out.println("isHeart true "+angle+" "+hero_x+" "+hero_y);
+                System.out.println("isHeart true");
                 return true;
             }
         }
@@ -308,7 +318,7 @@ public class Maze extends JPanel implements ActionListener {
 
         if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
-            System.out.println("1st between hero and portal"+portal_x + portal_y);
+            System.out.println("1st between hero and portal");
             return true;
         }
 
@@ -351,6 +361,10 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     public boolean isPortal(){
+        System.out.println("portal "+portal_x+" "+portal_y);
+        System.out.println("h1 "+heart1.getX()+" "+heart1.getY());
+        System.out.println("h2 "+heart2.getX()+" "+heart2.getY());
+        System.out.println("Hero "+ hero_x+" "+hero_y);
         int [] checkedAngles = new int [360];
         for(int i=0; i<checkedAngles.length; i++) {
             checkedAngles [i] = i;
@@ -359,7 +373,7 @@ public class Maze extends JPanel implements ActionListener {
             if(isIntersectionBetweenHeroAndPortal(angle) == true){
                 quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
                 writeToFileGameStatus(gameLevel + "|" + quantityOfPickedHeartsOnFinishedLevels);
-                System.out.println("isPortal true -- next level"+ hero_x+" "+hero_y);
+                System.out.println("isPortal true -- next level");
                 return true;
             }
         }
@@ -560,6 +574,9 @@ public class Maze extends JPanel implements ActionListener {
             }
             j++;
         }
+
+//        System.out.println("h1"+heart1.getX()+" "+heart1.getY());
+//        System.out.println("h2"+heart2.getX()+" "+heart2.getY());
     }
 
     @Override

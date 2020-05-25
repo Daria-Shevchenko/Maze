@@ -33,15 +33,12 @@ public class Maze extends JPanel implements ActionListener {
             new ImageIcon("src/images/hero/gg5s.png").getImage(), new ImageIcon("src/images/hero/gg6s.png").getImage()};
 
     private Image heroOriginal,hero,heart,portal;
-    private int positionMapX,PositionMapY;
 
     private int portal_x, portal_y;
 
     private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
     private int req_dx, req_dy;
     private boolean canMove;
-    private Point positionGGonMap = new Point();
-
     private Timer timer;
 
     private static final int [] brick_sizes_for_levels = {15, 13, 13, 11, 10, 9};
@@ -105,7 +102,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private void gameOver(){
-
+        inGame=false;
     }
 
 

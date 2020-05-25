@@ -25,6 +25,8 @@ public class StartPage extends JFrame {
 
     private ArrayList<ArrayList> bricksLevels = new ArrayList<ArrayList>();
 
+    public MazeGame panelWithMaze;
+
 
     // конструктор класу для апп, створення основного вікна
     StartPage(){
@@ -32,35 +34,31 @@ public class StartPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(width,height);
 
-        start();
 
-    }
-
-
-
-
-
-    private void initUI() {
-        // bricksLevels.add(read("src/mazeFiles/maze1.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_1.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_2.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_3.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
-
-        MazeGame panelWithMaze = new MazeGame(bricksLevels);
-        //add(panelWithMaze);
-        panelWithMaze.setBounds(200,40, 800,700);
-
-        panel1.add(panelWithMaze);
-
-       // int width = panelWithMaze.getPanelWidth();
-       // int height = panelWithMaze.getPanelHeight();
-        //  border = panelWithMaze.getPanelBorder();
-        //setSize(this.width, this.height);
+        panelWithMaze = new MazeGame(bricksLevels);
         setLocationRelativeTo(null);
+        start();
+
+
     }
+
+
+
+    private void initBoard() {
+
+      //  addKeyListener(new MazeGame.TAdapter());
+
+        setFocusable(true);
+
+    }
+
+
 
     private static ArrayList<String> read(String filename){
         ArrayList<String> lines = new ArrayList<String>();
@@ -131,11 +129,12 @@ public class StartPage extends JFrame {
      */
     private void firstMaze(){
         panel1.removeAll();
-        revalidate();
-        repaint();
+      //  revalidate();
+      //  repaint();
 
-        initUI();
 
+        panelWithMaze.setBounds(200,40, 800,700);
+        panel1.add(panelWithMaze);
 
 
 

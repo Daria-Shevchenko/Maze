@@ -1,10 +1,13 @@
 package com.company;
 
+import java.awt.*;
+
 public class Main {
 
     public static void main(String[] args) {
-        new StartPage();
-        System.out.println("ABC");
-        System.out.println("Daria");
+        EventQueue.invokeLater(() -> {
+            StartPage ex = new StartPage();
+            ex.setVisible(true);
+        });
     }
 }

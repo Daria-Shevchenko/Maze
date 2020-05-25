@@ -25,8 +25,8 @@ public class MazeGame extends JPanel implements ActionListener {
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int PAC_ANIM_DELAY = 2;
 
-    private int heartShift = 6;
-    private int heartLengthInCell = 4;
+    private int pictureShift = 6;
+    private int pictureLengthInCell = 4;
 
     Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1s.png").getImage(), new ImageIcon("src/images/hero/gg2s.png").getImage(),
             new ImageIcon("src/images/hero/gg3s.png").getImage(), new ImageIcon("src/images/hero/gg4s.png").getImage(),
@@ -44,7 +44,7 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    private static final int [] brick_sizes_for_levels = {15, 14, 13, 12, 11, 10};
+    private static final int [] brick_sizes_for_levels = {15, 13, 13, 11, 10, 9};
     private static int BRICK_SIZE;
     private static final int coefficientCorridor = 4;
     private static final int outsideWallCoef = 1;
@@ -82,7 +82,7 @@ public class MazeGame extends JPanel implements ActionListener {
         heart=t.getImage("src/images/other/heart_red_s.png");
         portal = new ImageIcon("src/images/other/heart_black_s.png").getImage();
         heroOriginal = hero_images_for_levels[gameLevel-1];
-        hero = heroOriginal.getScaledInstance(heartLengthInCell*BRICK_SIZE*coefficientCorridor/heartShift, heartLengthInCell*BRICK_SIZE*coefficientCorridor/heartShift, Image.SCALE_DEFAULT);
+        hero = heroOriginal.getScaledInstance(pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, Image.SCALE_DEFAULT);
     }
 
     private void initVariables() {
@@ -272,13 +272,13 @@ public class MazeGame extends JPanel implements ActionListener {
         int x0 = deltX+hero_x;
         int y0 = deltY+hero_y;
 
-        if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-        && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+        if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+        && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart1.setShow(false);
             return true;
         }
-        if(x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                && y0>=heart2.getY() && y0<=heart2.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+        if(x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                && y0>=heart2.getY() && y0<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart2.setShow(false);
             return true;
         }
@@ -296,13 +296,13 @@ public class MazeGame extends JPanel implements ActionListener {
         int yDiagonal = hero_y+hero.getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
-            if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
                 return true;
         }
-            if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
                 return true;
             }
@@ -314,13 +314,13 @@ public class MazeGame extends JPanel implements ActionListener {
         int xDiagonal = hero_x+hero.getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
-            if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && y>=heart1.getY() && y<=heart1.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && y>=heart1.getY() && y<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
                 return true;
             }
-            if(xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && y>=heart2.getY() && y<=heart2.getY()+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && y>=heart2.getY() && y<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
                 return true;
             }
@@ -386,8 +386,8 @@ public class MazeGame extends JPanel implements ActionListener {
         int x0 = deltX+hero_x;
         int y0 = deltY+hero_y;
 
-        if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+        if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             return true;
         }
 
@@ -403,8 +403,8 @@ public class MazeGame extends JPanel implements ActionListener {
         int yDiagonal = hero_y+hero.getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
-            if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && yDiagonal>=portal_y && yDiagonal<=portal_y+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && yDiagonal>=portal_y && yDiagonal<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 return true;
             }
         }
@@ -415,8 +415,8 @@ public class MazeGame extends JPanel implements ActionListener {
         int xDiagonal = hero_x+hero.getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
-            if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift
-                    && y>=portal_y && y<=portal_y+BRICK_SIZE*coefficientCorridor*heartLengthInCell/heartShift){
+            if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+                    && y>=portal_y && y<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 return true;
             }
         }
@@ -625,10 +625,10 @@ public class MazeGame extends JPanel implements ActionListener {
                         g2d.setColor(corridorColor);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
 
-                        portal_x = x+currentBRICK_SIZE_X/heartShift;
-                        portal_y = y+currentBRICK_SIZE_X/heartShift;
+                        portal_x = x+currentBRICK_SIZE_X/ pictureShift;
+                        portal_y = y+currentBRICK_SIZE_X/ pictureShift;
 
-                        g2d.drawImage(portal,portal_x,portal_y,heartLengthInCell*currentBRICK_SIZE_X/heartShift, heartLengthInCell*currentBRICK_SIZE_Y/heartShift,this);
+                        g2d.drawImage(portal,portal_x,portal_y, pictureLengthInCell *currentBRICK_SIZE_X/ pictureShift, pictureLengthInCell *currentBRICK_SIZE_Y/ pictureShift,this);
 
                         map[j][i] = 2;
                     }
@@ -647,17 +647,17 @@ public class MazeGame extends JPanel implements ActionListener {
 
 
                         if(heart1.isShow()==true && heartCount==1){
-                            heart1.setX(x+currentBRICK_SIZE_X/heartShift);
-                            heart1.setY(y+currentBRICK_SIZE_Y/heartShift);
-                            g2d.drawImage(heart,heart1.getX(),heart1.getY(),heartLengthInCell*currentBRICK_SIZE_X/heartShift, heartLengthInCell*currentBRICK_SIZE_Y/heartShift,this);
+                            heart1.setX(x+currentBRICK_SIZE_X/ pictureShift);
+                            heart1.setY(y+currentBRICK_SIZE_Y/ pictureShift);
+                            g2d.drawImage(heart,heart1.getX(),heart1.getY(), pictureLengthInCell *currentBRICK_SIZE_X/ pictureShift, pictureLengthInCell *currentBRICK_SIZE_Y/ pictureShift,this);
                             heart1.setxMap(i);
                             heart1.setyMap(j);
                         }
 
                         if(heart2.isShow()==true && heartCount==2){
-                            heart2.setX(x+currentBRICK_SIZE_X/heartShift);
-                            heart2.setY(y+currentBRICK_SIZE_Y/heartShift);
-                            g2d.drawImage(heart,heart2.getX(),heart2.getY(),heartLengthInCell*currentBRICK_SIZE_X/heartShift, heartLengthInCell*currentBRICK_SIZE_Y/heartShift,this);
+                            heart2.setX(x+currentBRICK_SIZE_X/ pictureShift);
+                            heart2.setY(y+currentBRICK_SIZE_Y/ pictureShift);
+                            g2d.drawImage(heart,heart2.getX(),heart2.getY(), pictureLengthInCell *currentBRICK_SIZE_X/ pictureShift, pictureLengthInCell *currentBRICK_SIZE_Y/ pictureShift,this);
                             heart2.setxMap(i);
                             heart2.setyMap(j);
                         }

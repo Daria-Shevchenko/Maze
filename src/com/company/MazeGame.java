@@ -74,7 +74,6 @@ public class MazeGame extends JPanel implements ActionListener {
 
         setFocusable(true);
 
-        setBackground(Color.black);
     }
 
     private void loadImages() {
@@ -571,7 +570,6 @@ public class MazeGame extends JPanel implements ActionListener {
 
     private void drawMaze(Graphics2D g2d) {
 
-        g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         // Color heartColor = Color.PINK;

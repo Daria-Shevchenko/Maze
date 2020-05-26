@@ -63,10 +63,10 @@ public class TAdapter extends KeyAdapter {
                 startPage.endPageLoser();
             }
         }
-        if(code == KeyEvent.VK_ENTER){
-            m.nextLevel();
-            System.out.println("keyPress ENTER "+m.gameLevel);
-        }
+//        if(code == KeyEvent.VK_ENTER){
+//            m.nextLevel();
+//            System.out.println("keyPress ENTER "+m.gameLevel);
+//        }
         if(code == KeyEvent.VK_ESCAPE){
             startPage.pausePage();
         }

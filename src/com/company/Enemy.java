@@ -5,15 +5,34 @@ import java.awt.*;
 public class Enemy {
     private int lvl;
     private Toolkit t = Toolkit.getDefaultToolkit();
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+        this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+        this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
+    }
+
     private int width,height;
-    private Image origin = t.getImage("src/images/other/enemy_s.png"), enemyImg;
+    private Image origin = t.getImage("src/images/other/enemy.png"), enemyImg;
 
     private boolean visible;
-    private int x,y;
+    private double x,y;
 
     private Point start;
     private Point finish;
-    private int vel;
+    private double vel;
 
     /**
      *  orient = 0  - if don`t move
@@ -23,7 +42,7 @@ public class Enemy {
     private int orient;
 
     Enemy(){
-        this.visible = true;
+        this.visible = false;
         this.width = 60;
         this.height = 60;
         this.start = new Point(0,0);
@@ -37,7 +56,7 @@ public class Enemy {
         System.out.println("enemy created");
     }
     Enemy(int w, int h){
-        this.visible = true;
+        this.visible = false;
         this.width = w;
         this.height = h;
         this.start = new Point(0,0);
@@ -49,9 +68,9 @@ public class Enemy {
         foundOrient();
         System.out.println("enemy created");
     }
-    Enemy(int w, int h, Point s, Point f, int vel,int lvl){
+    Enemy(int w, int h, Point s, Point f, double vel,int lvl){
         this.lvl = lvl;
-        this.visible = true;
+        this.visible = false;
         this.width = w;
         this.height = h;
         this.start = new Point(s);
@@ -87,7 +106,7 @@ public class Enemy {
         this.y = start.y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -95,7 +114,7 @@ public class Enemy {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -111,7 +130,7 @@ public class Enemy {
         this.finish = finish;
     }
 
-    public int getVel() {
+    public double getVel() {
         return vel;
     }
 

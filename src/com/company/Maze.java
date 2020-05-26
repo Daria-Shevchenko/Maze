@@ -43,9 +43,9 @@ public class Maze extends JPanel implements ActionListener {
 
     private int pictureShift = 6;
     private int pictureLengthInCell = 4;
-    Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1s.png").getImage(), new ImageIcon("src/images/hero/gg2s.png").getImage(),
-            new ImageIcon("src/images/hero/gg3s.png").getImage(), new ImageIcon("src/images/hero/gg4s.png").getImage(),
-            new ImageIcon("src/images/hero/gg5s.png").getImage(), new ImageIcon("src/images/hero/gg6s.png").getImage()};
+    Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1.png").getImage(), new ImageIcon("src/images/hero/gg2.png").getImage(),
+            new ImageIcon("src/images/hero/gg3.png").getImage(), new ImageIcon("src/images/hero/gg4.png").getImage(),
+            new ImageIcon("src/images/hero/gg5.png").getImage(), new ImageIcon("src/images/hero/gg6.png").getImage()};
     private Image heroOriginal,hero,heart,portal;
 
     private int portal_x=0, portal_y=0;
@@ -60,7 +60,7 @@ public class Maze extends JPanel implements ActionListener {
     private static final int BORDER = 10;
     private int mazeWidth = 0;
     private int mazeHeight = 0;
-
+    private int enemyW,enemyH;
 
     Color [] mazeColorsForWalls = {Color.DARK_GRAY, Color.blue.darker(), Color.ORANGE.darker(), Color.magenta.darker(), Color.GREEN.darker(), Color.red.darker()};
     Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, Color.cyan.brighter(), Color.YELLOW.brighter(), Color.pink.darker(), Color.GREEN.brighter(), Color.pink};
@@ -72,6 +72,7 @@ public class Maze extends JPanel implements ActionListener {
         this.bricksLevels = bricksLevels;
         timer  = new Timer(5, this);
         timer.start();
+        listOfEnemies();
         nextLevel();
     }
 
@@ -194,6 +195,12 @@ public class Maze extends JPanel implements ActionListener {
             }
             map = new int[this.bricks.size()][this.bricks.get(0).length()];
 
+            enemyW = BRICK_SIZE*coefficientCorridor;
+            enemyH = BRICK_SIZE*coefficientCorridor;
+            for (Enemy enemy : enemies) {
+                enemy.setWidth(enemyW);
+                enemy.setHeight(enemyH);
+            }
             enemyOnMap();
             addEnemyToMaze();
             this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
@@ -204,13 +211,70 @@ public class Maze extends JPanel implements ActionListener {
         }
     }
 
+    private void listOfEnemies() {
+        enemyW = 70;
+        enemyH = 70;
+
+        /**
+         * 1 lvl
+         */
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,4), new Point(18,4),1,1));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,6), new Point(6,8),1,1));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(16,10), new Point(18,10),1,1));
+
+        /**
+         * 2 lvl
+         */
+        enemies.add(new Enemy(enemyW,enemyH,new Point(18,2), new Point(18,4),0.5,2));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,4), new Point(10,8),0.75,2));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,12), new Point(14,16),1,2));
+
+        /**
+         * 3 lvl
+         */
+        enemies.add(new Enemy(enemyW,enemyH,new Point(18,6 ), new Point(22,6),1,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,8), new Point(16,8),1,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),1,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(16,14), new Point(16,16),1,3));
+
+        /**
+         * 4 lvl
+         */
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(16,6),1,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8), new Point(14,10),1,4));
+
+        enemies.add(new Enemy(enemyW,enemyH,new Point(22,10), new Point(24,10),1,4));
+
+        enemies.add(new Enemy(enemyW,enemyH,new Point(22,14), new Point(24,14),1,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,16), new Point(6,18),1,4));
+
+        /**
+         * 5 lvl
+         */
+
+        enemies.add(new Enemy(enemyW,enemyH,new Point(8,4 ), new Point(10,4),1,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(24,6 ), new Point(26,6),1,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,10 ), new Point(6,14),1,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,12 ), new Point(16,12),1,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,18 ), new Point(18,18),1,5));
+
+        /**
+         * 6 lvl
+         */
+
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(18,6),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(24,8), new Point(24,14),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,12), new Point(6,16),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(26,18), new Point(26,22),1,6));
+
+    }
+
 
     private void enemyOnMap() {
         sf = new HashMap<Point, Point>();
-
-        enemies.add(new Enemy(70,70,new Point(14,4), new Point(18,4),1,1));
-        enemies.add(new Enemy(70,70,new Point(6,6), new Point(6,8),1,1));
-        enemies.add(new Enemy(70,70,new Point(16,10), new Point(18,10),1,1));
 
         for (Enemy enemy : enemies) {
             if(enemy.getLvl()==gameLevel)
@@ -297,7 +361,7 @@ public class Maze extends JPanel implements ActionListener {
         canMove = true;
 
         for (Enemy enemy : enemies) {
-            if(enemy.isVisible() && inGame ==true )
+            if(enemy.isVisible() && inGame == true )
                 enemy.move(mazeWidth,mazeHeight);
         }
 
@@ -736,8 +800,10 @@ public class Maze extends JPanel implements ActionListener {
         g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
 
         for (Enemy enemy : enemies) {
-            if(enemy.isVisible() && inGame == true && enemy.getLvl()==gameLevel )
-                g2d.drawImage(enemy.getEnemyImg(),enemy.getX(),enemy.getY(),this);
+            if(enemy.isVisible() && inGame == true && enemy.getLvl() == gameLevel )
+                g2d.drawImage(enemy.getEnemyImg(),(int)enemy.getX(),(int)enemy.getY(),this);
+                //g2d.drawImage();
+            enemy.setVisible(true);
         }
     }
 

@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +18,15 @@ public class Maze extends JPanel implements ActionListener {
     public int gameLevel = 0;
     private int MAX_gamelevel = 6;
 
+    private boolean gameFinished = false;
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
 
     private boolean inGame = false;
 
@@ -54,7 +61,7 @@ public class Maze extends JPanel implements ActionListener {
         quantityOfPickedHeartsOnCurrentLevel++;
     }
 
-    public int getQuantityOfHearts() {
+    public int getQuantityOfHearts()  {
         return quantityOfPickedHeartsOnFinishedLevels+quantityOfPickedHeartsOnCurrentLevel;
     }
     private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
@@ -143,6 +150,7 @@ public class Maze extends JPanel implements ActionListener {
 
     private void gameOver(){
         inGame=false;
+        gameFinished = true;
         writeToFileGameStatus(0 + "|" + 3);
     }
 

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -31,7 +33,18 @@ public class StartPage extends JFrame{
     // конструктор класу для апп, створення основного вікна
     StartPage(String title){
         super(title);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                panelWithMaze.setInGame(false);
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                panelWithMaze.setInGame(false);
+            }
+        });
         this.setSize(width,height);
 
 
@@ -70,6 +83,7 @@ public class StartPage extends JFrame{
 
     // метод, що розпочинає роботу
     public void start(){
+        panelWithMaze.setGameFinished(false);
         if (panel1!=null) {
             remove(panel1);
         }
@@ -86,7 +100,6 @@ public class StartPage extends JFrame{
      * запускає стартову сторінку
      */
     private void startPage(){
-
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
@@ -122,8 +135,8 @@ public class StartPage extends JFrame{
         panel1.removeAll();
       //  revalidate();
       //  repaint();
-
         panelWithMaze.setInGame(true);
+        System.out.println("in game - " + panelWithMaze.isInGame());
         panelWithMaze.setBounds(160,10, 950,700);
         panel1.add(panelWithMaze);
 
@@ -153,7 +166,6 @@ public class StartPage extends JFrame{
      * відкриває фінальну сторінку з виграшем
      */
     public void endPageWin(){
-
         panel1.removeAll();
         panelWithMaze.removeAll();
         panelWithMaze.revalidate();
@@ -250,7 +262,8 @@ public class StartPage extends JFrame{
     /**
      * відкриває фінальну сторінку з паузою
      */
-    private void pausePage(){
+    public void pausePage(){
+        panelWithMaze.setInGame(false);
         panel1.removeAll();
         revalidate();
         repaint();

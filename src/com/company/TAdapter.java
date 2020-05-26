@@ -48,14 +48,15 @@ public class TAdapter extends KeyAdapter {
         }
 
         if(code == KeyEvent.VK_SPACE){
+            if(m.isInGame()==true && m.isDying() == false){
 
-            if(m.isHeart()){
-                m.addHeartsOnLvl();
-                System.out.println(m.gameLevel);
+                if(m.isHeart())
+                    m.addHeartsOnLvl();
+
+                if(m.isPortal())
+                    m.nextLevel();
             }
 
-            if(m.isPortal())
-                m.nextLevel();
             if(m.isInGame() == false && m.isDying() == false) {
                 System.out.println("checkSpace true");
                 startPage.endPageWin();
@@ -65,17 +66,20 @@ public class TAdapter extends KeyAdapter {
         }
         if(code == KeyEvent.VK_ENTER){
             m.nextLevel();
+            System.out.println("keyPress ENTER "+m.gameLevel);
         }
         if(code == KeyEvent.VK_BACK_SPACE){
-            System.out.println("____________________-");
-            for(int i=0;i<m.bricks.size();i++){
-                for(int k=0;k<m.bricks.get(0).length();k++){
-                    System.out.print(m.map[i][k]+" ");
-                }
-                System.out.println("");
-            }
-            System.out.println("____________________");
-            System.out.println("");
+//            System.out.println("keyPress TAdapter "+m.isInGame());
+
+//            System.out.println("____________________-");
+//            for(int i=0;i<m.bricks.size();i++){
+//                for(int k=0;k<m.bricks.get(0).length();k++){
+//                    System.out.print(m.map[i][k]+" ");
+//                }
+//                System.out.println("");
+//            }
+//            System.out.println("____________________");
+//            System.out.println("");
         }
     }
 

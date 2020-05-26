@@ -20,6 +20,9 @@ public class Maze extends JPanel implements ActionListener {
     public int gameLevel = 0;
     private int MAX_gamelevel = 6;
 
+
+    private boolean inGame = false;
+
     public boolean isInGame() {
         return inGame;
     }
@@ -27,8 +30,6 @@ public class Maze extends JPanel implements ActionListener {
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
     }
-
-    private boolean inGame = true;
 
     public boolean isDying() {
         return dying;
@@ -221,18 +222,17 @@ public class Maze extends JPanel implements ActionListener {
         if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart1.setShow(false);
-            System.out.println("1st between hero and heart");
             return true;
         }
         if(x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart2.getY() && y0<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart2.setShow(false);
-            System.out.println("2st between hero and heart");
+
             return true;
         }
 
         if(isIntersectionWithHeartByDiagonal()==true){
-            System.out.println("3st between hero abd heart");
+
             return true;
         }
 
@@ -250,13 +250,11 @@ public class Maze extends JPanel implements ActionListener {
             if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
-                System.out.println("1st diagon");
                 return true;
             }
             if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
-                System.out.println("2st diagon");
                 return true;
             }
         }
@@ -270,13 +268,11 @@ public class Maze extends JPanel implements ActionListener {
             if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart1.getY() && y<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
-                System.out.println("3st diagon");
                 return true;
             }
             if(xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart2.getY() && y<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
-                System.out.println("4st diagon");
                 return true;
             }
         }
@@ -285,17 +281,12 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     public boolean isHeart(){
-        System.out.println("portal "+portal_x+" "+portal_y);
-        System.out.println("h1 "+heart1.getX()+" "+heart1.getY());
-        System.out.println("h2 "+heart2.getX()+" "+heart2.getY());
-        System.out.println("Hero "+ hero_x+" "+hero_y);
         int [] checkedAngles = new int [360];
         for(int i=0; i<checkedAngles.length; i++) {
             checkedAngles [i] = i;
         }
         for (int angle: checkedAngles) {
             if(isIntersectionBetweenHeroAndHeart(angle) == true){
-                System.out.println("isHeart true");
                 return true;
             }
         }
@@ -318,12 +309,10 @@ public class Maze extends JPanel implements ActionListener {
 
         if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
-            System.out.println("1st between hero and portal");
             return true;
         }
 
         if(isIntersectionWithPortalByDiagonal()==true){
-            System.out.println("1st portal diagonal");
             return true;
         }
 
@@ -339,7 +328,6 @@ public class Maze extends JPanel implements ActionListener {
         for(int x=xFirst; x <=xLast; x++){
             if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=portal_y && yDiagonal<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
-                System.out.println("1st portal");
                 return true;
             }
         }
@@ -352,7 +340,6 @@ public class Maze extends JPanel implements ActionListener {
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=portal_y && y<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
-                System.out.println("2st portal");
                 return true;
             }
         }
@@ -361,10 +348,6 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     public boolean isPortal(){
-        System.out.println("portal "+portal_x+" "+portal_y);
-        System.out.println("h1 "+heart1.getX()+" "+heart1.getY());
-        System.out.println("h2 "+heart2.getX()+" "+heart2.getY());
-        System.out.println("Hero "+ hero_x+" "+hero_y);
         int [] checkedAngles = new int [360];
         for(int i=0; i<checkedAngles.length; i++) {
             checkedAngles [i] = i;

@@ -42,9 +42,7 @@ public class StartPage extends JFrame{
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
         panelWithMaze = new Maze(bricksLevels);
-        this.addKeyListener(new TAdapter(panelWithMaze,this));
         setFocusable(true);
-        //this.addKeyListener(new MazeGame());
         setLocationRelativeTo(null);
         start();
 
@@ -125,7 +123,7 @@ public class StartPage extends JFrame{
       //  revalidate();
       //  repaint();
 
-
+        panelWithMaze.setInGame(true);
         panelWithMaze.setBounds(160,10, 950,700);
         panel1.add(panelWithMaze);
 
@@ -244,7 +242,7 @@ public class StartPage extends JFrame{
 
     private void reCreateWindow(){
         panelWithMaze = new Maze(bricksLevels);
-        addKeyListener(new TAdapter(panelWithMaze,this));
+        this.addKeyListener(new TAdapter(panelWithMaze,this));
         setFocusable(true);
         setLocationRelativeTo(null);
     }

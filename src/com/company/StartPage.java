@@ -83,6 +83,7 @@ public class StartPage extends JFrame{
 
     // метод, що розпочинає роботу
     public void start(){
+        panelWithMaze.setGameFinished(false);
         if (panel1!=null) {
             remove(panel1);
         }
@@ -135,6 +136,7 @@ public class StartPage extends JFrame{
       //  revalidate();
       //  repaint();
         panelWithMaze.setInGame(true);
+        System.out.println("in game - " + panelWithMaze.isInGame());
         panelWithMaze.setBounds(160,10, 950,700);
         panel1.add(panelWithMaze);
 
@@ -260,7 +262,8 @@ public class StartPage extends JFrame{
     /**
      * відкриває фінальну сторінку з паузою
      */
-    private void pausePage(){
+    public void pausePage(){
+        panelWithMaze.setInGame(false);
         panel1.removeAll();
         revalidate();
         repaint();

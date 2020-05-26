@@ -24,6 +24,10 @@ public class Maze extends JPanel implements ActionListener {
         return gameFinished;
     }
 
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
     private boolean inGame = false;
 
     public boolean isInGame() {
@@ -145,7 +149,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private void gameOver(){
-       // inGame=false;
+        inGame=false;
         gameFinished = true;
         writeToFileGameStatus(0 + "|" + 3);
     }

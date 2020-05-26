@@ -31,23 +31,23 @@ public class TAdapter extends KeyAdapter {
         m.setReq_dy(0);
         int code = e.getKeyCode();
         //up
-        if(code == KeyEvent.VK_UP){
+        if(code == KeyEvent.VK_UP && m.isInGame()){
             up();
         }
         //down
-        if(code == KeyEvent.VK_DOWN){
+        if(code == KeyEvent.VK_DOWN && m.isInGame()){
             down();
         }
         //left
-        if(code == KeyEvent.VK_LEFT){
+        if(code == KeyEvent.VK_LEFT && m.isInGame()){
             left();
         }
         //right
-        if(code == KeyEvent.VK_RIGHT){
+        if(code == KeyEvent.VK_RIGHT && m.isInGame()){
             right();
         }
 
-        if(code == KeyEvent.VK_SPACE){
+        if(code == KeyEvent.VK_SPACE && m.isInGame()){
             if(m.isInGame()==true && m.isDying() == false){
 
                 if(m.isHeart())
@@ -67,6 +67,9 @@ public class TAdapter extends KeyAdapter {
         if(code == KeyEvent.VK_ENTER){
             m.nextLevel();
             System.out.println("keyPress ENTER "+m.gameLevel);
+        }
+        if(code == KeyEvent.VK_ESCAPE){
+            startPage.pausePage();
         }
         if(code == KeyEvent.VK_BACK_SPACE){
 //            System.out.println("keyPress TAdapter "+m.isInGame());
@@ -89,19 +92,19 @@ public class TAdapter extends KeyAdapter {
     {
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_UP){
+        if(code == KeyEvent.VK_UP && m.isInGame()){
             m.setReq_dy(0);
         }
         //down
-        if(code == KeyEvent.VK_DOWN){
+        if(code == KeyEvent.VK_DOWN && m.isInGame()){
             m.setReq_dy(0);
         }
         //left
-        if(code == KeyEvent.VK_LEFT){
+        if(code == KeyEvent.VK_LEFT && m.isInGame()){
             m.setReq_dx(0);
         }
         //right
-        if(code == KeyEvent.VK_RIGHT){
+        if(code == KeyEvent.VK_RIGHT && m.isInGame()){
             m.setReq_dx(0);
         }
 

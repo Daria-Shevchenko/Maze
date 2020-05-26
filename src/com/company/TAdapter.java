@@ -58,7 +58,6 @@ public class TAdapter extends KeyAdapter {
             }
 
             if(m.isGameFinished() == true && m.isDying() == false) {
-                System.out.println("checkSpace true");
                 startPage.endPageWin();
             }else if(m.isDying() == true){
                 startPage.endPageLoser();
@@ -72,18 +71,20 @@ public class TAdapter extends KeyAdapter {
             startPage.pausePage();
         }
         if(code == KeyEvent.VK_BACK_SPACE){
-//            System.out.println("keyPress TAdapter "+m.isInGame());
 
-//            System.out.println("____________________-");
-//            for(int i=0;i<m.bricks.size();i++){
-//                for(int k=0;k<m.bricks.get(0).length();k++){
-//                    System.out.print(m.map[i][k]+" ");
-//                }
-//                System.out.println("");
-//            }
-//            System.out.println("____________________");
-//            System.out.println("");
+
+            System.out.println("____________________-");
+            for(int i=0;i<m.bricks.size();i++){
+                for(int k=0;k<m.bricks.get(0).length();k++){
+                    System.out.print(m.map[i][k]+"");
+                }
+                System.out.println("");
+            }
+            System.out.println("____________________");
         }
+    }
+    private void findEnemyCorditate(){
+
     }
 
     //Stop ball if key is released

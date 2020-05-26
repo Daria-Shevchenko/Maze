@@ -8,17 +8,72 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Maze extends JPanel implements ActionListener {
 
-    private Dimension d;
-    private Image ii;
+    private  ArrayList<Enemy> enemies = new ArrayList<>();
+    private Map<Point, Point> sf;
+
     private ArrayList<ArrayList> bricksLevels;
+
     public int gameLevel = 0;
     private int MAX_gamelevel = 6;
 
     private boolean gameFinished = false;
+    private boolean inGame = false;
+    private boolean dying = false;
+    private boolean canMove;
+
+    private Heart heart1 = new Heart(),
+            heart2 = new Heart();
+    private int quantityOfPickedHeartsOnFinishedLevels = 3;
+    private int quantityOfPickedHeartsOnCurrentLevel = 0;
+
+    private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
+    private Timer timer;
+
+//    private final int BLOCK_SIZE = 24;
+//    private final int N_BLOCKS = 15;
+
+    public int [][] map;
+    ArrayList<String> bricks;
+
+    private int pictureShift = 6;
+    private int pictureLengthInCell = 4;
+    Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1s.png").getImage(), new ImageIcon("src/images/hero/gg2s.png").getImage(),
+            new ImageIcon("src/images/hero/gg3s.png").getImage(), new ImageIcon("src/images/hero/gg4s.png").getImage(),
+            new ImageIcon("src/images/hero/gg5s.png").getImage(), new ImageIcon("src/images/hero/gg6s.png").getImage()};
+    private Image heroOriginal,hero,heart,portal;
+
+    private int portal_x=0, portal_y=0;
+    private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
+    private int req_dx=0, req_dy=0;
+
+
+    private static final int [] brick_sizes_for_levels ={17, 15, 13, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
+    private static int BRICK_SIZE;
+    private static final int coefficientCorridor = 4;
+    private static final int outsideWallCoef = 1;
+    private static final int BORDER = 10;
+    private int mazeWidth = 0;
+    private int mazeHeight = 0;
+
+
+    Color [] mazeColorsForWalls = {Color.DARK_GRAY, Color.blue.darker(), Color.ORANGE.darker(), Color.magenta.darker(), Color.GREEN.darker(), Color.red.darker()};
+    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, Color.cyan.brighter(), Color.YELLOW.brighter(), Color.pink.darker(), Color.GREEN.brighter(), Color.pink};
+    Color corridorColor;
+    Color wallColor;
+    //Color enemyColor = Color.RED.darker();
+
+    public Maze(ArrayList<ArrayList> bricksLevels) {
+        this.bricksLevels = bricksLevels;
+        timer  = new Timer(5, this);
+        timer.start();
+        nextLevel();
+    }
 
     public boolean isGameFinished() {
         return gameFinished;
@@ -27,8 +82,6 @@ public class Maze extends JPanel implements ActionListener {
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
-
-    private boolean inGame = false;
 
     public boolean isInGame() {
         return inGame;
@@ -46,14 +99,6 @@ public class Maze extends JPanel implements ActionListener {
         this.dying = dying;
     }
 
-    private boolean dying = false;
-
-    private Heart heart1 = new Heart(),
-            heart2 = new Heart();
-
-    private int quantityOfPickedHeartsOnFinishedLevels = 3;
-    private int quantityOfPickedHeartsOnCurrentLevel = 0;
-
     public int getHeartsOnLvl(){
         return quantityOfPickedHeartsOnCurrentLevel;
     }
@@ -64,112 +109,29 @@ public class Maze extends JPanel implements ActionListener {
     public int getQuantityOfHearts()  {
         return quantityOfPickedHeartsOnFinishedLevels+quantityOfPickedHeartsOnCurrentLevel;
     }
-    private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
-    private final int BLOCK_SIZE = 24;
-    private final int N_BLOCKS = 15;
-    private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
-    private final int PAC_ANIM_DELAY = 2;
 
-    private int pictureShift = 6;
-    private int pictureLengthInCell = 4;
-
-    Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1s.png").getImage(), new ImageIcon("src/images/hero/gg2s.png").getImage(),
-            new ImageIcon("src/images/hero/gg3s.png").getImage(), new ImageIcon("src/images/hero/gg4s.png").getImage(),
-            new ImageIcon("src/images/hero/gg5s.png").getImage(), new ImageIcon("src/images/hero/gg6s.png").getImage()};
-
-    private Image heroOriginal,hero,heart,portal;
-
-    private int portal_x=0, portal_y=0;
-
-    private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
-    private int req_dx=0, req_dy=0;
-    private boolean canMove;
-    private Timer timer;
-
-    private static final int [] brick_sizes_for_levels ={17, 15, 13, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
-    private static int BRICK_SIZE;
-    private static final int coefficientCorridor = 4;
-    private static final int outsideWallCoef = 1;
-    private static final int BORDER = 10;
-    private int mazeWidth = 0;
-    private int mazeHeight = 0;
-
-    Color [] mazeColorsForWalls = {Color.DARK_GRAY, Color.blue.darker(), Color.ORANGE.darker(), Color.magenta.darker(), Color.GREEN.darker(), Color.red.darker()};
-    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, Color.cyan.brighter(), Color.YELLOW.brighter(), Color.pink.darker(), Color.GREEN.brighter(), Color.pink};
-    Color corridorColor;
-    Color wallColor;
-
-    public int [][] map;
-
-    ArrayList<String> bricks;
-
-    public Maze(ArrayList<ArrayList> bricksLevels) {
-        this.bricksLevels = bricksLevels;
-        timer  = new Timer(5, this);
-        timer.start();
-        nextLevel();
-    }
-
-    private void loadImages() {
-        Toolkit t=Toolkit.getDefaultToolkit();
-        heart=t.getImage("src/images/other/heart_red_s.png");
-        portal = new ImageIcon("src/images/other/heart_black_s.png").getImage();
-        heroOriginal = hero_images_for_levels[gameLevel-1];
-        hero = heroOriginal.getScaledInstance(pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, Image.SCALE_DEFAULT);
-    }
-
-    private void initVariables() {
-        d = new Dimension(400, 400);
-    }
-
-    public void nextLevel(){
-        readGameStatusFromFile();
-        if(gameLevel<MAX_gamelevel) {
-            gameLevel++;
-            quantityOfPickedHeartsOnCurrentLevel = 0;
-            BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
-            heart1.setShow(true);
-            heart2.setShow(true);
-            hero_x = BORDER + BRICK_SIZE * outsideWallCoef + 1;
-            hero_y = BORDER + BRICK_SIZE * outsideWallCoef + 1;
-            this.bricks = this.bricksLevels.get(gameLevel-1);
-            wallColor = mazeColorsForWalls[gameLevel-1];
-            corridorColor = mazeColorsForCorridors[gameLevel-1];
-            if (bricks.size() != 0) {
-                mazeWidth = calculateMazeLength(this.bricks.get(0).length());
-                mazeHeight = calculateMazeLength(this.bricks.size());
-            }
-            map = new int[this.bricks.size()][this.bricks.get(0).length()];
-            this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
-            loadImages();
-            initVariables();
-        } else {
-            gameOver();
-        }
-    }
-
-    private void gameOver(){
-        inGame=false;
-        gameFinished = true;
-        writeToFileGameStatus(0 + "|" + 3);
-    }
+    /**
+     *
+     * FILE - GAME STATUS
+     *
+     */
 
     private void writeToFileGameStatus(String data){
-            File file = new File(pathToFileWithGameStatus);
-            FileWriter fr = null;
+        File file = new File(pathToFileWithGameStatus);
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(file);
+            fr.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            //close resources
             try {
-                fr = new FileWriter(file);
-                fr.write(data);
+                fr.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally{
-                //close resources
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
+        }
     }
 
     /* Function reads from the file data about game level and number of hearts
@@ -201,9 +163,144 @@ public class Maze extends JPanel implements ActionListener {
         return result;
     }
 
+    /**
+     *  LOADING IMAGES FOR MAZE
+     */
+    private void loadImages() {
+        Toolkit t=Toolkit.getDefaultToolkit();
+        heart=t.getImage("src/images/other/heart_red_s.png");
+        portal = new ImageIcon("src/images/other/heart_black_s.png").getImage();
+        heroOriginal = hero_images_for_levels[gameLevel-1];
+        hero = heroOriginal.getScaledInstance(pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, Image.SCALE_DEFAULT);
+    }
+
+    public void nextLevel(){
+
+        readGameStatusFromFile();
+        if(gameLevel<MAX_gamelevel) {
+            gameLevel++;
+            quantityOfPickedHeartsOnCurrentLevel = 0;
+            BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
+            heart1.setShow(true);
+            heart2.setShow(true);
+            hero_x = BORDER + BRICK_SIZE * outsideWallCoef + 1;
+            hero_y = BORDER + BRICK_SIZE * outsideWallCoef + 1;
+            this.bricks = this.bricksLevels.get(gameLevel-1);
+            wallColor = mazeColorsForWalls[gameLevel-1];
+            corridorColor = mazeColorsForCorridors[gameLevel-1];
+            if (bricks.size() != 0) {
+                mazeWidth = calculateMazeLength(this.bricks.get(0).length());
+                mazeHeight = calculateMazeLength(this.bricks.size());
+            }
+            map = new int[this.bricks.size()][this.bricks.get(0).length()];
+
+            enemyOnMap();
+            addEnemyToMaze();
+            this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
+            loadImages();
+
+        } else {
+            gameOver();
+        }
+    }
+
+
+    private void enemyOnMap() {
+        sf = new HashMap<Point, Point>();
+
+        enemies.add(new Enemy(70,70,new Point(14,4), new Point(18,4),1,1));
+        enemies.add(new Enemy(70,70,new Point(6,6), new Point(6,8),1,1));
+        enemies.add(new Enemy(70,70,new Point(16,10), new Point(18,10),1,1));
+
+        for (Enemy enemy : enemies) {
+            if(enemy.getLvl()==gameLevel)
+                sf.put(enemy.getStart(),enemy.getFinish());
+        }
+        System.out.println("Level "+gameLevel);
+
+        for(int i=0;i<bricks.size();i++){
+            for(int k=0;k<bricks.get(0).length();k++){
+                if(i==0 || i==bricks.size()-1 || k==0 || k ==bricks.get(0).length()-1)
+                    map[i][k]=9;
+            }
+        }
+    }
+
+    private void addEnemyToMaze() {
+
+        int currentBRICK_SIZE_Y = BRICK_SIZE;
+        int currentBRICK_SIZE_X = BRICK_SIZE;
+        int height = calculateMazeLength(this.bricks.size());
+        int length = calculateMazeLength(this.bricks.get(0).length());
+
+        int y = BORDER+BRICK_SIZE*outsideWallCoef;
+        int x = 0;
+        boolean evenLine = false;
+        boolean evenColumn = false;
+
+        int j = 0;
+        for (String wall: this.bricks){
+            if (this.bricks.indexOf(wall)>0 && this.bricks.indexOf(wall) < this.bricks.size()-1) {
+
+                char[] symbolsArray = new char[wall.toCharArray().length];
+                symbolsArray = wall.toCharArray();
+
+                if(evenLine) { currentBRICK_SIZE_Y = BRICK_SIZE;}
+                else {currentBRICK_SIZE_Y = coefficientCorridor * BRICK_SIZE;}
+                evenLine = ! evenLine;
+
+                x = BORDER + BRICK_SIZE * outsideWallCoef;
+                evenColumn = false;
+
+                for (int i = 1; i < symbolsArray.length - 1; i++) {
+                    if (evenColumn) {currentBRICK_SIZE_X = BRICK_SIZE;}
+                    else { currentBRICK_SIZE_X = coefficientCorridor * BRICK_SIZE;}
+                    evenColumn = ! evenColumn;
+
+                    Point test = new Point(i+1,j+1);
+
+                    if (sf.containsKey(test)) {
+                        //System.out.println(x+" "+y);
+                        for (Enemy enemy : enemies) {
+                            if(enemy.getStart().equals(test)){
+                                enemy.setStart(new Point(x+1, y+1));
+
+                            }
+                        }
+                    }
+
+                    if (sf.containsValue(test)) {
+                        System.out.println(test+" "+x+" "+y);
+                        for (Enemy enemy : enemies) {
+                            if(enemy.getFinish().equals(test)){
+                                enemy.setFinish(new Point(x, y));
+
+                            }
+                        }
+                    }
+                    x += currentBRICK_SIZE_X;
+                }
+                y += currentBRICK_SIZE_Y;
+            }
+            j++;
+        }
+    }
+
+    private void gameOver(){
+        inGame=false;
+        gameFinished = true;
+        writeToFileGameStatus(0 + "|" + 3);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         canMove = true;
+
+        for (Enemy enemy : enemies) {
+            if(enemy.isVisible() && inGame ==true )
+                enemy.move(mazeWidth,mazeHeight);
+        }
+
         if(isWall()){
             canMove = false;
         }
@@ -486,6 +583,10 @@ public class Maze extends JPanel implements ActionListener {
         int x = 0;
         boolean evenLine = false;
         boolean evenColumn = false;
+
+//        int enemyCount=0;
+//        Point startPoint=new Point (0,0),finishPoint = new Point(0,0);
+
         int heartCount = 0;
         int j = 0;
         for (String wall: this.bricks){
@@ -517,6 +618,15 @@ public class Maze extends JPanel implements ActionListener {
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
                         map[j][i] = 0;
                     }
+
+                    if (symbolsArray[i] == 'E') {
+                        g2d.setColor(corridorColor);
+                        //g2d.setColor(enemyColor);
+                        g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
+
+                        map[j][i] = 7;
+                    }
+
                     if (symbolsArray[i] == 'P') {
                         g2d.setColor(corridorColor);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
@@ -586,6 +696,7 @@ public class Maze extends JPanel implements ActionListener {
 
         drawMaze(g2d);
 
+        testEnemy();
         if (inGame) {
             playGame(g2d);
         } else {
@@ -595,7 +706,9 @@ public class Maze extends JPanel implements ActionListener {
         g2d.dispose();
     }
 
+    private void testEnemy(){
 
+    }
     private void playGame(Graphics2D g2d) {
 
         if (dying) {
@@ -604,8 +717,9 @@ public class Maze extends JPanel implements ActionListener {
 
         } else {
 
-            moveHero();
+            //moveHero();
             drawHero(g2d);
+            drawEnemy(g2d);
             //    moveGhosts(g2d);
         }
     }
@@ -618,11 +732,23 @@ public class Maze extends JPanel implements ActionListener {
         drawNewHero(g2d);
     }
 
+    private void drawNewEnemy(Graphics2D g2d) {
+        g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
+
+        for (Enemy enemy : enemies) {
+            if(enemy.isVisible() && inGame == true && enemy.getLvl()==gameLevel )
+                g2d.drawImage(enemy.getEnemyImg(),enemy.getX(),enemy.getY(),this);
+        }
+    }
+
+    private void drawEnemy(Graphics2D g2d) {
+        drawNewEnemy(g2d);
+    }
+
     private void drawNewHero(Graphics2D g2d) {
         g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
 
     }
-
 
     public int calculateMazeLength(int numberOfColons){
         int mazeLength = 2*BRICK_SIZE*outsideWallCoef + (numberOfColons-3)/2*BRICK_SIZE+((numberOfColons-3)/2+1)*BRICK_SIZE*coefficientCorridor;

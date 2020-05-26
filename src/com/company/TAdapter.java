@@ -57,7 +57,7 @@ public class TAdapter extends KeyAdapter {
                     m.nextLevel();
             }
 
-            if(m.isInGame() == false && m.isDying() == false) {
+            if(m.isGameFinished() == true && m.isDying() == false) {
                 System.out.println("checkSpace true");
                 startPage.endPageWin();
             }else if(m.isDying() == true){

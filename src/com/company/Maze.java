@@ -27,6 +27,8 @@ public class Maze extends JPanel implements ActionListener {
     private boolean dying = false;
     private boolean canMove;
 
+    private Hero myHero;
+
     private Heart heart1 = new Heart(),
             heart2 = new Heart();
     private int quantityOfPickedHeartsOnFinishedLevels = 3;
@@ -43,15 +45,9 @@ public class Maze extends JPanel implements ActionListener {
 
     private int pictureShift = 6;
     private int pictureLengthInCell = 4;
-    Image [] hero_images_for_levels = {new ImageIcon("src/images/hero/gg1.png").getImage(), new ImageIcon("src/images/hero/gg2.png").getImage(),
-            new ImageIcon("src/images/hero/gg3.png").getImage(), new ImageIcon("src/images/hero/gg4.png").getImage(),
-            new ImageIcon("src/images/hero/gg5.png").getImage(), new ImageIcon("src/images/hero/gg6.png").getImage()};
-    private Image heroOriginal,hero,heart,portal;
+    private Image heart,portal;
 
     private int portal_x=0, portal_y=0;
-    private int hero_x = BORDER+BRICK_SIZE*outsideWallCoef+1, hero_y = BORDER+BRICK_SIZE*outsideWallCoef+1;
-    private int req_dx=0, req_dy=0;
-
 
     private static final int [] brick_sizes_for_levels ={17, 15, 13, 13, 12, 11};    // {15, 13, 13, 11, 10, 9};
     private static int BRICK_SIZE;
@@ -157,9 +153,7 @@ public class Maze extends JPanel implements ActionListener {
         }
         catch (IOException e)
         {
-            result = "Data file lab2_items_db.txt is not found in folder " + pathToFileWithGameStatus + "\n"
-                    + "You may open data file from another location.";
-            // System.err.println("Problems with file opening");
+            result = "File is not found " + pathToFileWithGameStatus;
         }
         return result;
     }
@@ -169,11 +163,9 @@ public class Maze extends JPanel implements ActionListener {
      */
     private void loadImages() {
         Toolkit t=Toolkit.getDefaultToolkit();
-        heart=t.getImage("src/images/other/heart_red_s.png");
+        heart = t.getImage("src/images/other/heart_red_s.png");
         portal = new ImageIcon("src/images/other/heart_black_s.png").getImage();
-        heroOriginal = hero_images_for_levels[gameLevel-1];
-        hero = heroOriginal.getScaledInstance(pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, pictureLengthInCell *BRICK_SIZE*coefficientCorridor/ pictureShift, Image.SCALE_DEFAULT);
-    }
+     }
 
     public void nextLevel(){
 
@@ -184,8 +176,7 @@ public class Maze extends JPanel implements ActionListener {
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
             heart2.setShow(true);
-            hero_x = BORDER + BRICK_SIZE * outsideWallCoef + 1;
-            hero_y = BORDER + BRICK_SIZE * outsideWallCoef + 1;
+            myHero = new Hero(gameLevel, BRICK_SIZE*coefficientCorridor, BORDER + BRICK_SIZE * outsideWallCoef + 1, BORDER + BRICK_SIZE * outsideWallCoef + 1);
             this.bricks = this.bricksLevels.get(gameLevel-1);
             wallColor = mazeColorsForWalls[gameLevel-1];
             corridorColor = mazeColorsForCorridors[gameLevel-1];
@@ -369,24 +360,24 @@ public class Maze extends JPanel implements ActionListener {
             canMove = false;
         }
         if(canMove){
-            hero_x += req_dx;
-            hero_y += req_dy;
+            myHero.changeHero_x();
+            myHero.changeHero_y();
         }
         repaint();
     }
 
     private boolean isIntersectionBetweenHeroAndHeart(int angle){
-        int x_center = hero.getWidth(null)/2;
-        int y_center = hero.getHeight(null)/2;
+        int x_center = myHero.getHeroImage().getWidth(null)/2;
+        int y_center = myHero.getHeroImage().getHeight(null)/2;
 
-        double rX = hero.getWidth(null)*findCos(angle)/2;
-        double rY = hero.getHeight(null)*findSin(angle)/2;
+        double rX = myHero.getHeroImage().getWidth(null)*findCos(angle)/2;
+        double rY = myHero.getHeroImage().getHeight(null)*findSin(angle)/2;
 
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
 
-        int x0 = deltX+hero_x;
-        int y0 = deltY+hero_y;
+        int x0 = deltX+myHero.getHero_x();
+        int y0 = deltY+myHero.getHero_y();
 
         if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
@@ -411,9 +402,9 @@ public class Maze extends JPanel implements ActionListener {
     private boolean isIntersectionWithHeartByDiagonal(){
 
         /*horizontal diagonal*/
-        int xFirst = hero_x;
-        int xLast = hero_x + hero.getWidth(null);
-        int yDiagonal = hero_y+hero.getHeight(null)/2;
+        int xFirst = myHero.getHero_x();
+        int xLast = myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
+        int yDiagonal = myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
             if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -429,9 +420,9 @@ public class Maze extends JPanel implements ActionListener {
         }
 
         /*vertical diagonal*/
-        int yFirst = hero_y;
-        int yLast = hero_y + hero.getHeight(null);
-        int xDiagonal = hero_x+hero.getWidth(null)/2;
+        int yFirst = myHero.getHero_y();
+        int yLast = myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
+        int xDiagonal = myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -464,17 +455,17 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private boolean isIntersectionBetweenHeroAndPortal(int angle){
-        int x_center = hero.getWidth(null)/2;
-        int y_center = hero.getHeight(null)/2;
+        int x_center = myHero.getHeroImage().getWidth(null)/2;
+        int y_center = myHero.getHeroImage().getHeight(null)/2;
 
-        double rX = hero.getWidth(null)*findCos(angle)/2;
-        double rY = hero.getHeight(null)*findSin(angle)/2;
+        double rX = myHero.getHeroImage().getWidth(null)*findCos(angle)/2;
+        double rY = myHero.getHeroImage().getHeight(null)*findSin(angle)/2;
 
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
 
-        int x0 = deltX+hero_x;
-        int y0 = deltY+hero_y;
+        int x0 = deltX+myHero.getHero_x();
+        int y0 = deltY+myHero.getHero_y();
 
         if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
@@ -490,9 +481,9 @@ public class Maze extends JPanel implements ActionListener {
 
     private boolean isIntersectionWithPortalByDiagonal(){
         /*horizontal diagonal*/
-        int xFirst = hero_x;
-        int xLast = hero_x + hero.getWidth(null);
-        int yDiagonal = hero_y+hero.getHeight(null)/2;
+        int xFirst = myHero.getHero_x();
+        int xLast = myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
+        int yDiagonal = myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
             if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -502,9 +493,9 @@ public class Maze extends JPanel implements ActionListener {
         }
 
         /*vertical diagonal*/
-        int yFirst = hero_y;
-        int yLast = hero_y + hero.getHeight(null);
-        int xDiagonal = hero_x+hero.getWidth(null)/2;
+        int yFirst = myHero.getHero_y();
+        int yLast = myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
+        int xDiagonal = myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -535,33 +526,33 @@ public class Maze extends JPanel implements ActionListener {
 
 
     private boolean isWall(){
-        if(hero_x+req_dx<=BORDER+BRICK_SIZE*outsideWallCoef || hero_y+req_dy<=BORDER+BRICK_SIZE*outsideWallCoef){
+        if(myHero.getHero_x()+myHero.getDx()<=BORDER+BRICK_SIZE*outsideWallCoef || myHero.getHero_y()+myHero.getDy()<=BORDER+BRICK_SIZE*outsideWallCoef){
             return true;
         }
         int height = calculateMazeLength(this.bricks.size());
         int length = calculateMazeLength(this.bricks.get(0).length());
-        if(hero_x+hero.getWidth(null)+req_dx >= BORDER+length-BRICK_SIZE*outsideWallCoef ||
-                hero_y+hero.getHeight(null)+req_dy >= BORDER+height-BRICK_SIZE*outsideWallCoef){
+        if(myHero.getHero_x()+myHero.getHeroImage().getWidth(null)+myHero.getDx() >= BORDER+length-BRICK_SIZE*outsideWallCoef ||
+                myHero.getHero_y()+myHero.getHeroImage().getHeight(null)+myHero.getDy() >= BORDER+height-BRICK_SIZE*outsideWallCoef){
             return true;
         }
 
         int [] checkedAngles = new int [181];
 
-        if(req_dy>0){
+        if(myHero.getDy()>0){
             for(int i=0; i<checkedAngles.length; i++) {
                 checkedAngles [i] = i;
             }
-        } else if (req_dy<0){
+        } else if (myHero.getDy()<0){
             for(int i=0; i<checkedAngles.length; i++) {
                 checkedAngles [i] = i+180;
             }
         }
 
-        if(req_dx>0){
+        if(myHero.getDx()>0){
             for(int i=0; i<checkedAngles.length; i++) {
                 checkedAngles [i] = i-90;
             }
-        } else if (req_dx<0){
+        } else if (myHero.getDx()<0){
             for(int i=0; i<checkedAngles.length; i++) {
                 checkedAngles [i] = i+90;
             }
@@ -579,11 +570,11 @@ public class Maze extends JPanel implements ActionListener {
 
     private int isInnerWallForEllipse(int angle){
 
-        int x_center = hero.getWidth(null)/2;
-        int y_center = hero.getHeight(null)/2;
+        int x_center = myHero.getHeroImage().getWidth(null)/2;
+        int y_center = myHero.getHeroImage().getHeight(null)/2;
 
-        double rX = hero.getWidth(null)*findCos(angle)/2;
-        double rY = hero.getHeight(null)*findSin(angle)/2;
+        double rX = myHero.getHeroImage().getWidth(null)*findCos(angle)/2;
+        double rY = myHero.getHeroImage().getHeight(null)*findSin(angle)/2;
 
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
@@ -591,8 +582,8 @@ public class Maze extends JPanel implements ActionListener {
         //hero_x - реальная координата персонажа в окне
         //hero_x-BORDER-BRICK_SIZE*outsideWallCoef - координата персонажа относительно начала лабиринта
 
-        int x0 = req_dx+deltX+hero_x-BORDER-BRICK_SIZE*outsideWallCoef;
-        int y0 = req_dy+deltY+hero_y-BORDER-BRICK_SIZE*outsideWallCoef;
+        int x0 = myHero.getDx()+deltX+myHero.getHero_x()-BORDER-BRICK_SIZE*outsideWallCoef;
+        int y0 = myHero.getDy()+deltY+myHero.getHero_y()-BORDER-BRICK_SIZE*outsideWallCoef;
         int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
         int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
         int x1 =0;
@@ -797,7 +788,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private void drawNewEnemy(Graphics2D g2d) {
-        g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
+       // g2d.drawImage(hero, myHero.getHero_x() + 1, myHero.getHero_y() + 1, this);
 
         for (Enemy enemy : enemies) {
             if(enemy.isVisible() && inGame == true && enemy.getLvl() == gameLevel )
@@ -812,7 +803,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private void drawNewHero(Graphics2D g2d) {
-        g2d.drawImage(hero, hero_x + 1, hero_y + 1, this);
+        g2d.drawImage(myHero.getHeroImage(), myHero.getHero_x() + 1, myHero.getHero_y() + 1, this);
 
     }
 
@@ -831,13 +822,12 @@ public class Maze extends JPanel implements ActionListener {
         return this.BORDER;
     }
 
-
     public void setReq_dy(int req_dy) {
-        this.req_dy = req_dy;
+        this.myHero.setDy(req_dy);
     }
 
     public void setReq_dx(int req_dx) {
-        this.req_dx = req_dx;
+        this.myHero.setDx(req_dx);
     }
 }
 

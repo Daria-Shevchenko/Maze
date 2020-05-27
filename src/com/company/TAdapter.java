@@ -59,15 +59,14 @@ public class TAdapter extends KeyAdapter {
 
             if(m.isGameFinished() == true && m.isDying() == false) {
                 startPage.endPageWin();
-            }else if(m.isDying() == true){
-                startPage.endPageLoser();
             }
         }
-//        if(code == KeyEvent.VK_ENTER){
-//            m.nextLevel();
-//            System.out.println("keyPress ENTER "+m.gameLevel);
-//        }
-        if(code == KeyEvent.VK_ESCAPE){
+        if(code == KeyEvent.VK_ENTER){
+            startPage.endPageLoser();
+        }
+
+        if(code == KeyEvent.VK_ESCAPE)
+        {
             startPage.pausePage();
         }
         if(code == KeyEvent.VK_BACK_SPACE){

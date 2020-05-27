@@ -359,11 +359,28 @@ public class Maze extends JPanel implements ActionListener {
         if(isWall()){
             canMove = false;
         }
+        if(isEnemy()){
+            minusLive();
+            canMove = false;
+        }
         if(canMove){
             myHero.changeHero_x();
             myHero.changeHero_y();
         }
         repaint();
+    }
+
+    private void minusLive(){
+        quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
+        if(quantityOfPickedHeartsOnFinishedLevels>1){
+            quantityOfPickedHeartsOnFinishedLevels--;
+            writeToFileGameStatus((gameLevel-1) + "|" + quantityOfPickedHeartsOnFinishedLevels);
+            myHero.setHero_x(BORDER + BRICK_SIZE * outsideWallCoef + 1);
+            myHero.setHero_y(BORDER + BRICK_SIZE * outsideWallCoef + 1);
+        } else if(quantityOfPickedHeartsOnFinishedLevels==1){
+            dying = true;
+            writeToFileGameStatus(0 + "|" + 3);
+        }
     }
 
     private boolean isIntersectionBetweenHeroAndHeart(int angle){
@@ -524,6 +541,89 @@ public class Maze extends JPanel implements ActionListener {
         return false;
     }
 
+    private ArrayList<Enemy> getEnemiesFromCurrentLevel(){
+        ArrayList<Enemy> enemiesFromLevel = new ArrayList<>();
+        for(Enemy oneEnemy: enemies){
+            if(oneEnemy.getLvl() == gameLevel){
+                enemiesFromLevel.add(oneEnemy);
+            }
+        }
+        return enemiesFromLevel;
+    }
+
+
+    private boolean isIntersectionBetweenHeroAndEnemy(int angle){
+        int x_center = myHero.getHeroImage().getWidth(null)/2;
+        int y_center = myHero.getHeroImage().getHeight(null)/2;
+
+        double rX = myHero.getHeroImage().getWidth(null)*findCos(angle)/2;
+        double rY = myHero.getHeroImage().getHeight(null)*findSin(angle)/2;
+
+        int deltX = x_center + (int)(rX);
+        int deltY = y_center + (int)(rY);
+
+        int x0 = deltX+(int)myHero.getHero_x();
+        int y0 = deltY+(int)myHero.getHero_y();
+
+        ArrayList<Enemy> enemiesFromCurrentLevel = getEnemiesFromCurrentLevel();
+        for(Enemy oneEnemy: enemiesFromCurrentLevel) {
+            if (x0 >= oneEnemy.getX() && x0 <= oneEnemy.getX() + oneEnemy.getEnemyImg().getWidth(null)
+                    && y0 >= oneEnemy.getY() && y0 <= oneEnemy.getY() + oneEnemy.getEnemyImg().getHeight(null)) {
+                return true;
+            }
+
+            if (isIntersectionWithEnemyByDiagonal() == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isIntersectionWithEnemyByDiagonal(){
+        /*horizontal diagonal*/
+        ArrayList<Enemy> enemiesFromCurrentLevel = getEnemiesFromCurrentLevel();
+        for(Enemy oneEnemy: enemiesFromCurrentLevel) {
+            int xFirst = (int) myHero.getHero_x();
+            int xLast = (int) myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
+            int yDiagonal = (int) myHero.getHero_y() + myHero.getHeroImage().getHeight(null) / 2;
+
+            for (int x = xFirst; x <= xLast; x++) {
+                if (x >= oneEnemy.getX() && x <= oneEnemy.getX() + oneEnemy.getEnemyImg().getWidth(null)
+                        && yDiagonal >= oneEnemy.getY() && yDiagonal <= oneEnemy.getY() + oneEnemy.getEnemyImg().getHeight(null)) {
+                    return true;
+                }
+            }
+
+            /*vertical diagonal*/
+            int yFirst = (int) myHero.getHero_y();
+            int yLast = (int) myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
+            int xDiagonal = (int) myHero.getHero_x() + myHero.getHeroImage().getWidth(null) / 2;
+
+            for (int y = yFirst; y <= yLast; y++) {
+                if (xDiagonal >= oneEnemy.getX() && xDiagonal <= oneEnemy.getX() + oneEnemy.getEnemyImg().getWidth(null)
+                        && y >= oneEnemy.getY() && y <= oneEnemy.getY() + oneEnemy.getEnemyImg().getHeight(null)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isEnemy(){
+        int [] checkedAngles = new int [360];
+        for(int i=0; i<checkedAngles.length; i++) {
+            checkedAngles [i] = i;
+        }
+        for (int angle: checkedAngles) {
+            if(isIntersectionBetweenHeroAndEnemy(angle) == true){
+                System.out.println("isEnemy true -- dying");
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private boolean isWall(){
         if(myHero.getHero_x()+myHero.getDx()<=BORDER+BRICK_SIZE*outsideWallCoef || myHero.getHero_y()+myHero.getDy()<=BORDER+BRICK_SIZE*outsideWallCoef){
@@ -757,6 +857,18 @@ public class Maze extends JPanel implements ActionListener {
         } else {
 
         }
+        if(dying == true){
+            g2d.setColor(Color.YELLOW);
+            Font myFont = new Font("Calibri", Font.BOLD, 48);
+            g2d.setFont(myFont);
+            g2d.fillRect(200, 300, 400, 100);
+            g2d.setColor(Color.BLUE);
+            g2d.drawString("Game over!!!", 280, 360);
+            myFont = new Font("Calibri", Font.BOLD, 18);
+            g2d.setFont(myFont);
+            g2d.drawString("Press Enter to continue.", 310, 390);
+        }
+
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
     }
@@ -767,8 +879,6 @@ public class Maze extends JPanel implements ActionListener {
     private void playGame(Graphics2D g2d) {
 
         if (dying) {
-
-            //   death();
 
         } else {
 

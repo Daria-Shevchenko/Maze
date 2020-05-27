@@ -83,9 +83,11 @@ public class StartPage extends JFrame{
 
     // метод, що розпочинає роботу
     public void start(){
-        panelWithMaze.setGameFinished(false);
+        remove(panelWithMaze);
+        panelWithMaze = null;
         if (panel1!=null) {
             remove(panel1);
+            panel1=null;
         }
         setPreferredSize(new Dimension(width,height));
         reCreateWindow();
@@ -93,7 +95,8 @@ public class StartPage extends JFrame{
         add(panel1);
 
         this.pack();
-        setVisible(true);
+        panel1.setVisible(true);
+        this.setVisible(true);
     }
 
     /**

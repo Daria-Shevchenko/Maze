@@ -164,12 +164,13 @@ public class Enemy {
         if(checkCollision(frameW,frameH) == true){
             vel = -vel;
         }
-
+     //   double r = Math.random()-0.5;
+     //   int sign = (int) Math.signum(r);
         if (orient == 1){
-            x+=vel;
+            x+=vel/**sign*/;
         }
         if (orient == 2){
-            y+=vel;
+            y+=vel/**sign*/;
         }
     }
 

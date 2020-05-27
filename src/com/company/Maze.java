@@ -376,8 +376,8 @@ public class Maze extends JPanel implements ActionListener {
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
 
-        int x0 = deltX+myHero.getHero_x();
-        int y0 = deltY+myHero.getHero_y();
+        int x0 = deltX+(int)myHero.getHero_x();
+        int y0 = deltY+(int)myHero.getHero_y();
 
         if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
@@ -402,9 +402,9 @@ public class Maze extends JPanel implements ActionListener {
     private boolean isIntersectionWithHeartByDiagonal(){
 
         /*horizontal diagonal*/
-        int xFirst = myHero.getHero_x();
-        int xLast = myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
-        int yDiagonal = myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
+        int xFirst = (int)myHero.getHero_x();
+        int xLast = (int)myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
+        int yDiagonal = (int)myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
             if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -420,9 +420,9 @@ public class Maze extends JPanel implements ActionListener {
         }
 
         /*vertical diagonal*/
-        int yFirst = myHero.getHero_y();
-        int yLast = myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
-        int xDiagonal = myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
+        int yFirst = (int)myHero.getHero_y();
+        int yLast = (int)myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
+        int xDiagonal = (int)myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -464,8 +464,8 @@ public class Maze extends JPanel implements ActionListener {
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
 
-        int x0 = deltX+myHero.getHero_x();
-        int y0 = deltY+myHero.getHero_y();
+        int x0 = deltX+(int)myHero.getHero_x();
+        int y0 = deltY+(int)myHero.getHero_y();
 
         if(x0>=portal_x && x0<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=portal_y && y0<=portal_y+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
@@ -481,9 +481,9 @@ public class Maze extends JPanel implements ActionListener {
 
     private boolean isIntersectionWithPortalByDiagonal(){
         /*horizontal diagonal*/
-        int xFirst = myHero.getHero_x();
-        int xLast = myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
-        int yDiagonal = myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
+        int xFirst = (int)myHero.getHero_x();
+        int xLast = (int)myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
+        int yDiagonal = (int)myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
             if(x>=portal_x && x<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -493,9 +493,9 @@ public class Maze extends JPanel implements ActionListener {
         }
 
         /*vertical diagonal*/
-        int yFirst = myHero.getHero_y();
-        int yLast = myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
-        int xDiagonal = myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
+        int yFirst = (int)myHero.getHero_y();
+        int yLast = (int)myHero.getHero_y() + myHero.getHeroImage().getHeight(null);
+        int xDiagonal = (int)myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
             if(xDiagonal>=portal_x && xDiagonal<=portal_x+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
@@ -582,8 +582,8 @@ public class Maze extends JPanel implements ActionListener {
         //hero_x - реальная координата персонажа в окне
         //hero_x-BORDER-BRICK_SIZE*outsideWallCoef - координата персонажа относительно начала лабиринта
 
-        int x0 = myHero.getDx()+deltX+myHero.getHero_x()-BORDER-BRICK_SIZE*outsideWallCoef;
-        int y0 = myHero.getDy()+deltY+myHero.getHero_y()-BORDER-BRICK_SIZE*outsideWallCoef;
+        int x0 = (int)(myHero.getDx()+deltX+myHero.getHero_x()-BORDER-BRICK_SIZE*outsideWallCoef);
+        int y0 = (int)(myHero.getDy()+deltY+myHero.getHero_y()-BORDER-BRICK_SIZE*outsideWallCoef);
         int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
         int sY = (int)(y0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
         int x1 =0;
@@ -803,7 +803,7 @@ public class Maze extends JPanel implements ActionListener {
     }
 
     private void drawNewHero(Graphics2D g2d) {
-        g2d.drawImage(myHero.getHeroImage(), myHero.getHero_x() + 1, myHero.getHero_y() + 1, this);
+        g2d.drawImage(myHero.getHeroImage(), (int)myHero.getHero_x() + 1, (int)myHero.getHero_y() + 1, this);
 
     }
 

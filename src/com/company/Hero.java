@@ -7,6 +7,8 @@ public class Hero {
 
     private int level = 0;
 
+    private double [] heroSpeed = {1.15, 1.05, 0.85, 0.85, 0.75, 0.7};
+
     private double pictureProportionToCell = 0.8;
 
     private Image [] hero_images_for_levels = {
@@ -18,10 +20,10 @@ public class Hero {
 
     private Image heroImage;
 
-    private int hero_x;
-    private int hero_y;
-    private int dx=0;
-    private int dy=0;
+    private double hero_x;
+    private double hero_y;
+    private double dx=0;
+    private double dy=0;
 
     Hero(int new_level, int corridorLength, int hero_x0, int hero_y0){
         this.level = new_level;
@@ -32,11 +34,11 @@ public class Hero {
         this.hero_y = hero_y0;
     }
 
-    public int getHero_x() {
+    public double getHero_x() {
         return hero_x;
     }
 
-    public int getHero_y() {
+    public double getHero_y() {
         return hero_y;
     }
 
@@ -48,20 +50,20 @@ public class Hero {
         this.hero_y = this.hero_y + this.dy;
     }
 
-    public int getDx() {
+    public double getDx() {
         return dx;
     }
 
     public void setDx(int dx) {
-        this.dx = dx;
+        this.dx = dx*this.heroSpeed[this.level-1];
     }
 
-    public int getDy() {
+    public double getDy() {
         return dy;
     }
 
     public void setDy(int dy) {
-        this.dy = dy;
+        this.dy = dy*this.heroSpeed[this.level-1];
     }
 
     public Image getHeroImage() {

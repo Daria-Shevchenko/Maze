@@ -20,6 +20,14 @@ public class Hero {
 
     private Image heroImage;
 
+    public void setHero_x(double hero_x) {
+        this.hero_x = hero_x;
+    }
+
+    public void setHero_y(double hero_y) {
+        this.hero_y = hero_y;
+    }
+
     private double hero_x;
     private double hero_y;
     private double dx=0;

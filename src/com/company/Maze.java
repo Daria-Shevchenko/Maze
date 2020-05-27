@@ -58,8 +58,9 @@ public class Maze extends JPanel implements ActionListener {
     private int mazeHeight = 0;
     private int enemyW,enemyH;
 
-    Color [] mazeColorsForWalls = {Color.DARK_GRAY, Color.blue.darker(), Color.ORANGE.darker(), Color.magenta.darker(), Color.GREEN.darker(), Color.red.darker()};
-    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, Color.cyan.brighter(), Color.YELLOW.brighter(), Color.pink.darker(), Color.GREEN.brighter(), Color.pink};
+    Color [] mazeColorsForWalls = {Color.DARK_GRAY, new Color(24, 32, 75), new Color(34, 56, 37), new Color(59, 58, 37), new Color(48, 40, 30), new Color(42, 11, 7)};
+    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, new Color(73, 80, 115), new Color(70, 129, 80), new Color(163, 155, 65), new Color(164, 112, 48), new Color(120, 79, 74)};
+
     Color corridorColor;
     Color wallColor;
     //Color enemyColor = Color.RED.darker();

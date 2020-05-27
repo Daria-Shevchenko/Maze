@@ -246,7 +246,6 @@ public class StartPage extends JFrame{
         panel1.add(title);
         panel1.add(startButton);
 
-
         panel1.setLayout(null);
         revalidate();
         repaint();

@@ -229,7 +229,7 @@ public class Maze extends JPanel implements ActionListener {
      //   System.out.println("loadImages");
         Toolkit t=Toolkit.getDefaultToolkit();
         heart = t.getImage("src/images/other/heart_red_s.png");
-        portal = new ImageIcon("src/images/other/heart_black_s.png").getImage();
+        portal = new ImageIcon("src/images/other/portal.png").getImage();
      }
 
     public void nextLevel(){
@@ -847,8 +847,9 @@ public class Maze extends JPanel implements ActionListener {
 
                         portal_x = x+currentBRICK_SIZE_X/ pictureShift;
                         portal_y = y+currentBRICK_SIZE_X/ pictureShift;
+                        int pictureLength = pictureShift-1;
 
-                        g2d.drawImage(portal,portal_x,portal_y, pictureLengthInCell *currentBRICK_SIZE_X/ pictureShift, pictureLengthInCell *currentBRICK_SIZE_Y/ pictureShift,this);
+                        g2d.drawImage(portal,x,y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y,this);
 
                         map[j][i] = 2;
                     }

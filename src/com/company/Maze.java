@@ -458,6 +458,7 @@ public class Maze extends JPanel implements ActionListener {
             writeToFileGameStatus((gameLevel-1) + "|" + defaultHeroLives);
         }
 
+
       /*  if(quantityOfPickedHeartsOnFinishedLevels>1){
             quantityOfPickedHeartsOnFinishedLevels--;
             writeToFileGameStatus((gameLevel-1) + "|" + quantityOfPickedHeartsOnFinishedLevels);

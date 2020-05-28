@@ -8,15 +8,18 @@ public class Hero {
     private int level = 0;
 
     public void setHeroSpeed(double new_heroSpeed, int level) {
-        this.heroSpeed [level] = new_heroSpeed;
+
+        if(new_heroSpeed<=this.minSpeed+0.5 && new_heroSpeed>=this.minSpeed)
+            this.heroSpeed [level] = new_heroSpeed;
     }
 
     public double getHeroSpeed(int level){
         return this.heroSpeed[level];
     }
 
-    private double [] heroSpeed = {1.2, 1.1, 1, 1, 0.75, 0.75};
+    private double [] heroSpeed = {1, 1.2, 1, 1, 0.9, 1};
 
+    private double minSpeed ;
     private double pictureProportionToCell = 0.8;
 
     private Image [] hero_images_for_levels = {
@@ -57,6 +60,7 @@ public class Hero {
 
     Hero(int new_level, int new_corridorLength, int hero_x0, int hero_y0){
         this.level = new_level;
+        this.minSpeed =heroSpeed[level-1];
         this.corridorLength = new_corridorLength;
         this.heroOriginal = hero_images_for_levels[this.level-1];
         double length = corridorLength*pictureProportionToCell;

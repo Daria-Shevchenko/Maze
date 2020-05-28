@@ -33,6 +33,7 @@ public class StartPage extends JFrame{
     // конструктор класу для апп, створення основного вікна
     StartPage(String title){
         super(title);
+    //    System.out.println("StartPage - it is Constructor");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -54,9 +55,9 @@ public class StartPage extends JFrame{
         bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
-        panelWithMaze = new Maze(bricksLevels);
-        setFocusable(true);
-        setLocationRelativeTo(null);
+      //  panelWithMaze = new Maze(bricksLevels);
+      //  setFocusable(true);
+      //  setLocationRelativeTo(null);
         start();
 
 
@@ -83,7 +84,8 @@ public class StartPage extends JFrame{
 
     // метод, що розпочинає роботу
     public void start(){
-        remove(panelWithMaze);
+     //   System.out.println("start");
+     //   remove(panelWithMaze);
         panelWithMaze = null;
         if (panel1!=null) {
             remove(panel1);
@@ -103,6 +105,7 @@ public class StartPage extends JFrame{
      * запускає стартову сторінку
      */
     private void startPage(){
+     //   System.out.println("startPage");
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
@@ -135,6 +138,7 @@ public class StartPage extends JFrame{
      * відкриває 1 лабіринт
      */
     private void firstMaze(){
+     //   System.out.println("firstMaze");
         panel1.removeAll();
       //  revalidate();
       //  repaint();
@@ -169,6 +173,7 @@ public class StartPage extends JFrame{
      * відкриває фінальну сторінку з виграшем
      */
     public void endPageWin(){
+     //   System.out.println("endPageWin");
         panel1.removeAll();
         panelWithMaze.removeAll();
         panelWithMaze.revalidate();
@@ -214,6 +219,7 @@ public class StartPage extends JFrame{
      * відкриває фінальну сторінку з програшем
      */
     public void endPageLoser(){
+    //    System.out.println("endPageLoser");
         panel1.removeAll();
         revalidate();
         repaint();
@@ -255,6 +261,7 @@ public class StartPage extends JFrame{
     }
 
     private void reCreateWindow(){
+    //    System.out.println("reCreationWindow");
         panelWithMaze = new Maze(bricksLevels);
         this.addKeyListener(new TAdapter(panelWithMaze,this));
         setFocusable(true);
@@ -265,6 +272,7 @@ public class StartPage extends JFrame{
      * відкриває фінальну сторінку з паузою
      */
     public void pausePage(){
+     //   System.out.println("pausePage");
         panelWithMaze.setInGame(false);
         panel1.removeAll();
         revalidate();

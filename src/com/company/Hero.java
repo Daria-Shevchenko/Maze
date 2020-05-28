@@ -7,7 +7,7 @@ public class Hero {
 
     private int level = 0;
 
-    private double [] heroSpeed = {1.15, 1.05, 0.85, 0.85, 0.75, 0.7};
+    private double [] heroSpeed = {1.2, 1.1, 1, 1, 0.75, 0.75};
 
     private double pictureProportionToCell = 0.8;
 
@@ -19,6 +19,19 @@ public class Hero {
     private Image heroOriginal;
 
     private Image heroImage;
+
+    private int heroRadius = 0;
+
+    public int getHeroCenter_x() {
+        return heroCenter_x;
+    }
+
+    public int getHeroCenter_y() {
+        return heroCenter_y;
+    }
+
+    private int heroCenter_x= 0;
+    private int heroCenter_y = 0;
 
     public void setHero_x(double hero_x) {
         this.hero_x = hero_x;
@@ -32,9 +45,11 @@ public class Hero {
     private double hero_y;
     private double dx=0;
     private double dy=0;
+    private int corridorLength = 0;
 
-    Hero(int new_level, int corridorLength, int hero_x0, int hero_y0){
+    Hero(int new_level, int new_corridorLength, int hero_x0, int hero_y0){
         this.level = new_level;
+        this.corridorLength = new_corridorLength;
         this.heroOriginal = hero_images_for_levels[this.level-1];
         double length = corridorLength*pictureProportionToCell;
         this.heroImage = heroOriginal.getScaledInstance((int)length, (int)length, Image.SCALE_DEFAULT);
@@ -72,6 +87,16 @@ public class Hero {
 
     public void setDy(int dy) {
         this.dy = dy*this.heroSpeed[this.level-1];
+    }
+
+    public int getHeroRadius() {
+        return heroRadius;
+    }
+
+    public void setHeroRadiusAndCenter() {
+        this.heroRadius = (int)(corridorLength*pictureProportionToCell/2);
+        this.heroCenter_x = (int)(corridorLength*pictureProportionToCell/2);
+        this.heroCenter_y = (int)(corridorLength*pictureProportionToCell/2);
     }
 
     public Image getHeroImage() {

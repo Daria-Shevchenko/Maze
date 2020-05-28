@@ -34,6 +34,30 @@ public class Enemy {
     private Point finish;
     private double vel;
 
+    public int getEnemyRadius() {
+        return enemyRadius;
+    }
+
+    public void setEnemyRadiusAndCenter(){
+        this.enemyRadius = (int)((this.width+this.height)/4);
+        this.enemyCenter_x = this.width/2;
+        this.enemyCenter_y = this.height/2;
+    }
+
+    private int enemyRadius = 0;
+
+    public int getEnemyCenter_x() {
+        return enemyCenter_x;
+    }
+
+    private int enemyCenter_x = 0;
+
+    public int getEnemyCenter_y() {
+        return enemyCenter_y;
+    }
+
+    private int enemyCenter_y = 0;
+
     /**
      *  orient = 0  - if don`t move
      *  orient = 1 - move on X

@@ -51,8 +51,7 @@ public class TAdapter extends KeyAdapter {
             if(m.isInGame()==true && m.isDying() == false){
 
                 if(m.isHeart())
-                    m.addHeartsOnLvl();
-
+                    m.addHeroLives();
                 if(m.isPortal())
                     m.nextLevel();
             }
@@ -69,6 +68,12 @@ public class TAdapter extends KeyAdapter {
         {
             startPage.pausePage();
         }
+
+        if(code == KeyEvent.VK_PLUS)
+        {
+
+        }
+
         if(code == KeyEvent.VK_BACK_SPACE){
 
 

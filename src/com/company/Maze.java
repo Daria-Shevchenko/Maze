@@ -31,8 +31,10 @@ public class Maze extends JPanel implements ActionListener {
 
     private Heart heart1 = new Heart(),
             heart2 = new Heart();
-    private int quantityOfPickedHeartsOnFinishedLevels = 3;
-    private int quantityOfPickedHeartsOnCurrentLevel = 0;
+
+
+    private int heroLives = 3;
+    private int heroLivesOnLevelStart = 3;
 
     private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
     private Timer timer;
@@ -147,15 +149,25 @@ public class Maze extends JPanel implements ActionListener {
         this.dying = dying;
     }
 
-    public int getHeartsOnLvl(){
-        return quantityOfPickedHeartsOnCurrentLevel;
-    }
-    public void addHeartsOnLvl(){
-        quantityOfPickedHeartsOnCurrentLevel++;
+    public void addHeroLives(){
+        heroLives++;
+        writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
+        System.out.println(heroLives);
     }
 
-    public int getQuantityOfHearts()  {
-        return quantityOfPickedHeartsOnFinishedLevels+quantityOfPickedHeartsOnCurrentLevel;
+    public void setHeroLives(int new_heroLives) {
+        this.heroLives = new_heroLives;
+        this.heroLivesOnLevelStart = new_heroLives;
+        writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
+        System.out.println(heroLives);
+    }
+
+    public int getHeroLivesOnLevelStart() {
+        return heroLivesOnLevelStart;
+    }
+
+    public int getHeroLives(){
+        return heroLives;
     }
 
     /**
@@ -198,7 +210,7 @@ public class Maze extends JPanel implements ActionListener {
                 // "|" is a symbol used to separate fields in saved file
                 String[] record = str.split("[|]");
                 gameLevel = Integer.parseInt(record[0]);
-                quantityOfPickedHeartsOnFinishedLevels = Integer.parseInt(record[1]);
+                heroLives = Integer.parseInt(record[1]);
 
             }
             rd.close();
@@ -225,12 +237,12 @@ public class Maze extends JPanel implements ActionListener {
         readGameStatusFromFile();
         if(gameLevel<MAX_gamelevel) {
             gameLevel++;
-            quantityOfPickedHeartsOnCurrentLevel = 0;
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
             heart2.setShow(true);
             myHero = new Hero(gameLevel, BRICK_SIZE*coefficientCorridor, BORDER + BRICK_SIZE * outsideWallCoef + 1, BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHeroRadiusAndCenter();
+            heroLivesOnLevelStart = heroLives;
             this.bricks = this.bricksLevels.get(gameLevel-1);
             wallColor = mazeColorsForWalls[gameLevel-1];
             corridorColor = mazeColorsForCorridors[gameLevel-1];
@@ -265,57 +277,57 @@ public class Maze extends JPanel implements ActionListener {
         /**
          * 1 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,4), new Point(18,4),1,1));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,6), new Point(6,8),1,1));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(16,10), new Point(18,10),1,1));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,4), new Point(18,4),0.2,1));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,6), new Point(6,8),0.2,1));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(16,10), new Point(18,10),0.2,1));
 
         /**
          * 2 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(18,2), new Point(18,4),0.5,2));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,4), new Point(10,8),0.75,2));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,12), new Point(14,16),1,2));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(18,2), new Point(18,4),0.3,2));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,4), new Point(10,8),0.3,2));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,12), new Point(14,16),0.3,2));
 
         /**
          * 3 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(18,6 ), new Point(22,6),1,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,8), new Point(16,8),1,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),1,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(16,14), new Point(16,16),1,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(18,6 ), new Point(22,6),0.4,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,8), new Point(16,8),0.4,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),0.4,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(16,14), new Point(16,16),0.4,3));
 
         /**
          * 4 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(16,6),1,4));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8), new Point(14,10),1,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(16,6),0.5,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8), new Point(14,10),0.5,4));
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(22,10), new Point(24,10),1,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(22,10), new Point(24,10),0.5,4));
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(22,14), new Point(24,14),1,4));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,16), new Point(6,18),1,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(22,14), new Point(24,14),0.5,4));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,16), new Point(6,18),0.5,4));
 
         /**
          * 5 lvl
          */
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(8,4 ), new Point(10,4),1,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(24,6 ), new Point(26,6),1,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,10 ), new Point(6,14),1,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,12 ), new Point(16,12),1,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,18 ), new Point(18,18),1,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(8,4 ), new Point(10,4),0.6,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(24,6 ), new Point(26,6),0.6,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,10 ), new Point(6,14),0.6,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,12 ), new Point(16,12),0.6,5));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(12,18 ), new Point(18,18),0.6,5));
 
         /**
          * 6 lvl
          */
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(18,6),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(24,8), new Point(24,14),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,12), new Point(6,16),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),1,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(26,18), new Point(26,22),1,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(18,6),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(24,8), new Point(24,14),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(6,12), new Point(6,16),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),0.7,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(26,18), new Point(26,22),0.7,6));
 
         for(Enemy everyEnemy : enemies){
             everyEnemy.setEnemyRadiusAndCenter();
@@ -407,6 +419,7 @@ public class Maze extends JPanel implements ActionListener {
         inGame=false;
         gameFinished = true;
         writeToFileGameStatus(0 + "|" + 3);
+        System.out.println(3);
     }
 
     @Override
@@ -434,8 +447,20 @@ public class Maze extends JPanel implements ActionListener {
 
     private void minusLive(){
       //  System.out.println("minusLife");
-        quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
-        if(quantityOfPickedHeartsOnFinishedLevels>1){
+
+        if(heroLives>1){
+            heroLives--;
+            writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
+            System.out.println(heroLives);
+            myHero.setHero_x(BORDER + BRICK_SIZE * outsideWallCoef + 1);
+            myHero.setHero_y(BORDER + BRICK_SIZE * outsideWallCoef + 1);
+        } else if(heroLives == 1){
+            dying = true;
+            writeToFileGameStatus(0 + "|" + 3);
+            System.out.println(3);
+        }
+
+      /*  if(quantityOfPickedHeartsOnFinishedLevels>1){
             quantityOfPickedHeartsOnFinishedLevels--;
             writeToFileGameStatus((gameLevel-1) + "|" + quantityOfPickedHeartsOnFinishedLevels);
             myHero.setHero_x(BORDER + BRICK_SIZE * outsideWallCoef + 1);
@@ -444,6 +469,7 @@ public class Maze extends JPanel implements ActionListener {
             dying = true;
             writeToFileGameStatus(0 + "|" + 3);
         }
+       */
     }
 
     private boolean isIntersectionBetweenHeroAndHeart(int angle){
@@ -591,8 +617,8 @@ public class Maze extends JPanel implements ActionListener {
       //  System.out.println("isPortal");
         for (int i = 0; i < numberOfAngles; i++) {
             if(isIntersectionBetweenHeroAndPortal(i) == true){
-                quantityOfPickedHeartsOnFinishedLevels = quantityOfPickedHeartsOnFinishedLevels + quantityOfPickedHeartsOnCurrentLevel;
-                writeToFileGameStatus(gameLevel + "|" + quantityOfPickedHeartsOnFinishedLevels);
+                writeToFileGameStatus(gameLevel + "|" + heroLives);
+                System.out.println(heroLives);
                 System.out.println("isPortal true -- next level");
                 return true;
             }
@@ -885,6 +911,7 @@ public class Maze extends JPanel implements ActionListener {
         drawMaze(g2d);
 
    //     drawParameters(g2d);
+        drawLives(g2d);
 
         testEnemy();
         if (inGame) {
@@ -906,6 +933,15 @@ public class Maze extends JPanel implements ActionListener {
 
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
+    }
+
+    private void drawLives(Graphics2D g2d){
+        g2d.setColor(Color.RED.brighter());
+        Font myFont = new Font("Calibri", Font.BOLD, 32);
+        g2d.setFont(myFont);;
+        g2d.drawString("hero_lives = " + heroLives, 40, 20);
+      //  g2d.drawString("hero_lives_on_level_start = " + heroLivesOnLevelStart, 40, 40);
+
     }
 
     private void drawParameters(Graphics2D g2d){

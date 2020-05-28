@@ -29,6 +29,8 @@ public class StartPage extends JFrame{
 
     public Maze panelWithMaze;
 
+    private int lives = 0;
+
     StartPage(){}
     // конструктор класу для апп, створення основного вікна
     StartPage(String title){
@@ -39,11 +41,13 @@ public class StartPage extends JFrame{
             @Override
             public void windowClosed(WindowEvent e) {
                 panelWithMaze.setInGame(false);
+                panelWithMaze.setHeroLives(panelWithMaze.getHeroLivesOnLevelStart());
             }
 
             @Override
             public void windowClosing(WindowEvent e) {
                 panelWithMaze.setInGame(false);
+                panelWithMaze.setHeroLives(panelWithMaze.getHeroLivesOnLevelStart());
             }
         });
         this.setSize(width,height);
@@ -274,6 +278,7 @@ public class StartPage extends JFrame{
     public void pausePage(){
      //   System.out.println("pausePage");
         panelWithMaze.setInGame(false);
+        lives = panelWithMaze.getHeroLivesOnLevelStart();
         panel1.removeAll();
         revalidate();
         repaint();
@@ -288,6 +293,7 @@ public class StartPage extends JFrame{
             public void actionPerformed(ActionEvent e){
                 reCreateWindow();
                 firstMaze();
+                panelWithMaze.setHeroLives(lives);
             }
         });
 

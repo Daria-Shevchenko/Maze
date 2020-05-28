@@ -170,6 +170,14 @@ public class Maze extends JPanel implements ActionListener {
         return heroLives;
     }
 
+    public void setMyHeroSpeed(double new_heroSpeed, int level) {
+        this.myHero.setHeroSpeed(new_heroSpeed, level);
+    }
+
+    public double getMyHeroSpeed(int level){
+        return this.myHero.getHeroSpeed(level);
+    }
+
     /**
      *
      * FILE - GAME STATUS
@@ -938,8 +946,8 @@ public class Maze extends JPanel implements ActionListener {
     private void drawLives(Graphics2D g2d){
         g2d.setColor(Color.RED.brighter());
         Font myFont = new Font("Calibri", Font.BOLD, 32);
-        g2d.setFont(myFont);;
-        g2d.drawString("hero_lives = " + heroLives, 40, 20);
+        g2d.setFont(myFont);
+        g2d.drawString("hero_lives = " + heroLives + "     hero_speed = " + myHero.getHeroSpeed(gameLevel-1), 40, 20);
       //  g2d.drawString("hero_lives_on_level_start = " + heroLivesOnLevelStart, 40, 40);
 
     }

@@ -69,10 +69,45 @@ public class TAdapter extends KeyAdapter {
             startPage.pausePage();
         }
 
-        if(code == KeyEvent.VK_PLUS)
+        if((code == KeyEvent.VK_EQUALS) && (e.isShiftDown()==false))
         {
-
+            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
+            m.setMyHeroSpeed(1, m.gameLevel-1);
         }
+        if(code == KeyEvent.VK_ADD)
+        {
+            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
+            m.setMyHeroSpeed(new_speed*1.05, m.gameLevel-1);
+        }
+
+        if((code == KeyEvent.VK_EQUALS) && (e.isShiftDown()))
+        {
+            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
+            m.setMyHeroSpeed(new_speed*1.05, m.gameLevel-1);
+        }
+
+        if(code == KeyEvent.VK_MINUS)
+        {
+            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
+            m.setMyHeroSpeed(new_speed/1.05, m.gameLevel-1);
+        }
+
+
+        if(code == KeyEvent.VK_SUBTRACT)
+        {
+            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
+            m.setMyHeroSpeed(new_speed/1.05, m.gameLevel-1);
+        }
+
+       /* if(code == KeyEvent.VK_PAGE_UP)
+        {
+        }
+
+        if(code == KeyEvent.VK_PAGE_DOWN)
+        {
+        }
+        */
+
 
         if(code == KeyEvent.VK_BACK_SPACE){
 

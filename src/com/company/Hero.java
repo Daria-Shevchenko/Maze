@@ -7,6 +7,14 @@ public class Hero {
 
     private int level = 0;
 
+    public void setHeroSpeed(double new_heroSpeed, int level) {
+        this.heroSpeed [level] = new_heroSpeed;
+    }
+
+    public double getHeroSpeed(int level){
+        return this.heroSpeed[level];
+    }
+
     private double [] heroSpeed = {1.2, 1.1, 1, 1, 0.75, 0.75};
 
     private double pictureProportionToCell = 0.8;

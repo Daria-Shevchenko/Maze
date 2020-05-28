@@ -77,7 +77,7 @@ public class Enemy {
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         this.orient = 0;
         foundOrient();
-        System.out.println("enemy created");
+     //   System.out.println("enemy created");
     }
     Enemy(int w, int h){
         this.visible = false;
@@ -90,7 +90,7 @@ public class Enemy {
         this.vel = 0;
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         foundOrient();
-        System.out.println("enemy created");
+     //   System.out.println("enemy created");
     }
     Enemy(int w, int h, Point s, Point f, double vel,int lvl){
         this.lvl = lvl;
@@ -104,7 +104,7 @@ public class Enemy {
         this.vel = vel;
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         foundOrient();
-        System.out.println("enemy created");
+      //  System.out.println("enemy created");
     }
 
     public Image getEnemyImg() {

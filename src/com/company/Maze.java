@@ -32,9 +32,9 @@ public class Maze extends JPanel implements ActionListener {
     private Heart heart1 = new Heart(),
             heart2 = new Heart();
 
-
-    private int heroLives = 3;
-    private int heroLivesOnLevelStart = 3;
+    private int defaultHeroLives = 3;
+    private int heroLives = defaultHeroLives;
+    private int heroLivesOnLevelStart = defaultHeroLives;
 
     private String pathToFileWithGameStatus = "src/mazeFiles/levelStatus.txt";
     private Timer timer;
@@ -152,14 +152,14 @@ public class Maze extends JPanel implements ActionListener {
     public void addHeroLives(){
         heroLives++;
         writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
-        System.out.println(heroLives);
+      //  System.out.println(heroLives);
     }
 
     public void setHeroLives(int new_heroLives) {
         this.heroLives = new_heroLives;
         this.heroLivesOnLevelStart = new_heroLives;
         writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
-        System.out.println(heroLives);
+     //   System.out.println(heroLives);
     }
 
     public int getHeroLivesOnLevelStart() {
@@ -418,8 +418,7 @@ public class Maze extends JPanel implements ActionListener {
      //   System.out.println("gameOver");
         inGame=false;
         gameFinished = true;
-        writeToFileGameStatus(0 + "|" + 3);
-        System.out.println(3);
+        writeToFileGameStatus(0 + "|" + defaultHeroLives);
     }
 
     @Override
@@ -451,13 +450,12 @@ public class Maze extends JPanel implements ActionListener {
         if(heroLives>1){
             heroLives--;
             writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
-            System.out.println(heroLives);
+           // System.out.println(heroLives);
             myHero.setHero_x(BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHero_y(BORDER + BRICK_SIZE * outsideWallCoef + 1);
         } else if(heroLives == 1){
             dying = true;
-            writeToFileGameStatus(0 + "|" + 3);
-            System.out.println(3);
+            writeToFileGameStatus((gameLevel-1) + "|" + defaultHeroLives);
         }
 
       /*  if(quantityOfPickedHeartsOnFinishedLevels>1){
@@ -618,7 +616,7 @@ public class Maze extends JPanel implements ActionListener {
         for (int i = 0; i < numberOfAngles; i++) {
             if(isIntersectionBetweenHeroAndPortal(i) == true){
                 writeToFileGameStatus(gameLevel + "|" + heroLives);
-                System.out.println(heroLives);
+             //   System.out.println(heroLives);
                 System.out.println("isPortal true -- next level");
                 return true;
             }

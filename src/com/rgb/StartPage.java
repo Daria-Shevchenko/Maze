@@ -124,7 +124,7 @@ public class StartPage extends JFrame{
         titleSmall.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 
         JButton startButton =new JButton("START!");
-        startButton.setBackground(Color.yellow);
+        startButton.setBackground(new Color(245, 183, 15));
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
 
@@ -308,23 +308,9 @@ public class StartPage extends JFrame{
             }
         });
 
-        JButton backToStart =new JButton("BACK TO START");
-        backToStart.setBounds(420,400,200,50);
-        backToStart.setBackground(Color.black);
-        backToStart.setForeground(Color.WHITE);
-        backToStart.setFont(new Font("Times New Roman", Font.BOLD,20));
-        backToStart.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                reCreateWindow();
-                start();
-
-
-            }
-        });
 
         panel1.add(continueGame);
         panel1.add(startAgain);
-        panel1.add(backToStart);
 
         panel1.setLayout(null);
         revalidate();

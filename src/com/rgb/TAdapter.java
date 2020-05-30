@@ -68,37 +68,20 @@ public class TAdapter extends KeyAdapter {
         {
             startPage.pausePage();
         }
-
-        if((code == KeyEvent.VK_E) && (e.isShiftDown()==false))
-        {
-            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
-            m.setMyHeroSpeed(1, m.gameLevel-1);
-        }
         if(code == KeyEvent.VK_A)
         {
             double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
             m.setMyHeroSpeed(new_speed*1.05, m.gameLevel-1);
         }
-
-        if((code == KeyEvent.VK_E) && (e.isShiftDown()))
-        {
-            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
-            m.setMyHeroSpeed(new_speed*1.05, m.gameLevel-1);
-        }
-
         if(code == KeyEvent.VK_D)
         {
             double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
             m.setMyHeroSpeed(new_speed/1.05, m.gameLevel-1);
         }
-
-
         if(code == KeyEvent.VK_S)
         {
-            double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
-            m.setMyHeroSpeed(new_speed/1.05, m.gameLevel-1);
+            m.setMyHeroSpeed(1, m.gameLevel-1);
         }
-
        /* if(code == KeyEvent.VK_PAGE_UP)
         {
         }
@@ -107,11 +90,7 @@ public class TAdapter extends KeyAdapter {
         {
         }
         */
-
-
         if(code == KeyEvent.VK_BACK_SPACE){
-
-
             System.out.println("____________________-");
             for(int i=0;i<m.bricks.size();i++){
                 for(int k=0;k<m.bricks.get(0).length();k++){

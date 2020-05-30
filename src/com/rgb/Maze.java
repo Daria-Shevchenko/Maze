@@ -281,6 +281,10 @@ public class Maze extends JPanel implements ActionListener {
         }
     }
 
+
+    /**
+     * Create a list of enemies for game levels
+     */
     private void listOfEnemies() {
      //   System.out.println("listOfEnemies");
         enemyH = 50;
@@ -347,9 +351,10 @@ public class Maze extends JPanel implements ActionListener {
 
     }
 
-
+    /**
+     * Add enemies to the game map
+     */
     private void enemyOnMap() {
-      //  System.out.println("enemyOnMap");
         sf = new HashMap<Point, Point>();
 
         for (Enemy enemy : enemies) {
@@ -366,8 +371,10 @@ public class Maze extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Change the coordinates of enemies trajectories from the map representing to frame representing
+     */
     private void addEnemyToMaze() {
-    //    System.out.println("addEnemyToMaze");
         int currentBRICK_SIZE_Y = BRICK_SIZE;
         int currentBRICK_SIZE_X = BRICK_SIZE;
         int height = calculateMazeLength(this.bricks.size());

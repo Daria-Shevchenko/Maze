@@ -20,6 +20,8 @@ import java.util.Scanner;
 public class Maze extends JPanel implements ActionListener {
     /*enemySize is size of enemy picture*/
     private int enemySize;
+    /*enemyProportion is proportion of enemy picture to the cell*/
+    private double enemyProportion = 0.8;
     /*enemies is arraylist of all enemies*/
     private  ArrayList<Enemy> enemies = new ArrayList<>();
     /*sf is variable which has start and finish points of enemy movement*/
@@ -122,8 +124,6 @@ public class Maze extends JPanel implements ActionListener {
         /*Set delay to timer and start the timer*/
         timer  = new Timer(5, this);
         timer.start();
-        /*Create list of enemies*/
-        listOfEnemies();
         /*Prepare game for next level*/
         nextLevel();
         /*Calculate and fill sinOfAngle, cosOfAngle, deltX, deltY with values*/
@@ -310,8 +310,9 @@ public class Maze extends JPanel implements ActionListener {
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
             heart2.setShow(true);
-
-            enemySize = BRICK_SIZE*coefficientCorridor;
+            enemySize = (int)(BRICK_SIZE*coefficientCorridor*enemyProportion);
+            /*Create list of enemies*/
+            listOfEnemies();
             myHero = new Hero(gameLevel, BRICK_SIZE*coefficientCorridor, BORDER + BRICK_SIZE * outsideWallCoef + 1, BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHeroRadiusAndCenter();
             heroLivesOnLevelStart = heroLives;
@@ -340,8 +341,8 @@ public class Maze extends JPanel implements ActionListener {
      * Create a list of enemies for game levels
      */
     private void listOfEnemies() {
-        enemyW = 50;
-        enemyH = 50;
+        enemyW = enemySize;
+        enemyH = enemySize;
         /**
          * 1 lvl
          */
@@ -427,12 +428,7 @@ public class Maze extends JPanel implements ActionListener {
      * Change the coordinates of enemies trajectories from the map representing to frame representing
      */
     private void addEnemyToMaze() {
-        enemySize *= 0.8;
-        for (Enemy enemy : enemies) {
-            enemy.setHeight(enemySize);
-            enemy.setWidth(enemySize);
-        }
-        enemySize /= 0.8;
+
         int currentBRICK_SIZE_Y = BRICK_SIZE;
         int currentBRICK_SIZE_X = BRICK_SIZE;
         int height = calculateMazeLength(this.bricks.size());
@@ -916,7 +912,7 @@ public class Maze extends JPanel implements ActionListener {
 
         drawMaze(g2d);
 
-   //     drawParameters(g2d);
+      //  drawParameters(g2d);
         drawLives(g2d);
 
         if (inGame) {
@@ -954,12 +950,35 @@ public class Maze extends JPanel implements ActionListener {
     private void drawParameters(Graphics2D g2d){
         g2d.setColor(Color.YELLOW);
         Font myFont = new Font("Calibri", Font.BOLD, 24);
-        g2d.setFont(myFont);;
+        g2d.setFont(myFont);
         g2d.drawString("hero_x = " + myHero.getHero_x(), 40, 200);
         g2d.drawString("hero_y = " + myHero.getHero_y(), 40, 220);
-        g2d.drawString("hero_DX = " + myHero.getDx(), 40, 240);
-        g2d.drawString("hero_DY = " + myHero.getDy(), 40, 260);
+      //  g2d.drawString("hero_DX = " + myHero.getDx(), 40, 240);
+       // g2d.drawString("hero_DY = " + myHero.getDy(), 40, 260);
+      //  g2d.drawString("hero_Radius = " + myHero.getDy(), 40, 260);
+      //  g2d.drawString("hero_DY = " + myHero.getDy(), 40, 260);
+        int i = 1;
+        int k = 200;
+        for(Enemy theEnemy : enemiesFromCurrentLevel) {
+            g2d.setColor(Color.WHITE);
+            g2d.drawString("Enemy radius = "+theEnemy.getEnemyRadius(), 550, 40);
+            g2d.drawString("Enemy center x = "+theEnemy.getEnemyCenter_x(), 550, 60);
+            g2d.drawString("Enemy center y = "+theEnemy.getEnemyCenter_y(), 550, 80);
+            g2d.drawString("Hero radius = "+myHero.getHeroRadius(), 550, 100);
+            g2d.drawString("Hero center x = "+myHero.getHeroCenter_x(), 550, 120);
+            g2d.drawString("Hero center y= "+myHero.getHeroCenter_y(), 550, 140);
 
+            g2d.drawString("Enemy x = "+(int)theEnemy.getX(), 400, k);
+            g2d.drawString("Enemy y = "+(int)theEnemy.getY(), 400, (k+20));
+
+                g2d.setColor(Color.YELLOW);
+                g2d.setFont(myFont);
+                g2d.drawString(i + " radius h + e " + (myHero.getHeroRadius() + theEnemy.getEnemyRadius()), 550, k);
+                g2d.drawString(i + " distance h and e " + (getDistance(myHero.getHeroCenter_x() + (int) myHero.getHero_x(), myHero.getHeroCenter_y() + (int) myHero.getHero_y(),
+                        theEnemy.getEnemyCenter_x() + (int) theEnemy.getX(), theEnemy.getEnemyCenter_y() + (int) theEnemy.getY())), 550, (k + 20));
+                i++;
+                k = k + 50;
+        }
     }
     /*Draws hero and enemies
      * @param g2d - A Graphics2D used to drawing hero and enemies on jpanel*/
@@ -975,7 +994,7 @@ public class Maze extends JPanel implements ActionListener {
     /*Draws hero
      * @param g2d - A Graphics2D used to drawing hero on jpanel*/
     private void drawHero(Graphics2D g2d) {
-        g2d.drawImage(myHero.getHeroImage(), (int)myHero.getHero_x() + 1, (int)myHero.getHero_y() + 1, this);
+        g2d.drawImage(myHero.getHeroImage(), (int)myHero.getHero_x(), (int)myHero.getHero_y(), this);
     }
     /*Draws enemies
      * @param g2d - A Graphics2D used to drawing enemies on jpanel*/

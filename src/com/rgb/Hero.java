@@ -1,4 +1,4 @@
-package com.company;
+package com.rgb;
 
 import javax.swing.*;
 import java.awt.*;

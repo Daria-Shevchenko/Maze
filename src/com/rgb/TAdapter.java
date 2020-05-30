@@ -1,4 +1,4 @@
-package com.company;
+package com.rgb;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

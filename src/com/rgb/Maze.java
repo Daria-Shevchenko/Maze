@@ -362,9 +362,9 @@ public class Maze extends JPanel implements ActionListener {
          */
         enemies.add(new Enemy(enemyW,enemyH,new Point(18,6 ), new Point(22,6),0.4,3));
         enemies.add(new Enemy(enemyW,enemyH,new Point(12,8), new Point(16,8),0.6,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),0.3,3));
-        //enemies.add(new Enemy(enemyW,enemyH,new Point(16,14), new Point(16,16),0.4,3));
-
+        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),0.45,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,12), new Point(10,14),0.4,3));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(22,12), new Point(22,14),0.4,3));
         /**
          * 4 lvl
          */

@@ -394,10 +394,6 @@ public class Maze extends JPanel implements ActionListener {
         enemies.add(new Enemy(new Point(14,20), new Point(16,20),0.2,6));
         enemies.add(new Enemy(new Point(26,18), new Point(26,22),0.5,6));
 
-        for(Enemy everyEnemy : enemies){
-            everyEnemy.setEnemyRadiusAndCenter();
-        }
-
     }
 
     /**
@@ -406,9 +402,11 @@ public class Maze extends JPanel implements ActionListener {
     private void enemyOnMap() {
         sf = new HashMap<Point, Point>();
 
+
         for (Enemy enemy : enemies) {
             enemy.setWidth(enemySize);
             enemy.setHeight(enemySize);
+            enemy.setEnemyRadiusAndCenter();
         }
         for (Enemy enemy : enemies) {
             if(enemy.getLvl()==gameLevel)

@@ -293,11 +293,11 @@ public class Enemy {
      */
     public boolean checkCollision(double frameW,double frameH) {
         if (orient == 1){
-            if(x  < start.x || x > finish.x )
+            if(x  < start.x || x +width > finish.x )
                 return true;
         }
         if (orient == 2){
-            if(y  < start.y || y > finish.y )
+            if(y  < start.y || y +width > finish.y)
                 return true;
         }
         return false;

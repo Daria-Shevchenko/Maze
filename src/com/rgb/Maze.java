@@ -432,6 +432,7 @@ public class Maze extends JPanel implements ActionListener {
             enemy.setHeight(enemySize);
             enemy.setWidth(enemySize);
         }
+        enemySize /= 0.8;
         int currentBRICK_SIZE_Y = BRICK_SIZE;
         int currentBRICK_SIZE_X = BRICK_SIZE;
         int height = calculateMazeLength(this.bricks.size());
@@ -479,7 +480,7 @@ public class Maze extends JPanel implements ActionListener {
 
                         for (Enemy enemy : enemies) {
                             if(enemy.getFinish().equals(test)){
-                                enemy.setFinish(new Point(x, y));
+                                enemy.setFinish(new Point(x+enemySize, y+enemySize));
                             }
                         }
                     }

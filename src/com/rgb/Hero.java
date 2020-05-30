@@ -11,7 +11,7 @@ public class Hero {
     /*level is level of the game*/
     private int level = 0;
     /*heroSpeed is an array of hero speeds on different levels*/
-    private double [] heroSpeed = {1, 1.2, 1, 1, 0.9, 1};
+    private double [] heroSpeed = {1, 1.2, 1, 1, 0.9, 1.2};
     /*minSpeed is minimum speed for the level*/
     private double minSpeed;
     /*pictureProportionToCell is proportion of picture length to cell length*/

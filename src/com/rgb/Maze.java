@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Maze extends JPanel implements ActionListener {
-
+    private int enemySize;
     private  ArrayList<Enemy> enemies = new ArrayList<>();
     private Map<Point, Point> sf;
 
@@ -252,6 +252,8 @@ public class Maze extends JPanel implements ActionListener {
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
             heart2.setShow(true);
+
+            enemySize = BRICK_SIZE*coefficientCorridor;
             myHero = new Hero(gameLevel, BRICK_SIZE*coefficientCorridor, BORDER + BRICK_SIZE * outsideWallCoef + 1, BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHeroRadiusAndCenter();
             heroLivesOnLevelStart = heroLives;
@@ -264,12 +266,6 @@ public class Maze extends JPanel implements ActionListener {
             }
             map = new int[this.bricks.size()][this.bricks.get(0).length()];
 
-            enemyW = BRICK_SIZE*coefficientCorridor;
-            enemyH = BRICK_SIZE*coefficientCorridor;
-            for (Enemy enemy : enemies) {
-                enemy.setWidth(enemyW);
-                enemy.setHeight(enemyH);
-            }
             enemyOnMap();
             addEnemyToMaze();
             enemiesFromCurrentLevel = getEnemiesFromCurrentLevel();
@@ -286,10 +282,8 @@ public class Maze extends JPanel implements ActionListener {
      * Create a list of enemies for game levels
      */
     private void listOfEnemies() {
-     //   System.out.println("listOfEnemies");
-        enemyH = 50;
         enemyW = 50;
-
+        enemyH = 50;
         /**
          * 1 lvl
          */
@@ -338,11 +332,11 @@ public class Maze extends JPanel implements ActionListener {
          */
 
         enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(18,6),0.4,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),0.4,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),0.2,6));
         enemies.add(new Enemy(enemyW,enemyH,new Point(24,8), new Point(24,14),0.4,6));
         enemies.add(new Enemy(enemyW,enemyH,new Point(6,12), new Point(6,16),0.4,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),0.28,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),0.4,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),0.2,6));
+        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),0.2,6));
         enemies.add(new Enemy(enemyW,enemyH,new Point(26,18), new Point(26,22),0.5,6));
 
         for(Enemy everyEnemy : enemies){
@@ -375,6 +369,11 @@ public class Maze extends JPanel implements ActionListener {
      * Change the coordinates of enemies trajectories from the map representing to frame representing
      */
     private void addEnemyToMaze() {
+        enemySize *= 0.8;
+        for (Enemy enemy : enemies) {
+            enemy.setHeight(enemySize);
+            enemy.setWidth(enemySize);
+        }
         int currentBRICK_SIZE_Y = BRICK_SIZE;
         int currentBRICK_SIZE_X = BRICK_SIZE;
         int height = calculateMazeLength(this.bricks.size());
@@ -403,25 +402,27 @@ public class Maze extends JPanel implements ActionListener {
                     if (evenColumn) {currentBRICK_SIZE_X = BRICK_SIZE;}
                     else { currentBRICK_SIZE_X = coefficientCorridor * BRICK_SIZE;}
                     evenColumn = ! evenColumn;
-
+                    int enemy_x = x+(currentBRICK_SIZE_X/ pictureShift)/2;
+                    int enemy_y = y+(currentBRICK_SIZE_Y/ pictureShift)/2;
                     Point test = new Point(i+1,j+1);
 
                     if (sf.containsKey(test)) {
                         //System.out.println(x+" "+y);
                         for (Enemy enemy : enemies) {
                             if(enemy.getStart().equals(test)){
-                                enemy.setStart(new Point(x+1, y+1));
+                                enemy.setStart(new Point(enemy_x, enemy_y));
 
                             }
                         }
                     }
 
                     if (sf.containsValue(test)) {
-                        System.out.println(test+" "+x+" "+y);
+                        //System.out.println(test+" "+x+" "+y);
+
                         for (Enemy enemy : enemies) {
                             if(enemy.getFinish().equals(test)){
                                 enemy.setFinish(new Point(x, y));
-
+                                System.out.println(enemy.getWidth());
                             }
                         }
                     }

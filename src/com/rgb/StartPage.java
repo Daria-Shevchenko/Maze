@@ -144,13 +144,26 @@ public class StartPage extends JFrame{
     private void firstMaze(){
      //   System.out.println("firstMaze");
         panel1.removeAll();
-      //  revalidate();
-      //  repaint();
+        revalidate();
+        repaint();
         panelWithMaze.setInGame(true);
         System.out.println("in game - " + panelWithMaze.isInGame());
         panelWithMaze.setBounds(160,10, 950,700);
         panel1.add(panelWithMaze);
 
+        JLabel lev = new JLabel("LEVEL: " + panelWithMaze.gameLevel);
+        lev.setBounds(10,90,100,30);
+        lev.setFont(new Font("Times New Roman", Font.PLAIN,20));
+        lev.setForeground(Color.white);
+        panel1.add(lev);
+
+        ImageIcon imageIcon = new ImageIcon("src/images/other/heart_red_s.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        JLabel img1 = new JLabel(imageIcon);
+        img1.setBounds(10,150,50,50);
+        panel1.add(img1);
 
 
 

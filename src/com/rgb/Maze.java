@@ -480,7 +480,6 @@ public class Maze extends JPanel implements ActionListener {
                         for (Enemy enemy : enemies) {
                             if(enemy.getFinish().equals(test)){
                                 enemy.setFinish(new Point(x, y));
-                                System.out.println(enemy.getWidth());
                             }
                         }
                     }
@@ -557,12 +556,13 @@ public class Maze extends JPanel implements ActionListener {
         int x0 = deltX+(int)myHero.getHero_x();
         int y0 = deltY+(int)myHero.getHero_y();
 
-        if(x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+        if( heart1.isShow() ==true && x0>=heart1.getX() && x0<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart1.getY() && y0<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart1.setShow(false);
+
             return true;
         }
-        if(x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+        if(heart2.isShow() ==true && x0>=heart2.getX() && x0<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                 && y0>=heart2.getY() && y0<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
             heart2.setShow(false);
 
@@ -581,14 +581,17 @@ public class Maze extends JPanel implements ActionListener {
         int yDiagonal = (int)myHero.getHero_y()+myHero.getHeroImage().getHeight(null)/2;
 
         for(int x=xFirst; x <=xLast; x++){
-            if(x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+            if(heart1.isShow() ==true && x>=heart1.getX() && x<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart1.getY() && yDiagonal<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
+
                 return true;
+
             }
-            if(x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+            if(heart2.isShow() ==true && x>=heart2.getX() && x<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && yDiagonal>=heart2.getY() && yDiagonal<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
+
                 return true;
             }
         }
@@ -599,12 +602,12 @@ public class Maze extends JPanel implements ActionListener {
         int xDiagonal = (int)myHero.getHero_x()+myHero.getHeroImage().getWidth(null)/2;
 
         for(int y=yFirst; y <=yLast; y++){
-            if(xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+            if(heart1.isShow() ==true && xDiagonal>=heart1.getX() && xDiagonal<=heart1.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart1.getY() && y<=heart1.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart1.setShow(false);
                 return true;
             }
-            if(xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
+            if(heart2.isShow() ==true && xDiagonal>=heart2.getX() && xDiagonal<=heart2.getX()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift
                     && y>=heart2.getY() && y<=heart2.getY()+BRICK_SIZE*coefficientCorridor* pictureLengthInCell / pictureShift){
                 heart2.setShow(false);
                 return true;
@@ -690,7 +693,7 @@ public class Maze extends JPanel implements ActionListener {
         for (int i = 0; i < numberOfAngles; i++) {
             if(isIntersectionBetweenHeroAndPortal(i) == true){
                 writeToFileGameStatus(gameLevel + "|" + heroLives);
-                System.out.println("isPortal true -- next level");
+                //System.out.println("isPortal true -- next level");
                 return true;
             }
         }

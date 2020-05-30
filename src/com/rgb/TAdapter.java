@@ -77,8 +77,9 @@ public class TAdapter extends KeyAdapter {
         if(code == KeyEvent.VK_SPACE && m.isInGame()){
             if(m.isInGame()==true && m.isDying() == false){
 
-                if(m.isHeart())
+                if(m.isHeart()==true) {
                     m.addHeroLives();
+                }
                 if(m.isPortal())
                     m.nextLevel();
             }
@@ -117,16 +118,16 @@ public class TAdapter extends KeyAdapter {
         {
         }
         */
-//        if(code == KeyEvent.VK_BACK_SPACE){
-//            System.out.println("____________________-");
-//            for(int i=0;i<m.bricks.size();i++){
-//                for(int k=0;k<m.bricks.get(0).length();k++){
-//                    System.out.print(m.map[i][k]+"");
-//                }
-//                System.out.println("");
-//            }
-//            System.out.println("____________________");
-//        }
+        if(code == KeyEvent.VK_BACK_SPACE){
+            System.out.println("____________________-");
+            for(int i=0;i<m.bricks.size();i++){
+                for(int k=0;k<m.bricks.get(0).length();k++){
+                    System.out.print(m.map[i][k]+"");
+                }
+                System.out.println("");
+            }
+            System.out.println("____________________");
+        }
     }
 
     /**

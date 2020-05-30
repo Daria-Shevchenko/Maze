@@ -90,7 +90,6 @@ public class Maze extends JPanel implements ActionListener {
     /*mazeHeight is maze height*/
     private int mazeHeight = 0;
     /*enemyW,enemyH are width and height of enemy*/
-    private int enemyW,enemyH;
     /*numberOfAngles is all angles on circle*/
     private int numberOfAngles = 360;
     /*cosOfAngle is array of cosine of all angles on circle*/
@@ -124,6 +123,8 @@ public class Maze extends JPanel implements ActionListener {
         /*Set delay to timer and start the timer*/
         timer  = new Timer(5, this);
         timer.start();
+        /*Create list of enemies*/
+        listOfEnemies();
         /*Prepare game for next level*/
         nextLevel();
         /*Calculate and fill sinOfAngle, cosOfAngle, deltX, deltY with values*/
@@ -311,8 +312,6 @@ public class Maze extends JPanel implements ActionListener {
             heart1.setShow(true);
             heart2.setShow(true);
             enemySize = (int)(BRICK_SIZE*coefficientCorridor*enemyProportion);
-            /*Create list of enemies*/
-            listOfEnemies();
             myHero = new Hero(gameLevel, BRICK_SIZE*coefficientCorridor, BORDER + BRICK_SIZE * outsideWallCoef + 1, BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHeroRadiusAndCenter();
             heroLivesOnLevelStart = heroLives;
@@ -341,62 +340,59 @@ public class Maze extends JPanel implements ActionListener {
      * Create a list of enemies for game levels
      */
     private void listOfEnemies() {
-        enemyW = enemySize;
-        enemyH = enemySize;
         /**
          * 1 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,4), new Point(18,4),0.6,1));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,6), new Point(6,8),0.6,1));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(16,10), new Point(18,10),0.6,1));
-
+        enemies.add(new Enemy(new Point(14,4), new Point(18,4),0.6,1));
+        enemies.add(new Enemy(new Point(6,6), new Point(6,8),0.6,1));
+        enemies.add(new Enemy(new Point(16,10), new Point(18,10),0.6,1));
         /**
          * 2 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(18,2), new Point(18,4),0.5,2));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,4), new Point(10,8),0.5,2));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,12), new Point(14,16),0.47,2));
+        enemies.add(new Enemy(new Point(18,2), new Point(18,4),0.5,2));
+        enemies.add(new Enemy(new Point(10,4), new Point(10,8),0.5,2));
+        enemies.add(new Enemy(new Point(14,12), new Point(14,16),0.47,2));
 
         /**
          * 3 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(18,6 ), new Point(22,6),0.4,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,8), new Point(16,8),0.6,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(4,10), new Point(4,16),0.45,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,12), new Point(10,14),0.4,3));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(22,12), new Point(22,14),0.4,3));
+        enemies.add(new Enemy(new Point(18,6 ), new Point(22,6),0.4,3));
+        enemies.add(new Enemy(new Point(12,8), new Point(16,8),0.6,3));
+        enemies.add(new Enemy(new Point(4,10), new Point(4,16),0.45,3));
+        enemies.add(new Enemy(new Point(10,12), new Point(10,14),0.4,3));
+        enemies.add(new Enemy(new Point(22,12), new Point(22,14),0.4,3));
         /**
          * 4 lvl
          */
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(16,6),0.3,4));
+        enemies.add(new Enemy(new Point(14,6 ), new Point(16,6),0.3,4));
         //enemies.add(new Enemy(enemyW,enemyH,new Point(14,8), new Point(14,10),0.3,4));
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(22,10), new Point(24,10),0.3,4));
+        enemies.add(new Enemy(new Point(22,10), new Point(24,10),0.3,4));
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(22,14), new Point(24,14),0.4,4));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,16), new Point(6,18),0.5,4));
+        enemies.add(new Enemy(new Point(22,14), new Point(24,14),0.4,4));
+        enemies.add(new Enemy(new Point(6,16), new Point(6,18),0.5,4));
 
         /**
          * 5 lvl
          */
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(8,4 ), new Point(10,4),0.4,5));
+        enemies.add(new Enemy(new Point(8,4 ), new Point(10,4),0.4,5));
         //enemies.add(new Enemy(enemyW,enemyH,new Point(24,6 ), new Point(26,6),0.4,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,10 ), new Point(6,14),0.4,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,12 ), new Point(16,12),0.5,5));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(12,18 ), new Point(18,18),0.5,5));
+        enemies.add(new Enemy(new Point(6,10 ), new Point(6,14),0.4,5));
+        enemies.add(new Enemy(new Point(12,12 ), new Point(16,12),0.5,5));
+        enemies.add(new Enemy(new Point(12,18 ), new Point(18,18),0.5,5));
 
         /**
          * 6 lvl
          */
 
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,6 ), new Point(18,6),0.4,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,8 ), new Point(14,10),0.2,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(24,8), new Point(24,14),0.4,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(6,12), new Point(6,16),0.4,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(10,16), new Point(10,20),0.2,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(14,20), new Point(16,20),0.2,6));
-        enemies.add(new Enemy(enemyW,enemyH,new Point(26,18), new Point(26,22),0.5,6));
+        enemies.add(new Enemy(new Point(14,6 ), new Point(18,6),0.4,6));
+        enemies.add(new Enemy(new Point(14,8 ), new Point(14,10),0.2,6));
+        enemies.add(new Enemy(new Point(24,8), new Point(24,14),0.4,6));
+        enemies.add(new Enemy(new Point(6,12), new Point(6,16),0.4,6));
+        enemies.add(new Enemy(new Point(10,16), new Point(10,20),0.2,6));
+        enemies.add(new Enemy(new Point(14,20), new Point(16,20),0.2,6));
+        enemies.add(new Enemy(new Point(26,18), new Point(26,22),0.5,6));
 
         for(Enemy everyEnemy : enemies){
             everyEnemy.setEnemyRadiusAndCenter();
@@ -410,6 +406,10 @@ public class Maze extends JPanel implements ActionListener {
     private void enemyOnMap() {
         sf = new HashMap<Point, Point>();
 
+        for (Enemy enemy : enemies) {
+            enemy.setWidth(enemySize);
+            enemy.setHeight(enemySize);
+        }
         for (Enemy enemy : enemies) {
             if(enemy.getLvl()==gameLevel)
                 sf.put(enemy.getStart(),enemy.getFinish());

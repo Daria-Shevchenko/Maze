@@ -73,18 +73,16 @@ public class Enemy {
 
     /**
      * Create a enemy
-     * @param w - width of enemy
-     * @param h - height of enemy
      * @param s - coordinates of the starting point of the enemy trajectory
      * @param f - coordinates of the end point of the enemy trajectory
      * @param vel - enemy movement speed
      * @param lvl - level at which this enemy is
      */
-    Enemy(int w, int h, Point s, Point f, double vel,int lvl){
+    Enemy(Point s, Point f, double vel,int lvl){
         this.lvl = lvl;
         this.visible = false;
-        this.width = w;
-        this.height = h;
+        this.width = 60;
+        this.height = 60;
         this.start = new Point(s);
         this.finish = new Point(f);
         this.x = start.x;

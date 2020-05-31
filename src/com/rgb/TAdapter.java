@@ -2,6 +2,7 @@ package com.rgb;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 /**
  * This class of game control through the keyboard
@@ -9,6 +10,12 @@ import java.awt.event.KeyEvent;
 public class TAdapter extends KeyAdapter {
     Maze m;
     StartPage startPage;
+
+    /** Sound panel
+     *
+     */
+    Sound bonusMusic = new Sound(new File("src/music/bonus.wav"));
+    Sound intoNextLevelMusic = new Sound(new File("src/music/intoNextLevel.wav"));
 
     /**
      * Constructor
@@ -78,10 +85,14 @@ public class TAdapter extends KeyAdapter {
             if(m.isInGame()==true && m.isDying() == false){
 
                 if(m.isHeart()==true) {
+                    bonusMusic.play();
                     m.addHeroLives();
                 }
-                if(m.isPortal())
+                if(m.isPortal()){
+                    intoNextLevelMusic.play();
                     m.nextLevel();
+                }
+
             }
 
             if(m.isGameFinished() == true && m.isDying() == false) {

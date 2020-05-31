@@ -20,7 +20,7 @@ public class StartPage extends JFrame{
 
     //Sound panel;
 
-    Sound startMusic = new Sound(new File("src/music/start.wav"));;
+    Sound startMusic = new Sound(new File("src/music/start.wav"));
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -206,7 +206,7 @@ public class StartPage extends JFrame{
 
         JButton back =new JButton("I I");
       //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(970,18,50,50);
+        back.setBounds(975,18,50,50);
         back.setBackground(Color.black);
         back.setForeground(Color.WHITE);
 

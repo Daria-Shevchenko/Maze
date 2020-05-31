@@ -18,6 +18,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Maze extends JPanel implements ActionListener {
+
+    /**
+     * Sound panel
+     * intoMouster - sound for collidion with monster
+     */
+    Sound intoMonster = new Sound(new File("src/music/intoMonster.wav"));
     /*enemySize is size of enemy picture*/
     private int enemySize;
     /*enemyProportion is proportion of enemy picture to the cell*/
@@ -512,6 +518,7 @@ public class Maze extends JPanel implements ActionListener {
             canMove = false;
         }
         if(isEnemy()){
+            intoMonster.play();
             minusLive();
         //    StartPage.userPanel();
             canMove = false;

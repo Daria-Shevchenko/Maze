@@ -9,10 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -20,6 +17,10 @@ import java.util.ArrayList;
  * Created by Shevchenko Daria on 22.05.2020.
  */
 public class StartPage extends JFrame{
+
+    //Sound panel;
+
+    Sound startMusic = new Sound(new File("src/music/start.wav"));;
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -116,6 +117,11 @@ public class StartPage extends JFrame{
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
+        if(startMusic.isPlaying() == false){
+            startMusic.play();
+        }
+
+
         JLabel title = new JLabel("COLORPORT");
         title.setBounds(250,100,600,150);
         title.setForeground(Color.WHITE);
@@ -131,7 +137,13 @@ public class StartPage extends JFrame{
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
         startButton.setBounds(420,400,200,80);
-        startButton.addActionListener(e -> firstMaze());
+        startButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+               // startMusic.stop();
+                firstMaze();
+            }
+        });
+
 
         JButton instruction =new JButton("INSTRUCTION");
         instruction.setBounds(420,490,200,50);
@@ -141,6 +153,7 @@ public class StartPage extends JFrame{
         instruction.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 instructions();
+
             }
         });
 
@@ -189,8 +202,6 @@ public class StartPage extends JFrame{
         System.out.println("in game - " + panelWithMaze.isInGame());
         panelWithMaze.setBounds(10,10, 950,700);
 
-
-        userPanel();
 
 
         JButton back =new JButton("I I");

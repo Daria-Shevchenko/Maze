@@ -137,6 +137,31 @@ public class StartPage extends JFrame{
         panel1.setLayout(null);
 
     }
+    /**
+     * ініціалізація панелі для користувача
+     */
+    public void userPanel(){
+        JLabel lev = new JLabel("LEVEL: " + panelWithMaze.gameLevel);
+        lev.setBounds(10,90,100,30);
+        lev.setFont(new Font("Times New Roman", Font.PLAIN,20));
+        lev.setForeground(Color.white);
+        panel1.add(lev);
+
+        ImageIcon imageIcon = new ImageIcon("src/images/other/heart_red_s.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        JLabel img1 = new JLabel(imageIcon);
+        img1.setBounds(10,150,40,40);
+        panel1.add(img1);
+
+        JLabel heartChecker = new JLabel(" x " + panelWithMaze.getHeroLives());
+        heartChecker.setBounds(55,150,100,40);
+        heartChecker.setForeground(Color.white);
+        heartChecker.setFont(new Font("Times New Roman", Font.PLAIN,20));
+        panel1.add(heartChecker);
+
+    }
 
     /**
      * відкриває 1 лабіринт
@@ -148,28 +173,15 @@ public class StartPage extends JFrame{
         repaint();
         panelWithMaze.setInGame(true);
         System.out.println("in game - " + panelWithMaze.isInGame());
-        panelWithMaze.setBounds(160,10, 950,700);
-        panel1.add(panelWithMaze);
+        panelWithMaze.setBounds(10,10, 950,700);
 
-        JLabel lev = new JLabel("LEVEL: " + panelWithMaze.gameLevel);
-        lev.setBounds(10,90,100,30);
-        lev.setFont(new Font("Times New Roman", Font.PLAIN,20));
-        lev.setForeground(Color.white);
-        panel1.add(lev);
 
-        ImageIcon imageIcon = new ImageIcon("src/images/other/heart_red_s.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back
-        JLabel img1 = new JLabel(imageIcon);
-        img1.setBounds(10,150,50,50);
-        panel1.add(img1);
-
+        userPanel();
 
 
         JButton back =new JButton("I I");
       //  back.setIcon(new ImageIcon("pause"));
-        back.setBounds(10,10,50,50);
+        back.setBounds(970,18,50,50);
         back.setBackground(Color.black);
         back.setForeground(Color.WHITE);
 
@@ -181,6 +193,7 @@ public class StartPage extends JFrame{
             }
         });
         panel1.add(back);
+        panel1.add(panelWithMaze);
         panel1.setLayout(null);
         revalidate();
         repaint();

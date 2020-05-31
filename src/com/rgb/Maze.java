@@ -510,6 +510,7 @@ public class Maze extends JPanel implements ActionListener {
         }
         if(isEnemy()){
             minusLive();
+        //    StartPage.userPanel();
             canMove = false;
         }
         if(canMove){
@@ -936,11 +937,36 @@ public class Maze extends JPanel implements ActionListener {
     /*Draws number of hero lives and hero speed
      * @param g2d - A Graphics2D used to drawing number of hero lives and hero speed on jpanel*/
     private void drawLives(Graphics2D g2d){
-        g2d.setColor(Color.RED.brighter());
-        Font myFont = new Font("Calibri", Font.BOLD, 32);
+        g2d.setColor(Color.white);
+        Font myFont = new Font("Calibri", Font.PLAIN, 24);
         g2d.setFont(myFont);
-        g2d.drawString("hero_lives = " + heroLives + "     hero_speed = " + myHero.getHeroSpeed(gameLevel-1), 40, 20);
-      //  g2d.drawString("hero_lives_on_level_start = " + heroLivesOnLevelStart, 40, 40);
+        g2d.drawString("LEVEL: " + gameLevel, 820, 40);
+
+        g2d.drawImage(heart,825,100,30,30,Color.black,this);
+        g2d.drawString(" x " + heroLives, 860,120);
+
+
+    }
+    public void userPanel(){
+        JLabel lev = new JLabel("LEVEL: " + gameLevel);
+        lev.setBounds(10,90,100,30);
+        lev.setFont(new Font("Times New Roman", Font.PLAIN,20));
+        lev.setForeground(Color.white);
+       // panel1.add(lev);
+
+        ImageIcon imageIcon = new ImageIcon("src/images/other/heart_red_s.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        JLabel img1 = new JLabel(imageIcon);
+        img1.setBounds(10,150,40,40);
+       // panel1.add(img1);
+
+        JLabel heartChecker = new JLabel(" x " + getHeroLives());
+        heartChecker.setBounds(55,150,100,40);
+        heartChecker.setForeground(Color.white);
+        heartChecker.setFont(new Font("Times New Roman", Font.PLAIN,20));
+      //  panel1.add(heartChecker);
 
     }
     /*Draws hero location and displacement

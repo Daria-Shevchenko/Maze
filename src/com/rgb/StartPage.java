@@ -130,10 +130,21 @@ public class StartPage extends JFrame{
         startButton.setBackground(new Color(245, 183, 15));
         startButton.setForeground(Color.BLACK);
         startButton.setFont(normalFont);
-
         startButton.setBounds(420,400,200,80);
         startButton.addActionListener(e -> firstMaze());
 
+        JButton instruction =new JButton("INSTRUCTION");
+        instruction.setBounds(420,490,200,50);
+        instruction.setBackground(Color.black);
+        instruction.setForeground(Color.WHITE);
+        instruction.setFont(new Font("Times New Roman", Font.BOLD,20));
+        instruction.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                instructions();
+            }
+        });
+
+        panel1.add(instruction);
         panel1.add(titleSmall);
         panel1.add(title);
         panel1.add(startButton);
@@ -190,9 +201,7 @@ public class StartPage extends JFrame{
 
         back.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                instractions();
-                //pausePage();
-
+                pausePage();
             }
         });
         panel1.add(back);
@@ -346,10 +355,8 @@ public class StartPage extends JFrame{
         repaint();
     }
 
-    public void instractions(){
+    public void instructions(){
         //   System.out.println("pausePage");
-        panelWithMaze.setInGame(false);
-        lives = panelWithMaze.getHeroLivesOnLevelStart();
         panel1.removeAll();
         revalidate();
         repaint();
@@ -362,11 +369,11 @@ public class StartPage extends JFrame{
                 "Movement of hero -  ↑ up,  ↓ down, → right, ← left" + "\n" +
                 "Collect lives, go through the portal – space key" + "\n" +
                 "Pause game – escape key" + "\n" +
-                "Increase speed – A, E + Shift" + "\n" +
-                "Decrease speed – D, S" + "\n" +
-                "Set default speed – E");
+                "Increase speed – A" + "\n" +
+                "Decrease speed – D" + "\n" +
+                "Set default speed – S");
         textArea.setFont(new Font("Times New Roman", Font.PLAIN,20));
-        textArea.setBounds(220,100,600,800);
+        textArea.setBounds(220,100,600,300);
 
         textArea.setBackground(Color.black);
         textArea.setForeground(Color.WHITE);
@@ -397,7 +404,8 @@ public class StartPage extends JFrame{
         continueGame.setFont(new Font("Times New Roman", Font.BOLD,20));
         continueGame.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                firstMaze();
+
+                start();
             }
         });
 

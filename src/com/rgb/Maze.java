@@ -85,6 +85,8 @@ public class Maze extends JPanel implements ActionListener {
     private static final int outsideWallCoef = 1;
     /*BORDER is length of border on jpanel*/
     private static final int BORDER = 10;
+    /*BORDER_RIGHT is length of border on jpanel*/
+    private static final int BORDER_RIGHT = 150;
     /*mazeWidth is maze width*/
     private int mazeWidth = 0;
     /*mazeHeight is maze height*/
@@ -327,7 +329,8 @@ public class Maze extends JPanel implements ActionListener {
             enemyOnMap();
             addEnemyToMaze();
             enemiesFromCurrentLevel = getEnemiesFromCurrentLevel();
-            this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
+            //  this.setSize(mazeWidth + 2 * BORDER, mazeHeight + 2 * BORDER);
+            this.setSize(mazeWidth + 2 * BORDER+BORDER_RIGHT, mazeHeight + 2 * BORDER);
             loadImages();
 
         } else {

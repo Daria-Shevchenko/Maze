@@ -1,6 +1,9 @@
 package com.rgb;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -187,8 +190,8 @@ public class StartPage extends JFrame{
 
         back.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-
-                pausePage();
+                instractions();
+                //pausePage();
 
             }
         });
@@ -337,6 +340,70 @@ public class StartPage extends JFrame{
 
         panel1.add(continueGame);
         panel1.add(startAgain);
+
+        panel1.setLayout(null);
+        revalidate();
+        repaint();
+    }
+
+    public void instractions(){
+        //   System.out.println("pausePage");
+        panelWithMaze.setInGame(false);
+        lives = panelWithMaze.getHeroLivesOnLevelStart();
+        panel1.removeAll();
+        revalidate();
+        repaint();
+
+
+        JTextPane textArea = new JTextPane();
+        textArea.setText("Game instruction" + "\n" +
+                "Aim of this game is to  go through all six colorful mazes and collect all colors!" + "\n" +
+                "\n" +"Useful keys:" + "\n" +
+                "Movement of hero -  ↑ up,  ↓ down, → right, ← left" + "\n" +
+                "Collect lives, go through the portal – space key" + "\n" +
+                "Pause game – escape key" + "\n" +
+                "Increase speed – A, E + Shift" + "\n" +
+                "Decrease speed – D, S" + "\n" +
+                "Set default speed – E");
+        textArea.setFont(new Font("Times New Roman", Font.PLAIN,20));
+        textArea.setBounds(220,100,600,800);
+
+        textArea.setBackground(Color.black);
+        textArea.setForeground(Color.WHITE);
+
+        SimpleAttributeSet aSet = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(aSet, "Times New Roman");
+        StyleConstants.setAlignment(aSet, StyleConstants.ALIGN_CENTER);
+        StyleConstants.setFontSize(aSet, 32);
+
+        SimpleAttributeSet bSet = new SimpleAttributeSet();
+        StyleConstants.setAlignment(bSet, StyleConstants.ALIGN_CENTER);
+        StyledDocument doc = textArea.getStyledDocument();
+        doc.setParagraphAttributes(0, doc.getLength(), bSet, false);
+        doc.setParagraphAttributes(0, 12, aSet, false);
+        doc.setParagraphAttributes(100, 12, aSet, false);
+
+        textArea.setOpaque(false);
+        textArea.setEditable(false);
+
+        panel1.add(textArea);
+
+
+
+        JButton continueGame =new JButton("BACK");
+        continueGame.setBounds(420,500,200,50);
+        continueGame.setBackground(Color.black);
+        continueGame.setForeground(Color.WHITE);
+        continueGame.setFont(new Font("Times New Roman", Font.BOLD,20));
+        continueGame.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                firstMaze();
+            }
+        });
+
+        //panel1.add(instructions);
+        panel1.add(continueGame);
+
 
         panel1.setLayout(null);
         revalidate();

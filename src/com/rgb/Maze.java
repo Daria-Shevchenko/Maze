@@ -558,6 +558,7 @@ public class Maze extends JPanel implements ActionListener {
         inGame=false;
         gameFinished = true;
         writeToFileGameStatus(0 + "|" + defaultHeroLives);
+        lev6.stop();
     }
 
     @Override

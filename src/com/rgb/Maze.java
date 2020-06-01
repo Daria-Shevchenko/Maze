@@ -124,9 +124,9 @@ public class Maze extends JPanel implements ActionListener {
             new ImageIcon("src/images/portal/portal3.png").getImage(), new ImageIcon("src/images/portal/portal4.png").getImage(),
             new ImageIcon("src/images/portal/portal5.png").getImage(), new ImageIcon("src/images/portal/portal6.png").getImage()};
     /*mazeColorsForWalls is array of colors for walls for all levels*/
-    Color [] mazeColorsForWalls = {Color.DARK_GRAY, new Color(24, 32, 75), new Color(34, 56, 37), new Color(59, 58, 37), new Color(48, 40, 30), new Color(42, 11, 7)};
+    Color [] mazeColorsForWalls = {Color.DARK_GRAY, new Color(28, 109, 200), new Color(113, 2, 155), new Color(20, 150, 14), new Color(172, 13, 17), new Color(193, 96, 6)};
     /*mazeColorsForCorridors is array of colors for corridors for all levels*/
-    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, new Color(73, 80, 115), new Color(70, 129, 80), new Color(163, 155, 65), new Color(164, 112, 48), new Color(120, 79, 74)};
+    Color [] mazeColorsForCorridors = {Color.LIGHT_GRAY, new Color(134, 207, 247), new Color(202, 171, 254), new Color(154, 255, 125), new Color(240, 174, 210), new Color(250, 197, 86)};
     /*corridorColor is color of corridors on current level*/
     Color corridorColor;
     /*wallColor is color of walls on current level*/

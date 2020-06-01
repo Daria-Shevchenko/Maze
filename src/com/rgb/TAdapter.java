@@ -9,7 +9,7 @@ import java.io.File;
  */
 public class TAdapter extends KeyAdapter {
     Maze m;
-    StartPage startPage;
+    static StartPage startPage;
 
     /** Sound panel
      *

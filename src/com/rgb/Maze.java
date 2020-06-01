@@ -19,6 +19,8 @@ import java.util.Scanner;
 
 public class Maze extends JPanel implements ActionListener {
 
+
+
     /**
      * Sound panel
      * intoMouster - sound for collidion with monster
@@ -930,15 +932,16 @@ public class Maze extends JPanel implements ActionListener {
 
         }
         if(dying == true){
-            g2d.setColor(Color.YELLOW);
-            Font myFont = new Font("Calibri", Font.BOLD, 48);
-            g2d.setFont(myFont);
-            g2d.fillRect(200, 300, 400, 100);
-            g2d.setColor(Color.BLUE);
-            g2d.drawString("Game over!!!", 280, 360);
-            myFont = new Font("Calibri", Font.BOLD, 18);
-            g2d.setFont(myFont);
-            g2d.drawString("Press Enter to continue.", 310, 390);
+            TAdapter.startPage.endPageLoser();
+          //  g2d.setColor(Color.YELLOW);
+          //  Font myFont = new Font("Calibri", Font.BOLD, 48);
+          //  g2d.setFont(myFont);
+          //  g2d.fillRect(200, 300, 400, 100);
+          //  g2d.setColor(Color.BLUE);
+          //  g2d.drawString("Game over!!!", 280, 360);
+          //  myFont = new Font("Calibri", Font.BOLD, 18);
+            //g2d.setFont(myFont);
+        //    g2d.drawString("Press Enter to continue.", 310, 390);
         }
 
         Toolkit.getDefaultToolkit().sync();

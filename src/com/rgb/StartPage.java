@@ -198,6 +198,7 @@ public class StartPage extends JFrame{
      */
     public void endPageWin(){
      //   System.out.println("endPageWin");
+        winMusic.setVolume(0.98f);
         if(winMusic.isPlaying() == false){winMusic.play();}
         panel1.removeAll();
         panelWithMaze.removeAll();

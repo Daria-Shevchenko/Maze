@@ -26,6 +26,12 @@ public class Maze extends JPanel implements ActionListener {
      * intoMouster - sound for collidion with monster
      */
     Sound intoMonster = new Sound(new File("src/music/intoMonster.wav"));
+    Sound lev1 = new Sound(new File("src/music/lev1.wav"));
+    Sound lev2 = new Sound(new File("src/music/lev2.wav"));
+    Sound lev3 = new Sound(new File("src/music/lev3.wav"));
+    Sound lev4 = new Sound(new File("src/music/lev4.wav"));
+    Sound lev5 = new Sound(new File("src/music/lev5.wav"));
+    Sound lev6 = new Sound(new File("src/music/lev6.wav"));
     /*enemySize is size of enemy picture*/
     private int enemySize;
     /*enemyProportion is proportion of enemy picture to the cell*/
@@ -317,6 +323,44 @@ public class Maze extends JPanel implements ActionListener {
       //  System.out.println("nextLevel");
         readGameStatusFromFile();
         if(gameLevel<MAX_gamelevel) {
+           if(gameLevel == 1) {
+               lev2.play();
+           }
+
+           switch(gameLevel) {
+               case 0:
+                   if(lev1.isPlaying() == false)
+                        lev1.play();
+                   break;
+               case 1:
+                    lev1.stop();
+                   if(lev2.isPlaying() == false)
+                       lev2.play();
+                    break;
+               case 2:
+                    lev2.stop();
+                   if(lev3.isPlaying() == false)
+                        lev3.play();
+                    break;
+               case 3:
+                   lev3.stop();
+                   if(lev4.isPlaying() == false)
+                        lev4.play();
+                   break;
+               case 4:
+                   lev4.stop();
+                   if(lev5.isPlaying() == false)
+                   lev5.play();
+                   break;
+               case 5:
+                   lev5.stop();
+                   if(lev6.isPlaying() == false)
+                        lev6.play();
+                   break;
+               default:
+                  // StartPage.startMusic.play();
+                   break;
+           }
             gameLevel++;
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);

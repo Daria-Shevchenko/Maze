@@ -20,7 +20,7 @@ public class StartPage extends JFrame{
 
     //Sound panel;
 
-    Sound startMusic = new Sound(new File("src/music/start.wav"));
+    static Sound startMusic = new Sound(new File("src/music/start.wav"));
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -118,7 +118,7 @@ public class StartPage extends JFrame{
         panel1.setBackground(Color.black);
 
         if(startMusic.isPlaying() == false){
-            startMusic.play();
+          //  startMusic.play();
         }
 
 
@@ -139,7 +139,7 @@ public class StartPage extends JFrame{
         startButton.setBounds(420,400,200,80);
         startButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // startMusic.stop();
+                startMusic.stop();
                 firstMaze();
             }
         });

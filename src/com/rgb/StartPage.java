@@ -378,6 +378,10 @@ public class StartPage extends JFrame{
         repaint();
     }
 
+    /**
+     * клас для відображення інструкцій для користувача
+     */
+
     public void instructions(){
         //   System.out.println("pausePage");
         panel1.removeAll();

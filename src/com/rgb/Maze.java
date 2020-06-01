@@ -121,7 +121,7 @@ public class Maze extends JPanel implements ActionListener {
     /*portal_images_for_levels is array of portal images for all levels*/
     private Image [] portal_images_for_levels = {
             new ImageIcon("src/images/portal/portal1.png").getImage(), new ImageIcon("src/images/portal/portal2.png").getImage(),
-            new ImageIcon("src/images/portal/portal3.png").getImage(), new ImageIcon("src/images/portal/portal4.png").getImage(),
+            new ImageIcon("src/images/portal/portal4.png").getImage(), new ImageIcon("src/images/portal/portal3.png").getImage(),
             new ImageIcon("src/images/portal/portal5.png").getImage(), new ImageIcon("src/images/portal/portal6.png").getImage()};
     /*mazeColorsForWalls is array of colors for walls for all levels*/
     Color [] mazeColorsForWalls = {Color.DARK_GRAY, new Color(28, 109, 200), new Color(113, 2, 155), new Color(20, 150, 14), new Color(172, 13, 17), new Color(193, 96, 6)};

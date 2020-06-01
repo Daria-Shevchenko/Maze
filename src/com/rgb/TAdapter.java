@@ -99,25 +99,34 @@ public class TAdapter extends KeyAdapter {
                 startPage.endPageWin();
             }
         }
-        if(code == KeyEvent.VK_ENTER){
-            startPage.endPageLoser();
+        if(code == KeyEvent.VK_ENTER && m.isInGame()){
+          //  startPage.endPageLoser();
         }
 
-        if(code == KeyEvent.VK_ESCAPE)
+        if(code == KeyEvent.VK_ESCAPE && m.isInGame())
         {
             startPage.pausePage();
         }
-        if(code == KeyEvent.VK_A)
+        if(code == KeyEvent.VK_1 && m.isInGame())
+        {
+            m.setCheat(1);
+        }
+
+        if(code == KeyEvent.VK_0 && m.isInGame())
+        {
+            m.setCheat(0);
+        }
+        if(code == KeyEvent.VK_A && m.isInGame())
         {
             double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
             m.setMyHeroSpeed(new_speed*1.05, m.gameLevel-1);
         }
-        if(code == KeyEvent.VK_D)
+        if(code == KeyEvent.VK_D && m.isInGame())
         {
             double new_speed = m.getMyHeroSpeed(m.gameLevel-1);
             m.setMyHeroSpeed(new_speed/1.05, m.gameLevel-1);
         }
-        if(code == KeyEvent.VK_S)
+        if(code == KeyEvent.VK_S && m.isInGame())
         {
             m.setMyHeroSpeed(1, m.gameLevel-1);
         }
@@ -129,7 +138,7 @@ public class TAdapter extends KeyAdapter {
         {
         }
         */
-        if(code == KeyEvent.VK_BACK_SPACE){
+        if(code == KeyEvent.VK_BACK_SPACE && m.isInGame()){
             System.out.println("____________________-");
             for(int i=0;i<m.bricks.size();i++){
                 for(int k=0;k<m.bricks.get(0).length();k++){

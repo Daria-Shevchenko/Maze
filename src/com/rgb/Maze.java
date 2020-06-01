@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,6 +29,14 @@ public class Maze extends JPanel implements ActionListener {
      * intoMouster - sound for collidion with monster
      */
     Sound intoMonster = new Sound(new File("src/music/intoMonster.wav"));
+    /*alpha - portal transparency level*/
+    private int alpha = 255;
+    /*alphaSign - direction of transparency change*/
+    private int alphaSign = 1;
+    private int cheat = 0;
+    public void setCheat (int newValue) {
+        this.cheat = newValue;
+    }
     public final static Sound lev1 = new Sound(new File("src/music/lev1.wav"));
     public final static Sound lev2 = new Sound(new File("src/music/lev2.wav"));
     public final static Sound lev3 = new Sound(new File("src/music/lev3.wav"));
@@ -793,6 +803,7 @@ public class Maze extends JPanel implements ActionListener {
                 myHero.getHero_y()+myHero.getHeroImage().getHeight(null)+myHero.getDy() >= BORDER+height-BRICK_SIZE*outsideWallCoef){
             return true;
         }
+        if (cheat == 1) {return false;}
         /*Checking with inner walls*/
         for (int i = 0; i < numberOfAngles; i++) {
             if(isInnerWallForEllipse(i) == 1)
@@ -908,6 +919,9 @@ public class Maze extends JPanel implements ActionListener {
                         int pictureLength = picturePortShift-1;
                         g2d.drawImage(portal,portal_x,portal_y, pictureLength*currentBRICK_SIZE_X/picturePortShift, pictureLength*currentBRICK_SIZE_Y/picturePortShift,this);
 
+                        Color myColour = new Color(corridorColor.getRed(), corridorColor.getGreen(), corridorColor.getBlue(), alpha);
+                        g2d.setColor(myColour);
+                        g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
                         map[j][i] = 2;
                     }
                     /*Draw hearts*/
@@ -965,6 +979,9 @@ public class Maze extends JPanel implements ActionListener {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
+        if(alpha >= 254) { alphaSign = -1;}
+        if(alpha <= 1) {alphaSign = 1;}
+        alpha = (int)(alpha + 2*alphaSign);
         drawMaze(g2d);
 
       //  drawParameters(g2d);

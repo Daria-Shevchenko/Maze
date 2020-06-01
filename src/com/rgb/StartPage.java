@@ -20,7 +20,7 @@ public class StartPage extends JFrame{
 
     //Sound panel;
 
-    static Sound startMusic = new Sound(new File("src/music/start.wav"));
+    static Sound startMusic = new Sound(new File("src/music/Queen.wav"));
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -93,6 +93,7 @@ public class StartPage extends JFrame{
     public void start(){
      //   System.out.println("start");
      //   remove(panelWithMaze);
+        startMusic.stop();
         panelWithMaze = null;
         if (panel1!=null) {
             remove(panel1);
@@ -116,10 +117,6 @@ public class StartPage extends JFrame{
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
-        if(startMusic.isPlaying() == false){
-          //  startMusic.play();
-        }
-
 
         JLabel title = new JLabel("COLORPORT");
         title.setBounds(250,100,600,150);
@@ -138,7 +135,6 @@ public class StartPage extends JFrame{
         startButton.setBounds(420,400,200,80);
         startButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                startMusic.stop();
                 firstMaze();
             }
         });
@@ -201,6 +197,7 @@ public class StartPage extends JFrame{
      */
     public void endPageWin(){
      //   System.out.println("endPageWin");
+        if(startMusic.isPlaying() == false){startMusic.play();}
         panel1.removeAll();
         panelWithMaze.removeAll();
         panelWithMaze.revalidate();

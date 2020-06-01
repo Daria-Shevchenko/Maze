@@ -241,9 +241,14 @@ public class StartPage extends JFrame{
         title.setForeground(Color.black);
         title.setFont(titleFont);
 
-        JLabel img = new JLabel(new ImageIcon("src/images/hero/gg4s.png"));
-        img.setBounds(470,300,60,60);
-        panel1.add(img);
+        ImageIcon imageIcon = new ImageIcon("src/images/hero/gg4.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(60,60,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        JLabel img1 = new JLabel(imageIcon);
+        img1.setBounds(470,300,60,60);
+        panel1.add(img1);
+
 
         JLabel titleSmall = new JLabel("now you are happy!");
         titleSmall.setBounds(370,170,600,150);
@@ -284,9 +289,15 @@ public class StartPage extends JFrame{
         title.setForeground(Color.white);
         title.setFont(titleFont);
 
-        JLabel img = new JLabel(new ImageIcon("src/images/hero/gg1s.png"));
-        img.setBounds(470,300,60,60);
-        panel1.add(img);
+        ImageIcon imageIcon = new ImageIcon("src/images/hero/gg1.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(60,60,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        JLabel img1 = new JLabel(imageIcon);
+        img1.setBounds(470,300,60,60);
+        panel1.add(img1);
+
+
 
         JLabel titleSmall = new JLabel("life is full of obstacles, but you shouldn't give up");
         titleSmall.setBounds(315,170,600,150);

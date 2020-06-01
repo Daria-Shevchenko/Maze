@@ -63,9 +63,6 @@ public class StartPage extends JFrame{
         bricksLevels.add(read("src/mazeFiles/maze_level_4.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_5.txt"));
         bricksLevels.add(read("src/mazeFiles/maze_level_6.txt"));
-      //  panelWithMaze = new Maze(bricksLevels);
-      //  setFocusable(true);
-      //  setLocationRelativeTo(null);
         start();
 
 
@@ -90,7 +87,9 @@ public class StartPage extends JFrame{
         return lines;
     }
 
-    // метод, що розпочинає роботу
+    /**
+     * start program
+     */
     public void start(){
      //   System.out.println("start");
      //   remove(panelWithMaze);
@@ -110,7 +109,7 @@ public class StartPage extends JFrame{
     }
 
     /**
-     * запускає стартову сторінку
+     * Start mainPage
      */
     private void startPage(){
      //   System.out.println("startPage");
@@ -164,35 +163,10 @@ public class StartPage extends JFrame{
         panel1.setLayout(null);
 
     }
-    /**
-     * ініціалізація панелі для користувача
-     */
-    public void userPanel(){
-        JLabel lev = new JLabel("LEVEL: " + panelWithMaze.gameLevel);
-        lev.setBounds(10,90,100,30);
-        lev.setFont(new Font("Times New Roman", Font.PLAIN,20));
-        lev.setForeground(Color.white);
-        panel1.add(lev);
-
-        ImageIcon imageIcon = new ImageIcon("src/images/other/heart_red_s.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back
-        JLabel img1 = new JLabel(imageIcon);
-        img1.setBounds(10,150,40,40);
-        panel1.add(img1);
-
-        JLabel heartChecker = new JLabel(" x " + panelWithMaze.getHeroLives());
-        heartChecker.setBounds(55,150,100,40);
-        heartChecker.setForeground(Color.white);
-        heartChecker.setFont(new Font("Times New Roman", Font.PLAIN,20));
-        panel1.add(heartChecker);
-
-    }
 
     /**
-     * відкриває 1 лабіринт
-     */
+     * upload page with maze
+     * */
     private void firstMaze(){
      //   System.out.println("firstMaze");
         panel1.removeAll();
@@ -223,7 +197,7 @@ public class StartPage extends JFrame{
     }
 
     /**
-     * відкриває фінальну сторінку з виграшем
+     * open winning page
      */
     public void endPageWin(){
      //   System.out.println("endPageWin");
@@ -274,7 +248,7 @@ public class StartPage extends JFrame{
     }
 
     /**
-     * відкриває фінальну сторінку з програшем
+     * open loser page
      */
     public void endPageLoser(){
     //    System.out.println("endPageLoser");
@@ -325,6 +299,8 @@ public class StartPage extends JFrame{
         repaint();
     }
 
+    /**method that recreate window
+     */
     private void reCreateWindow(){
     //    System.out.println("reCreationWindow");
         panelWithMaze = new Maze(bricksLevels);
@@ -334,7 +310,7 @@ public class StartPage extends JFrame{
     }
 
     /**
-     * відкриває фінальну сторінку з паузою
+     * open pause page
      */
     public void pausePage(){
      //   System.out.println("pausePage");
@@ -379,7 +355,7 @@ public class StartPage extends JFrame{
     }
 
     /**
-     * клас для відображення інструкцій для користувача
+     * open page with instructions
      */
 
     public void instructions(){
@@ -436,7 +412,7 @@ public class StartPage extends JFrame{
             }
         });
 
-        //panel1.add(instructions);
+
         panel1.add(continueGame);
 
 

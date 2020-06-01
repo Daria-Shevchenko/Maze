@@ -4,7 +4,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-/**  клас для створення звуку
+/**  class for creating music
  *
  */
 public class Sound implements AutoCloseable {
@@ -14,7 +14,7 @@ public class Sound implements AutoCloseable {
     private FloatControl volumeControl = null;
     private boolean playing = false;
 
-    /**  конструктор для створення звуку
+    /**  constructor
      *
      */
     public Sound(File f) {
@@ -33,14 +33,14 @@ public class Sound implements AutoCloseable {
         }
     }
 
-    /**  повертає true - якщо трек був підвантажений
-     *   false - якщо відбулася помилка
+    /**   true - if track was uploaded
+     *   false - if it was't
      */
     public boolean isReleased() {
         return released;
     }
 
-    /**  перевіряє, чи трек вже запущений
+    /**  check for playing
      *
      */
     public boolean isPlaying() {
@@ -48,7 +48,7 @@ public class Sound implements AutoCloseable {
     }
 
 
-    /**  breakOld перевіряє чи трек вже був запущений, якщо ні - запускає
+    /**  breakOld check if treck is playing, if not - start play
      *
      */
     public void play(boolean breakOld) {
@@ -66,14 +66,14 @@ public class Sound implements AutoCloseable {
         }
     }
 
-    /**  запуск треку
+    /**  play sound
      *
      */
     public void play() {
         play(true);
     }
 
-    /**  зупиняє трек
+    /**  stop clip
      *
      */
     public void stop() {
@@ -82,7 +82,7 @@ public class Sound implements AutoCloseable {
         }
     }
 
-    /**  закриває трек
+    /**  close clip
      *
      */
     public void close() {
@@ -97,7 +97,7 @@ public class Sound implements AutoCloseable {
             }
     }
 
-    /**  втановлює гучність(від 0(найтихша) до 1)
+    /**  set volume(from 1 to 0)
      *
      */
     public void setVolume(float x) {
@@ -108,7 +108,7 @@ public class Sound implements AutoCloseable {
         volumeControl.setValue((max-min)*x+min);
     }
 
-    /**  повертає гучність(від 0 до 1)
+    /**  getter for volume (from 0 to 1)
      *
      */
     public float getVolume() {
@@ -118,7 +118,7 @@ public class Sound implements AutoCloseable {
         return (v-min)/(max-min);
     }
 
-    /** чекає поки трек закінчиться
+    /** wait for ending of the clip
      *
      */
     public void join() {
@@ -131,7 +131,7 @@ public class Sound implements AutoCloseable {
         }
     }
 
-    /** статичний метод для запуску музики
+    /** static method for play
      *
      */
     public static Sound playSound(String path) {
@@ -140,7 +140,7 @@ public class Sound implements AutoCloseable {
         snd.play();
         return snd;
     }
-    /** статичний метод для зупинки музики
+    /** static method that stop clip
      *
      */
     public static Sound stop(String path) {
@@ -149,7 +149,7 @@ public class Sound implements AutoCloseable {
         snd.stop();
         return snd;
     }
-    /** клас лісенера
+    /**  class listener
      *
      */
     private class Listener implements LineListener {

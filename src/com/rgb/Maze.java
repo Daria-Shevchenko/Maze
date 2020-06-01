@@ -334,44 +334,7 @@ public class Maze extends JPanel implements ActionListener {
       //  System.out.println("nextLevel");
         readGameStatusFromFile();
         if(gameLevel<MAX_gamelevel) {
-           if(gameLevel == 1) {
-               lev2.play();
-           }
-
-           switch(gameLevel) {
-               case 0:
-                   if(lev1.isPlaying() == false)
-                        lev1.play();
-                   break;
-               case 1:
-                    lev1.stop();
-                   if(lev2.isPlaying() == false)
-                       lev2.play();
-                    break;
-               case 2:
-                    lev2.stop();
-                   if(lev3.isPlaying() == false)
-                        lev3.play();
-                    break;
-               case 3:
-                   lev3.stop();
-                   if(lev4.isPlaying() == false)
-                        lev4.play();
-                   break;
-               case 4:
-                   lev4.stop();
-                   if(lev5.isPlaying() == false)
-                   lev5.play();
-                   break;
-               case 5:
-                   lev5.stop();
-                   if(lev6.isPlaying() == false)
-                        lev6.play();
-                   break;
-               default:
-                  // StartPage.startMusic.play();
-                   break;
-           }
+            changeMusic();
             gameLevel++;
             BRICK_SIZE = brick_sizes_for_levels[gameLevel-1];
             heart1.setShow(true);
@@ -398,6 +361,43 @@ public class Maze extends JPanel implements ActionListener {
 
         } else {
             gameOver();
+        }
+    }
+
+    public void changeMusic(){
+        switch(gameLevel) {
+            case 0:
+                if(lev1.isPlaying() == false && dying==false)
+                    lev1.play();
+                break;
+            case 1:
+                lev1.stop();
+                if(lev2.isPlaying() == false && dying==false)
+                    lev2.play();
+                break;
+            case 2:
+                lev2.stop();
+                if(lev3.isPlaying() == false && dying==false)
+                    lev3.play();
+                break;
+            case 3:
+                lev3.stop();
+                if(lev4.isPlaying() == false && dying==false)
+                    lev4.play();
+                break;
+            case 4:
+                lev4.stop();
+                if(lev5.isPlaying() == false && dying==false)
+                    lev5.play();
+                break;
+            case 5:
+                lev5.stop();
+                if(lev6.isPlaying() == false && dying==false)
+                    lev6.play();
+                break;
+            default:
+                // StartPage.startMusic.play();
+                break;
         }
     }
 
@@ -994,7 +994,9 @@ public class Maze extends JPanel implements ActionListener {
 
         }
         if(dying == true){
+            changeMusic();
             TAdapter.startPage.endPageLoser();
+
         }
 
         Toolkit.getDefaultToolkit().sync();

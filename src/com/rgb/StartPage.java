@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public class StartPage extends JFrame{
 
     //Sound panel;
-
-    static Sound startMusic = new Sound(new File("src/music/Queen.wav"));
+    static Sound loseMusic = new Sound(new File("src/music/start.wav"));
+    static Sound winMusic = new Sound(new File("src/music/Queen.wav"));
 
     JPanel panel1;
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -93,7 +93,8 @@ public class StartPage extends JFrame{
     public void start(){
      //   System.out.println("start");
      //   remove(panelWithMaze);
-        startMusic.stop();
+        winMusic.stop();
+        loseMusic.stop();
         panelWithMaze = null;
         if (panel1!=null) {
             remove(panel1);
@@ -197,7 +198,7 @@ public class StartPage extends JFrame{
      */
     public void endPageWin(){
      //   System.out.println("endPageWin");
-        if(startMusic.isPlaying() == false){startMusic.play();}
+        if(winMusic.isPlaying() == false){winMusic.play();}
         panel1.removeAll();
         panelWithMaze.removeAll();
         panelWithMaze.revalidate();
@@ -249,6 +250,7 @@ public class StartPage extends JFrame{
      */
     public void endPageLoser(){
     //    System.out.println("endPageLoser");
+        if(loseMusic.isPlaying() == false){loseMusic.play();}
         panelWithMaze.setInGame(false);
         panel1.removeAll();
         revalidate();

@@ -26,12 +26,12 @@ public class Maze extends JPanel implements ActionListener {
      * intoMouster - sound for collidion with monster
      */
     Sound intoMonster = new Sound(new File("src/music/intoMonster.wav"));
-    Sound lev1 = new Sound(new File("src/music/lev1.wav"));
-    Sound lev2 = new Sound(new File("src/music/lev2.wav"));
-    Sound lev3 = new Sound(new File("src/music/lev3.wav"));
-    Sound lev4 = new Sound(new File("src/music/lev4.wav"));
-    Sound lev5 = new Sound(new File("src/music/lev5.wav"));
-    Sound lev6 = new Sound(new File("src/music/lev6.wav"));
+    public final static Sound lev1 = new Sound(new File("src/music/lev1.wav"));
+    public final static Sound lev2 = new Sound(new File("src/music/lev2.wav"));
+    public final static Sound lev3 = new Sound(new File("src/music/lev3.wav"));
+    public final static Sound lev4 = new Sound(new File("src/music/lev4.wav"));
+    public final static Sound lev5 = new Sound(new File("src/music/lev5.wav"));
+    public final static Sound lev6 = new Sound(new File("src/music/lev6.wav"));
     /*enemySize is size of enemy picture*/
     private int enemySize;
     /*enemyProportion is proportion of enemy picture to the cell*/

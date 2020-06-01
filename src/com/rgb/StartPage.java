@@ -36,7 +36,7 @@ public class StartPage extends JFrame{
     private int lives = 0;
 
     StartPage(){}
-    // конструктор класу для апп, створення основного вікна
+
     StartPage(String title){
         super(title);
     //    System.out.println("StartPage - it is Constructor");

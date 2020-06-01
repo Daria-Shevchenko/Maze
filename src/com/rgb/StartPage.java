@@ -278,6 +278,7 @@ public class StartPage extends JFrame{
      */
     public void endPageLoser(){
     //    System.out.println("endPageLoser");
+        panelWithMaze.setInGame(false);
         panel1.removeAll();
         revalidate();
         repaint();

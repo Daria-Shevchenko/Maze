@@ -517,7 +517,7 @@ public class Maze extends JPanel implements ActionListener {
         if(isWall()){
             canMove = false;
         }
-        if(isEnemy()){
+        if(isEnemy()&& inGame == true){
             intoMonster.play();
             minusLive();
         //    StartPage.userPanel();

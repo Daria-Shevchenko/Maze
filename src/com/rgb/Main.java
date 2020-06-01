@@ -1,11 +1,11 @@
 package com.rgb;
+
+import java.awt.*;
 /**
  *
  * Main - public class for launch the game
  * @author Shevchenko Daria
  */
-import java.awt.*;
-
 public class Main {
 
     public static void main(String[] args) {

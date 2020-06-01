@@ -130,24 +130,7 @@ public class TAdapter extends KeyAdapter {
         {
             m.setMyHeroSpeed(1, m.gameLevel-1);
         }
-       /* if(code == KeyEvent.VK_PAGE_UP)
-        {
-        }
 
-        if(code == KeyEvent.VK_PAGE_DOWN)
-        {
-        }
-        */
-        if(code == KeyEvent.VK_BACK_SPACE && m.isInGame()){
-            System.out.println("____________________-");
-            for(int i=0;i<m.bricks.size();i++){
-                for(int k=0;k<m.bricks.get(0).length();k++){
-                    System.out.print(m.map[i][k]+"");
-                }
-                System.out.println("");
-            }
-            System.out.println("____________________");
-        }
     }
 
     /**

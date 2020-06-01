@@ -49,7 +49,6 @@ public class Enemy {
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         this.orient = 0;
         foundOrient();
-        //   System.out.println("enemy created");
     }
 
     /**
@@ -68,7 +67,6 @@ public class Enemy {
         this.vel = 0;
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         foundOrient();
-        //   System.out.println("enemy created");
     }
 
     /**
@@ -90,7 +88,6 @@ public class Enemy {
         this.vel = vel;
         this.enemyImg = origin.getScaledInstance(width,height,Image.SCALE_DEFAULT);
         foundOrient();
-        //  System.out.println("enemy created");
     }
 
     /**
@@ -307,17 +304,14 @@ public class Enemy {
      * @param frameH - height of frame
      */
     public void move(double frameW,double frameH){
-        //System.out.println(checkCollision(frameW,frameH));
         if(checkCollision(frameW,frameH) == true){
             vel = -vel;
         }
-        //   double r = Math.random()-0.5;
-        //   int sign = (int) Math.signum(r);
         if (orient == 1){
-            x+=vel/**sign*/;
+            x+=vel;
         }
         if (orient == 2){
-            y+=vel/**sign*/;
+            y+=vel;
         }
     }
 

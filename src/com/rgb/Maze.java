@@ -1,10 +1,5 @@
 package com.rgb;
-/**
- *
- * Maze - element of the game that is responsible for drawing
- * all other elements (maze, hero, enemies, hearts, portal) on game screen
- * @author Kate Kolokhina and Khrystyna Boiko
- */
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+ *
+ * Maze - element of the game that is responsible for drawing
+ * all other elements (maze, hero, enemies, hearts, portal) on game screen
+ * @author Kate Kolokhina and Khrystyna Boiko and Daria Shevchenko
+ */
 public class Maze extends JPanel implements ActionListener {
 
 
@@ -145,7 +145,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Create a maze game
      *@param bricksLevels - an arraylist of arraylists with maze map strings*/
     public Maze(ArrayList<ArrayList> bricksLevels) {
-    //    System.out.println("Maze - it is Constructor");
         this.bricksLevels = bricksLevels;
         /*Set delay to timer and start the timer*/
         timer  = new Timer(5, this);
@@ -159,8 +158,6 @@ public class Maze extends JPanel implements ActionListener {
     }
     /**Calculate and fill sinOfAngle, cosOfAngle, deltX, deltY with values for each angle on the circle*/
     private void initAnglesValues(){
-     //   System.out.println("initAngleValues");
-
         /*x_center is half width of hero image*/
         int x_center = myHero.getHeroImage().getWidth(null) / 2;
         /*y_center is half height of hero image*/
@@ -276,7 +273,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Writes to file game status
      * @param data - information about game level and number of hero lives*/
     private void writeToFileGameStatus(String data){
-    //    System.out.println("writeToFileGameStatus");
         File file = new File(pathToFileWithGameStatus);
         FileWriter fr = null;
         try {
@@ -298,7 +294,7 @@ public class Maze extends JPanel implements ActionListener {
      * @return A string representing the result of reading the file.
      * Result is empty when operation is successful and contains error if not.*/
     public String readGameStatusFromFile()
-    {//System.out.println("readGameStatusFromFile");
+    {
         Scanner rd;
         String result = "";
         try
@@ -324,14 +320,12 @@ public class Maze extends JPanel implements ActionListener {
 
     /**Loading images for maze*/
     private void loadImages() {
-     //   System.out.println("loadImages");
         Toolkit t=Toolkit.getDefaultToolkit();
         heart = t.getImage("src/images/other/heart_red_s.png");
         portal = portal_images_for_levels[this.gameLevel-1];
      }
     /**Prepare for next level. Initialize variables with correct values for that level*/
     public void nextLevel(){
-      //  System.out.println("nextLevel");
         readGameStatusFromFile();
         if(gameLevel<MAX_gamelevel) {
             changeMusic();
@@ -396,7 +390,6 @@ public class Maze extends JPanel implements ActionListener {
                     lev6.play();
                 break;
             default:
-                // StartPage.startMusic.play();
                 break;
         }
     }
@@ -478,7 +471,6 @@ public class Maze extends JPanel implements ActionListener {
             if(enemy.getLvl()==gameLevel)
                 sf.put(enemy.getStart(),enemy.getFinish());
         }
-        System.out.println("Level "+gameLevel);
 
         for(int i=0;i<bricks.size();i++){
             for(int k=0;k<bricks.get(0).length();k++){
@@ -526,7 +518,6 @@ public class Maze extends JPanel implements ActionListener {
                     Point test = new Point(i+1,j+1);
 
                     if (sf.containsKey(test)) {
-                        //System.out.println(x+" "+y);
                         for (Enemy enemy : enemies) {
                             if(enemy.getStart().equals(test)){
                                 enemy.setStart(new Point(enemy_x, enemy_y));
@@ -536,7 +527,6 @@ public class Maze extends JPanel implements ActionListener {
                     }
 
                     if (sf.containsValue(test)) {
-                        //System.out.println(test+" "+x+" "+y);
 
                         for (Enemy enemy : enemies) {
                             if(enemy.getFinish().equals(test)){
@@ -554,7 +544,6 @@ public class Maze extends JPanel implements ActionListener {
     /**If player go through all levels and win, this method works.
      * Change game status in boolean and write new information to file */
     private void gameOver(){
-     //   System.out.println("gameOver");
         inGame=false;
         gameFinished = true;
         writeToFileGameStatus(0 + "|" + defaultHeroLives);
@@ -578,7 +567,6 @@ public class Maze extends JPanel implements ActionListener {
         if(isEnemy()&& inGame == true){
             intoMonster.play();
             minusLive();
-        //    StartPage.userPanel();
             canMove = false;
         }
         if(canMove){
@@ -591,11 +579,9 @@ public class Maze extends JPanel implements ActionListener {
      * If there is no lives, then it is hero death.
      * Write new information to file*/
     private void minusLive(){
-      //  System.out.println("minusLife");
         if(heroLives>1){
             heroLives--;
             writeToFileGameStatus((gameLevel-1) + "|" + heroLives);
-           // System.out.println(heroLives);
             myHero.setHero_x(BORDER + BRICK_SIZE * outsideWallCoef + 1);
             myHero.setHero_y(BORDER + BRICK_SIZE * outsideWallCoef + 1);
         } else if(heroLives == 1){
@@ -607,7 +593,6 @@ public class Maze extends JPanel implements ActionListener {
      * @param angle - angle which indicates the point on the border of hero picture to be checked
      * @return A boolean representing if there is intersection between hero and heart*/
     private boolean isIntersectionBetweenHeroAndHeart(int angle){
-     //   System.out.println("isIntersectionBetweenHeroAndHeart");
         int x_center = myHero.getHeroImage().getWidth(null)/2;
         int y_center = myHero.getHeroImage().getHeight(null)/2;
 
@@ -638,7 +623,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Checks if there is intersection between hero and heart by diagonals
      * @return A boolean representing if there is intersection between hero and heart by diagonals*/
     private boolean isIntersectionWithHeartByDiagonal(){
-       // System.out.println("isIntersectionWithHeartByDiagonal");
         /*horizontal diagonal*/
         int xFirst = (int)myHero.getHero_x();
         int xLast = (int)myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
@@ -683,7 +667,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Checks if there is intersection between hero and heart
      * @return A boolean representing if there is intersection between hero and heart*/
     public boolean isHeart(){
-      //  System.out.println("isHeart");
         for (int i = 0; i < numberOfAngles; i++) {
             if(isIntersectionBetweenHeroAndHeart(i) == true){
                 return true;
@@ -700,7 +683,6 @@ public class Maze extends JPanel implements ActionListener {
      * @param angle - angle which indicates the point on the border of hero picture to be checked
      * @return A boolean representing if there is intersection between hero and portal*/
     private boolean isIntersectionBetweenHeroAndPortal(int angle){
-    //    System.out.println("isIntersectionBetweenHeroAndPortal");
         int x_center = myHero.getHeroImage().getWidth(null)/2;
         int y_center = myHero.getHeroImage().getHeight(null)/2;
 
@@ -723,7 +705,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Checks if there is intersection between hero and portal by diagonals
      * @return A boolean representing if there is intersection between hero and portal by diagonals*/
     private boolean isIntersectionWithPortalByDiagonal(){
-    //    System.out.println("isIntersectionWithPortalByDiagonal");
         /*horizontal diagonal*/
         int xFirst = (int)myHero.getHero_x();
         int xLast = (int)myHero.getHero_x() + myHero.getHeroImage().getWidth(null);
@@ -753,11 +734,9 @@ public class Maze extends JPanel implements ActionListener {
     /**Checks if there is intersection between hero and portal
      * @return A boolean representing if there is intersection between hero and portal*/
     public boolean isPortal(){
-      //  System.out.println("isPortal");
         for (int i = 0; i < numberOfAngles; i++) {
             if(isIntersectionBetweenHeroAndPortal(i) == true){
                 writeToFileGameStatus(gameLevel + "|" + heroLives);
-                //System.out.println("isPortal true -- next level");
                 return true;
             }
         }
@@ -771,7 +750,6 @@ public class Maze extends JPanel implements ActionListener {
     /**Gets arraylist of enemies from current level
      * @return An arraylist representing all enemies from current level*/
     private ArrayList<Enemy> getEnemiesFromCurrentLevel(){
-     //   System.out.println("getEnemiesFromCurrentLevel");
         ArrayList<Enemy> enemiesFromLevel = new ArrayList<>();
         for(Enemy oneEnemy: enemies){
             if(oneEnemy.getLvl() == gameLevel){
@@ -829,9 +807,6 @@ public class Maze extends JPanel implements ActionListener {
         int deltX = x_center + (int)(rX);
         int deltY = y_center + (int)(rY);
 
-        //hero_x - реальная координата персонажа в окне
-        //hero_x-BORDER-BRICK_SIZE*outsideWallCoef - координата персонажа относительно начала лабиринта
-
         int x0 = (int)(myHero.getDx()+deltX+myHero.getHero_x()-BORDER-BRICK_SIZE*outsideWallCoef);
         int y0 = (int)(myHero.getDy()+deltY+myHero.getHero_y()-BORDER-BRICK_SIZE*outsideWallCoef);
         int sX = (int)(x0/(BRICK_SIZE+coefficientCorridor * BRICK_SIZE));
@@ -868,8 +843,6 @@ public class Maze extends JPanel implements ActionListener {
         boolean evenLine = false;
         boolean evenColumn = false;
 
-//        int enemyCount=0;
-//        Point startPoint=new Point (0,0),finishPoint = new Point(0,0);
 
         int heartCount = 0;
         int j = 0;
@@ -905,7 +878,6 @@ public class Maze extends JPanel implements ActionListener {
                     /*Draw corridor where enemy will be*/
                     if (symbolsArray[i] == 'E') {
                         g2d.setColor(corridorColor);
-                        //g2d.setColor(enemyColor);
                         g2d.fillRect(x, y, currentBRICK_SIZE_X, currentBRICK_SIZE_Y);
 
                         map[j][i] = 7;

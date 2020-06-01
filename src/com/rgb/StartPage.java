@@ -39,7 +39,6 @@ public class StartPage extends JFrame{
 
     StartPage(String title){
         super(title);
-    //    System.out.println("StartPage - it is Constructor");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -91,8 +90,6 @@ public class StartPage extends JFrame{
      * start program
      */
     public void start(){
-     //   System.out.println("start");
-     //   remove(panelWithMaze);
         winMusic.stop();
         loseMusic.stop();
         panelWithMaze = null;
@@ -114,7 +111,6 @@ public class StartPage extends JFrame{
      * Start mainPage
      */
     private void startPage(){
-     //   System.out.println("startPage");
         panel1 = new JPanel();
         panel1.setBackground(Color.black);
 
@@ -165,12 +161,10 @@ public class StartPage extends JFrame{
      * upload page with maze
      * */
     private void firstMaze(){
-     //   System.out.println("firstMaze");
         panel1.removeAll();
         revalidate();
         repaint();
         panelWithMaze.setInGame(true);
-        System.out.println("in game - " + panelWithMaze.isInGame());
         panelWithMaze.setBounds(10,10, 950,700);
 
 
@@ -197,7 +191,6 @@ public class StartPage extends JFrame{
      * open winning page
      */
     public void endPageWin(){
-     //   System.out.println("endPageWin");
         winMusic.setVolume(0.98f);
         if(winMusic.isPlaying() == false){winMusic.play();}
         panel1.removeAll();
@@ -250,7 +243,6 @@ public class StartPage extends JFrame{
      * open loser page
      */
     public void endPageLoser(){
-    //    System.out.println("endPageLoser");
         if(loseMusic.isPlaying() == false){loseMusic.play();}
         panelWithMaze.setInGame(false);
         panel1.removeAll();
@@ -302,7 +294,6 @@ public class StartPage extends JFrame{
     /**method that recreate window
      */
     private void reCreateWindow(){
-    //    System.out.println("reCreationWindow");
         panelWithMaze = new Maze(bricksLevels);
         this.addKeyListener(new TAdapter(panelWithMaze,this));
         setFocusable(true);
@@ -313,7 +304,6 @@ public class StartPage extends JFrame{
      * open pause page
      */
     public void pausePage(){
-     //   System.out.println("pausePage");
         panelWithMaze.setInGame(false);
         lives = panelWithMaze.getHeroLivesOnLevelStart();
         panel1.removeAll();
@@ -359,7 +349,6 @@ public class StartPage extends JFrame{
      */
 
     public void instructions(){
-        //   System.out.println("pausePage");
         panel1.removeAll();
         revalidate();
         repaint();

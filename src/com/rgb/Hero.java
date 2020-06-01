@@ -1,12 +1,12 @@
 package com.rgb;
+
+import javax.swing.*;
+import java.awt.*;
 /**
  *
  * Hero - element of the game that is responsible for hero on game screen
  * @author Khrystyna Boiko
  */
-import javax.swing.*;
-import java.awt.*;
-
 public class Hero {
     /**level is level of the game*/
     private int level = 0;

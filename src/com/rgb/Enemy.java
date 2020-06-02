@@ -284,7 +284,7 @@ public class Enemy {
      * This method check the collision between enemy and hero or game world
      * @param frameW - width of frame
      * @param frameH - height of frame
-     * @return
+     * @return - return boolean: TRUE if enemy turn around and should go back, FALSE if enemy continue going in its direction
      */
     public boolean checkCollision(double frameW,double frameH) {
         if (orient == 1){

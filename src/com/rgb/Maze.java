@@ -28,7 +28,7 @@ public class Maze extends JPanel implements ActionListener {
      * Sound panel
      * intoMouster - sound for collidion with monster
      */
-    Sound intoMonster = new Sound(new File("src/music/intoMonster.wav"));
+    Sound intoMonster = new Sound(new File("src/music/intoMonster.mp3"));
     /*alpha - portal transparency level*/
     private int alpha = 255;
     /*alphaSign - direction of transparency change*/
@@ -37,12 +37,12 @@ public class Maze extends JPanel implements ActionListener {
     public void setCheat (int newValue) {
         this.cheat = newValue;
     }
-    public final static Sound lev1 = new Sound(new File("src/music/lev1.wav"));
-    public final static Sound lev2 = new Sound(new File("src/music/lev2.wav"));
-    public final static Sound lev3 = new Sound(new File("src/music/lev3.wav"));
-    public final static Sound lev4 = new Sound(new File("src/music/lev4.wav"));
-    public final static Sound lev5 = new Sound(new File("src/music/lev5.wav"));
-    public final static Sound lev6 = new Sound(new File("src/music/lev6.wav"));
+    public final static Sound lev1 = new Sound(new File("src/music/lev1.mp3"));
+    public final static Sound lev2 = new Sound(new File("src/music/lev2.mp3"));
+    public final static Sound lev3 = new Sound(new File("src/music/lev3.mp3"));
+    public final static Sound lev4 = new Sound(new File("src/music/lev4.mp3"));
+    public final static Sound lev5 = new Sound(new File("src/music/lev5.mp3"));
+    public final static Sound lev6 = new Sound(new File("src/music/lev6.mp3"));
     /**enemySize is size of enemy picture*/
     private int enemySize;
     /**enemyProportion is proportion of enemy picture to the cell*/
@@ -362,32 +362,32 @@ public class Maze extends JPanel implements ActionListener {
         switch(gameLevel) {
             case 0:
                 if(lev1.isPlaying() == false && dying==false)
-                    lev1.play();
+                    lev1.play(true);
                 break;
             case 1:
                 lev1.stop();
                 if(lev2.isPlaying() == false && dying==false)
-                    lev2.play();
+                    lev2.play(true);
                 break;
             case 2:
                 lev2.stop();
                 if(lev3.isPlaying() == false && dying==false)
-                    lev3.play();
+                    lev3.play(true);
                 break;
             case 3:
                 lev3.stop();
                 if(lev4.isPlaying() == false && dying==false)
-                    lev4.play();
+                    lev4.play(true);
                 break;
             case 4:
                 lev4.stop();
                 if(lev5.isPlaying() == false && dying==false)
-                    lev5.play();
+                    lev5.play(true);
                 break;
             case 5:
                 lev5.stop();
                 if(lev6.isPlaying() == false && dying==false)
-                    lev6.play();
+                    lev6.play(true);
                 break;
             default:
                 break;
@@ -565,7 +565,7 @@ public class Maze extends JPanel implements ActionListener {
             canMove = false;
         }
         if(isEnemy()&& inGame == true){
-            intoMonster.play();
+            intoMonster.play(false);
             minusLive();
             canMove = false;
         }

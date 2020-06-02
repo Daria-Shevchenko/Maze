@@ -1,84 +1,65 @@
 package com.rgb;
 
-import javax.sound.sampled.*;
 import java.io.File;
-import java.io.IOException;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+import javafx.util.Duration;
 
-/**  class for creating music
+
+/**  class to play music
  *
  */
-public class Sound implements AutoCloseable {
-    private boolean released = false;
-    private AudioInputStream stream = null;
-    private Clip clip = null;
-    private FloatControl volumeControl = null;
-    private boolean playing = false;
+public class Sound {
+
+    /**  clip - MP3 object, plays music
+     * */
+    private MediaPlayer clip = null;
 
     /**  constructor
-     *
+     * @param f - file where MP3 sound located
      */
     public Sound(File f) {
-        try {
-            stream = AudioSystem.getAudioInputStream(f);
-            clip = AudioSystem.getClip();
-            clip.open(stream);
-            clip.addLineListener(new Listener());
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            released = true;
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException exc) {
-            exc.printStackTrace();
-            released = false;
-
-            close();
-        }
-    }
-
-    /**   true - if track was uploaded
-     *   false - if it was't
-     */
-    public boolean isReleased() {
-        return released;
+            new javafx.embed.swing.JFXPanel();
+            String uriString = new File(f.getPath()).toURI().toString();
+            clip = new MediaPlayer(new Media(uriString));
     }
 
     /**  check for playing
-     *
+     * @return - returns boolean if clip is playing music now
      */
     public boolean isPlaying() {
-        return playing;
-    }
-
-
-    /**  breakOld check if treck is playing, if not - start play
-     *
-     */
-    public void play(boolean breakOld) {
-        if (released) {
-            if (breakOld) {
-                clip.stop();
-                clip.setFramePosition(0);
-                clip.start();
-                playing = true;
-            } else if (!isPlaying()) {
-                clip.setFramePosition(0);
-                clip.start();
-                playing = true;
-            }
+        if (clip !=null) {
+            if (MediaPlayer.Status.PLAYING.equals(clip.getStatus())) return true;
         }
+        return false;
     }
 
-    /**  play sound
-     *
+  /**  play sound
+   *
+   * @param autoPlayMusic - is boolean indicating if music will be played again after finish
+     *if true then start again when finished
+     *if false then play only 1 time
      */
-    public void play() {
-        play(true);
+    public void play(Boolean autoPlayMusic ) {
+        if(clip != null) {
+            clip.seek(Duration.ZERO);
+            clip.play();
+            clip.setAutoPlay(autoPlayMusic);
+            if (autoPlayMusic){clip.setCycleCount(MediaPlayer.INDEFINITE);}
+            else {clip.setCycleCount(0);}
+        }
     }
 
     /**  stop clip
      *
      */
     public void stop() {
-        if (playing) {
-            clip.stop();
+        if (clip !=null) {
+            if (MediaPlayer.Status.PLAYING.equals(clip.getStatus())) {
+                clip.stop();
+                clip.setAutoPlay(false);
+                clip.setCycleCount(0);
+            }
         }
     }
 
@@ -86,80 +67,21 @@ public class Sound implements AutoCloseable {
      *
      */
     public void close() {
-        if (clip != null)
-            clip.close();
-
-        if (stream != null)
-            try {
-                stream.close();
-            } catch (IOException exc) {
-                exc.printStackTrace();
-            }
+        clip.dispose();
+        clip = null;
     }
 
     /**  set volume(from 1 to 0)
-     *
+     *@param newVolume - is double from 0 to 1 indicates new level of sound volume to be applied to clip
      */
-    public void setVolume(float x) {
-        if (x<0) x = 0;
-        if (x>1) x = 1;
-        float min = volumeControl.getMinimum();
-        float max = volumeControl.getMaximum();
-        volumeControl.setValue((max-min)*x+min);
+    public void setVolume(double newVolume) {
+        clip.setVolume(newVolume);
     }
 
     /**  getter for volume (from 0 to 1)
-     *
+     * @return - returns double from 0 to 1 indicating current level of clip sound volume
      */
-    public float getVolume() {
-        float v = volumeControl.getValue();
-        float min = volumeControl.getMinimum();
-        float max = volumeControl.getMaximum();
-        return (v-min)/(max-min);
-    }
-
-    /** wait for ending of the clip
-     *
-     */
-    public void join() {
-        if (!released) return;
-        synchronized(clip) {
-            try {
-                while (playing)
-                    clip.wait();
-            } catch (InterruptedException exc) {}
-        }
-    }
-
-    /** static method for play
-     *
-     */
-    public static Sound playSound(String path) {
-        File f = new File(path);
-        Sound snd = new Sound(f);
-        snd.play();
-        return snd;
-    }
-    /** static method that stop clip
-     *
-     */
-    public static Sound stop(String path) {
-        File f = new File(path);
-        Sound snd = new Sound(f);
-        snd.stop();
-        return snd;
-    }
-    /**  class listener
-     *
-     */
-    private class Listener implements LineListener {
-        public void update(LineEvent ev) {
-            if (ev.getType() == LineEvent.Type.STOP) {
-                playing = false;
-                synchronized(clip) {
-                    clip.notify();
-                }
-            }
-        }
+    public double getVolume() {
+        return clip.getVolume();
     }
 }

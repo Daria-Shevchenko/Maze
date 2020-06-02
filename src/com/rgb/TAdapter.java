@@ -14,8 +14,8 @@ public class TAdapter extends KeyAdapter {
     /** Sound panel
      *
      */
-    Sound bonusMusic = new Sound(new File("src/music/bonus.wav"));
-    Sound intoNextLevelMusic = new Sound(new File("src/music/intoNextLevel.wav"));
+    Sound bonusMusic = new Sound(new File("src/music/bonus.mp3"));
+    Sound intoNextLevelMusic = new Sound(new File("src/music/intoNextLevel.mp3"));
 
     /**
      * Constructor
@@ -85,11 +85,11 @@ public class TAdapter extends KeyAdapter {
             if(m.isInGame()==true && m.isDying() == false){
 
                 if(m.isHeart()==true) {
-                    bonusMusic.play();
+                    bonusMusic.play(false);
                     m.addHeroLives();
                 }
                 if(m.isPortal()){
-                    intoNextLevelMusic.play();
+                    intoNextLevelMusic.play(false);
                     m.nextLevel();
                 }
 
